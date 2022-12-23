@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "949899633920",
+    "project_id": "rebator-e9cf1",
+    "storage_bucket": "rebator-e9cf1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:949899633920:android:fb81fe41b6c8861a643fe5",
+        "android_client_info": {
+          "package_name": "com.redveloper.rebator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "949899633920-khe6fvbed21jdu78u1i6010nehhjqndv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.redveloper.rebator",
+            "certificate_hash": "270b4437bd96392f9fa7e820de2301b520242909"
+          }
+        },
+        {
+          "client_id": "949899633920-di6hr1tn8r42mne8ea7dibmljma4rq2j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAumntI_Ala5c0f01XYzzo4CS-U0-uqlbk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "949899633920-di6hr1tn8r42mne8ea7dibmljma4rq2j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
