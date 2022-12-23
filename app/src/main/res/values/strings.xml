@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Rebator</string>
+    <string name="title_akusisi">Akusisi</string>
+    <string name="title_inkubasi">inkubasi</string>
 </resources>
