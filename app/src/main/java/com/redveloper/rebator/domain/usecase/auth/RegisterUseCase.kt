@@ -7,11 +7,12 @@ import com.redveloper.rebator.utils.State
 import com.redveloper.rebator.utils.dispatchers.CrDispatcher
 import kotlinx.coroutines.flow.*
 
-class LoginUseCase(
+class RegisterUseCase(
     private val crDispatcher: CrDispatcher,
     private val userRepository: UserRepository
 ) : FlowUseCase<State<User>>(){
 
+    private var name = Pair("", false)
     private var email = Pair("", false)
     private var password = Pair("", false)
     var output: Output? = null
@@ -20,17 +21,30 @@ class LoginUseCase(
         return flow<State<User>> {
             if (canExecute()){
                 emit(State.loading())
-                val data = userRepository.loginEmail(email = email.first, password = password.first)
-                    .single()
+
+                val data = userRepository.registerEmail(
+                    name = name.first,
+                    email = email.first,
+                    password = password.first
+                ).single()
                 emit(State.success(data))
             }
-        }.catch {
+        }.catch{
             emit(State.failed(it.message.toString()))
         }.flowOn(crDispatcher.ui())
     }
 
     private fun canExecute(): Boolean {
-        return email.second && password.second
+        return name.second && email.second && password.second
+    }
+
+    fun setName(value: String?){
+        if (value.isNullOrBlank()){
+            output?.errorName?.invoke("name masih kosong")
+            name = Pair("", false)
+        } else {
+            name = Pair(value, true)
+        }
     }
 
     fun setEmail(value: String?){
@@ -53,6 +67,7 @@ class LoginUseCase(
 
     data class Output(
         val errorEmail: ((String) -> Unit)? = null,
-        val errorPassword: ((String) -> Unit)? = null,
+        val errorName: ((String) -> Unit)? = null,
+        val errorPassword: ((String) -> Unit)? = null
     )
 }

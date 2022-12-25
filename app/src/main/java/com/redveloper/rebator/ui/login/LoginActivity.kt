@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.redveloper.rebator.databinding.ActivityLoginBinding
+import com.redveloper.rebator.ui.register.RegisterActivity
 import com.redveloper.rebator.utils.State
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -24,6 +25,10 @@ class LoginActivity : AppCompatActivity() {
                 email = binding.edtEmail.text.toString(),
                 password = binding.edtPassword.text.toString()
             )
+        }
+
+        binding.btnToRegister.setOnClickListener {
+            RegisterActivity.navigate(this)
         }
 
         loginViewModel.errorEmailEvent.observe(this){
@@ -50,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 is State.Success -> {
                     binding.progress.visibility = View.GONE
-                    val data = state.data.user?.email
+                    val data = state.data.email
                     Toast.makeText(this@LoginActivity, "data: $data", Toast.LENGTH_SHORT).show()
                 }
             }
