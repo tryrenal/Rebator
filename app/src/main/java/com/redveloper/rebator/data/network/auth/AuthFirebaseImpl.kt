@@ -24,12 +24,15 @@ class AuthFirebaseImpl (
         return auth.createUserWithEmailAndPassword(request.email, request.password)
     }
 
-    override fun saveUserData(name: String, email: String): Task<DocumentReference> {
+    override fun saveUserData(
+        documentId: String,
+        request: RegisterRequest
+    ): Task<Void> {
         val user = hashMapOf(
-            "name" to name,
-            "email" to email
+            "name" to request.name,
+            "email" to request.email
         )
-        return collectionUser.add(user)
+        return collectionUser.document(documentId).set(user)
     }
 
     override fun logout() {

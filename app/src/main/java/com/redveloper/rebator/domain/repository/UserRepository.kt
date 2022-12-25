@@ -26,14 +26,19 @@ class UserRepository (
         }.flowOn(crDispatcher.network())
     }
 
-    fun registerEmail(name: String, email: String, password: String): Flow<User>{
-        val request = RegisterRequest(name, email, password)
+    fun registerEmail(email: String, password: String): Flow<String>{
+        val request = RegisterRequest("", email, password)
         return flow {
-            val data = authFirebase.registerEmail(request).await()
-                .user?.email ?: ""
-            emit(User(
-                email = data
-            ))
+            val userId = authFirebase.registerEmail(request).await().user?.uid ?: ""
+            emit(userId)
+        }.flowOn(crDispatcher.network())
+    }
+
+    fun saveUserData(documentId: String, name: String, email: String): Flow<Boolean>{
+        val request = RegisterRequest(name, email, "")
+        return flow {
+            val data = authFirebase.saveUserData(documentId, request).isSuccessful
+            emit(data)
         }.flowOn(crDispatcher.network())
     }
 }

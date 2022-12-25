@@ -23,10 +23,17 @@ class RegisterUseCase(
                 emit(State.loading())
 
                 val data = userRepository.registerEmail(
-                    name = name.first,
                     email = email.first,
                     password = password.first
-                ).single()
+                ).flatMapLatest { docId ->
+                    userRepository.saveUserData(
+                        documentId = docId,
+                        name = name.first,
+                        email = email.first
+                    ).map { success ->
+                        User(email = email.first)
+                    }
+                }.single()
                 emit(State.success(data))
             }
         }.catch{
