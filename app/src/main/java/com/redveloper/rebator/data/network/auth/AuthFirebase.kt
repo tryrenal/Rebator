@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthFirebase {
     fun loginEmail(request: LoginRequest): Task<AuthResult>
-    fun registerEmail(request: RegisterRequest): Task<AuthResult>
+    fun registerEmail(email: String, password: String): Task<AuthResult>
     fun saveUserData(documentId: String, request: RegisterRequest): Task<Void>
     fun logout()
 }

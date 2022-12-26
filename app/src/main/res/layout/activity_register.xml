@@ -32,6 +32,19 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 
+    <EditText
+        android:inputType="number"
+        android:id="@+id/edt_phonenumber"
+        android:layout_marginTop="20dp"
+        android:hint="phone number"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <Spinner
+        android:id="@+id/spinner_position"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
     <Button
         android:id="@+id/btn_signup"
         android:text="register"

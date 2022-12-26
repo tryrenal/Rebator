@@ -15,27 +15,23 @@ class UserRepository (
     private val crDispatcher: CrDispatcher
 ){
 
-    fun loginEmail(email: String, password: String): Flow<User>{
+    fun loginEmail(email: String, password: String): Flow<String>{
         val request = LoginRequest(email, password)
         return flow {
-            val data = authFirebase.loginEmail(request).await()
+            val emailValue = authFirebase.loginEmail(request).await()
                 .user?.email ?: ""
-            emit(User(
-                email = data
-            ))
+            emit(emailValue)
         }.flowOn(crDispatcher.network())
     }
 
     fun registerEmail(email: String, password: String): Flow<String>{
-        val request = RegisterRequest("", email, password)
         return flow {
-            val userId = authFirebase.registerEmail(request).await().user?.uid ?: ""
+            val userId = authFirebase.registerEmail(email, password).await().user?.uid ?: ""
             emit(userId)
         }.flowOn(crDispatcher.network())
     }
 
-    fun saveUserData(documentId: String, name: String, email: String): Flow<Boolean>{
-        val request = RegisterRequest(name, email, "")
+    fun saveUserData(documentId: String, request: RegisterRequest): Flow<Boolean>{
         return flow {
             val data = authFirebase.saveUserData(documentId, request).isSuccessful
             emit(data)

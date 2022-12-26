@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 is State.Success -> {
                     binding.progress.visibility = View.GONE
-                    val data = state.data.email
+                    val data = state.data
                     Toast.makeText(this@LoginActivity, "data: $data", Toast.LENGTH_SHORT).show()
                 }
             }

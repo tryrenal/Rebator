@@ -20,8 +20,8 @@ class AuthFirebaseImpl (
         return auth.signInWithEmailAndPassword(request.email, request.password)
     }
 
-    override fun registerEmail(request: RegisterRequest): Task<AuthResult> {
-        return auth.createUserWithEmailAndPassword(request.email, request.password)
+    override fun registerEmail(email: String, password: String): Task<AuthResult> {
+        return auth.createUserWithEmailAndPassword(email, password)
     }
 
     override fun saveUserData(
@@ -30,7 +30,10 @@ class AuthFirebaseImpl (
     ): Task<Void> {
         val user = hashMapOf(
             "name" to request.name,
-            "email" to request.email
+            "email" to request.email,
+            "phone_number" to request.phoneNumber,
+            "position" to request.posisi.name,
+            "photo" to request.photo
         )
         return collectionUser.document(documentId).set(user)
     }

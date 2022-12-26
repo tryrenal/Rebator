@@ -1,5 +1,7 @@
 package com.redveloper.rebator.domain.usecase.auth
 
+import com.redveloper.rebator.data.network.auth.model.RegisterRequest
+import com.redveloper.rebator.domain.entity.Position
 import com.redveloper.rebator.domain.entity.User
 import com.redveloper.rebator.domain.repository.UserRepository
 import com.redveloper.rebator.domain.usecase.FlowUseCase
@@ -15,6 +17,10 @@ class RegisterUseCase(
     private var name = Pair("", false)
     private var email = Pair("", false)
     private var password = Pair("", false)
+    private var position: Pair<Position?, Boolean> = Pair(null, false)
+    private var photo = Pair("", false)
+    private var phoneNumber = Pair("", false)
+
     var output: Output? = null
 
     override fun perfomAction(): Flow<State<User>> {
@@ -22,16 +28,22 @@ class RegisterUseCase(
             if (canExecute()){
                 emit(State.loading())
 
+                val registerRequest = RegisterRequest(
+                    name = name.first, email = email.first, phoneNumber = phoneNumber.first,
+                    photo = photo.first, posisi = position.first!!
+                )
+
                 val data = userRepository.registerEmail(
                     email = email.first,
                     password = password.first
                 ).flatMapLatest { docId ->
                     userRepository.saveUserData(
                         documentId = docId,
-                        name = name.first,
-                        email = email.first
+                        request = registerRequest
                     ).map { success ->
-                        User(email = email.first)
+                        User(
+                            email = email.first, "", "",
+                            Position.INKUBASI, "")
                     }
                 }.single()
                 emit(State.success(data))
@@ -42,7 +54,12 @@ class RegisterUseCase(
     }
 
     private fun canExecute(): Boolean {
-        return name.second && email.second && password.second
+        return name.second
+                && email.second
+                && password.second
+                && phoneNumber.second
+                && photo.second
+                && position.second
     }
 
     fun setName(value: String?){
@@ -51,6 +68,40 @@ class RegisterUseCase(
             name = Pair("", false)
         } else {
             name = Pair(value, true)
+        }
+    }
+
+    fun setPhoneNumber(value: String?){
+        if (value.isNullOrBlank()){
+            output?.errorPhoneNumber?.invoke("phone number masih kosong")
+            phoneNumber = Pair("", false)
+        } else {
+            phoneNumber = Pair(value, true)
+        }
+    }
+
+    fun setPhoto(value: String?){
+        if (value.isNullOrBlank()){
+            output?.errorPhoto?.invoke("photo masih kosong")
+            photo = Pair("", false)
+        } else {
+            photo = Pair(value, true)
+        }
+    }
+
+    fun setPosition(value: Position?){
+        if (value == null){
+            output?.errorPosition?.invoke("position masih kosong")
+            position = Pair(null, false)
+        } else {
+            when(value){
+                Position.AKUSISI -> position = Pair(Position.AKUSISI, true)
+                Position.INKUBASI -> position = Pair(Position.INKUBASI, true)
+                else -> {
+                    output?.errorPosition?.invoke("position tidak tepat")
+                    position = Pair(null, false)
+                }
+            }
         }
     }
 
@@ -75,6 +126,9 @@ class RegisterUseCase(
     data class Output(
         val errorEmail: ((String) -> Unit)? = null,
         val errorName: ((String) -> Unit)? = null,
-        val errorPassword: ((String) -> Unit)? = null
+        val errorPassword: ((String) -> Unit)? = null,
+        val errorPhoneNumber: ((String) -> Unit)? = null,
+        val errorPhoto: ((String) -> Unit)? = null,
+        val errorPosition: ((String) -> Unit)? = null,
     )
 }

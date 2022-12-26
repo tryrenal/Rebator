@@ -10,14 +10,14 @@ import kotlinx.coroutines.flow.*
 class LoginUseCase(
     private val crDispatcher: CrDispatcher,
     private val userRepository: UserRepository
-) : FlowUseCase<State<User>>(){
+) : FlowUseCase<State<String>>(){
 
     private var email = Pair("", false)
     private var password = Pair("", false)
     var output: Output? = null
 
-    override fun perfomAction(): Flow<State<User>> {
-        return flow<State<User>> {
+    override fun perfomAction(): Flow<State<String>> {
+        return flow<State<String>> {
             if (canExecute()){
                 emit(State.loading())
                 val data = userRepository.loginEmail(email = email.first, password = password.first)
