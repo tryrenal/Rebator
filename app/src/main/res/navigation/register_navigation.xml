@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/register_navigation"
+    app:startDestination="@id/registerCreataUserFragment">
+
+    <fragment
+        android:id="@+id/registerCreataUserFragment"
+        android:name="com.redveloper.rebator.ui.register.createuser.RegisterCreataUserFragment"
+        android:label="fragment_register_creata_user"
+        tools:layout="@layout/fragment_register_creata_user" >
+        <action
+            android:id="@+id/action_to_registerCameraUserFragment"
+            app:destination="@id/registerCameraUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerCameraUserFragment"
+        android:name="com.redveloper.rebator.ui.register.camerauser.RegisterCameraUserFragment"
+        android:label="fragment_register_camera_user"
+        tools:layout="@layout/fragment_register_camera_user" >
+        <action
+            android:id="@+id/action_to_registerInformasiUserFragment"
+            app:destination="@id/registerInformasiUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerInformasiUserFragment"
+        android:name="com.redveloper.rebator.ui.register.informasiuser.RegisterInformasiUserFragment"
+        android:label="fragment_register_informasi_user"
+        tools:layout="@layout/fragment_register_informasi_user" />
+</navigation>
