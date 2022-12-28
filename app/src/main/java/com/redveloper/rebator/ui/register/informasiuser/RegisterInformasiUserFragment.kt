@@ -13,6 +13,7 @@ import com.redveloper.rebator.ui.BaseFragment
 import com.redveloper.rebator.ui.register.informasiuser.model.RegisterInformasiUserModel
 import com.redveloper.rebator.utils.State
 import com.redveloper.rebator.utils.gone
+import com.redveloper.rebator.utils.setVisility
 import com.redveloper.rebator.utils.visible
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -68,21 +69,25 @@ class RegisterInformasiUserFragment : BaseFragment<FragmentRegisterInformasiUser
     private fun initObserver(){
         errorObserver()
 
-        regisViewModel.resultRegister.observe(viewLifecycleOwner){ state ->
-            when(state){
-                is State.Loading -> binding.progressBar.visible()
-                is State.Failed -> {
-                    binding.progressBar.gone()
-                    Toast.makeText(requireContext(), "error: ${state.message}", Toast.LENGTH_SHORT).show()
-                }
-                is State.Success -> {
-                    binding.progressBar.visible()
-                }
+        regisViewModel.loadingEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                binding.progressBar.setVisility(it)
+            }
+        }
+
+        regisViewModel.successSubmitEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun errorObserver(){
+        regisViewModel.errorSubmitEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                Toast.makeText(requireContext(), "error: $it", Toast.LENGTH_SHORT).show()
+            }
+        }
         regisViewModel.errorNameEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
                 Toast.makeText(requireContext(), "error name: $it", Toast.LENGTH_SHORT).show()

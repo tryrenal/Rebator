@@ -25,7 +25,9 @@ class LoginViewModel (
 
     val errorEmailEvent = MutableLiveData<Event<String>>()
     val errorPasswordEvent = MutableLiveData<Event<String>>()
-    val loginResult = loginUseCase.resultFlow.asLiveData()
+    val loadingEvent = MutableLiveData<Event<Boolean>>()
+    val errorSubmitEvent = MutableLiveData<Event<String>>()
+    val successSubmitEvent = MutableLiveData<Event<String>>()
 
     fun submit(email: String?, password: String?){
         loginUseCase.setEmail(email)
@@ -33,6 +35,20 @@ class LoginViewModel (
 
         viewModelScope.launch {
             loginUseCase.launch()
+
+            loginUseCase.resultFlow.collect{ state ->
+                when(state){
+                    is State.Loading -> loadingEvent.value = Event(true)
+                    is State.Failed -> {
+                        loadingEvent.value = Event(false)
+                        errorSubmitEvent.value = Event(state.message)
+                    }
+                    is State.Success -> {
+                        loadingEvent.value = Event(false)
+                        successSubmitEvent.value = Event(state.data)
+                    }
+                }
+            }
         }
     }
 }

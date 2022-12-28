@@ -11,6 +11,7 @@ import com.redveloper.rebator.databinding.FragmentRegisterCreataUserBinding
 import com.redveloper.rebator.ui.BaseFragment
 import com.redveloper.rebator.utils.State
 import com.redveloper.rebator.utils.gone
+import com.redveloper.rebator.utils.setVisility
 import com.redveloper.rebator.utils.visible
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -49,22 +50,25 @@ class RegisterCreataUserFragment : BaseFragment<FragmentRegisterCreataUserBindin
     private fun initObserver(){
         errorObserver()
 
-        regisViewModel.resultCreateUser.observe(viewLifecycleOwner){ state ->
-            when(state){
-                is State.Loading -> binding.progressBar.visible()
-                is State.Failed -> {
-                    binding.progressBar.gone()
-                    Toast.makeText(requireContext(), "error: ${state.message}", Toast.LENGTH_SHORT).show()
-                }
-                is State.Success -> {
-                    binding.progressBar.gone()
-                    findNavController().navigate(R.id.action_to_registerCameraUserFragment)
-                }
+        regisViewModel.loadingEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                binding.progressBar.setVisility(it)
+            }
+        }
+
+        regisViewModel.successEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                Toast.makeText(requireContext(), "success: $it", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun errorObserver(){
+        regisViewModel.errorEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                Toast.makeText(requireContext(), "error: $it", Toast.LENGTH_SHORT).show()
+            }
+        }
         regisViewModel.errorEmailEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
                 Toast.makeText(requireContext(), "error email: $it", Toast.LENGTH_SHORT).show()

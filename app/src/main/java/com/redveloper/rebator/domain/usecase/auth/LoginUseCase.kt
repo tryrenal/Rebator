@@ -23,6 +23,8 @@ class LoginUseCase(
                 val data = userRepository.loginEmail(email = email.first, password = password.first)
                     .single()
                 emit(State.success(data))
+            } else {
+                emit(State.failed("field ada yang kosong"))
             }
         }.catch {
             emit(State.failed(it.message.toString()))
