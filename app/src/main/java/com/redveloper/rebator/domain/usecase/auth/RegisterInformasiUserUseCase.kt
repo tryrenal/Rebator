@@ -1,6 +1,6 @@
 package com.redveloper.rebator.domain.usecase.auth
 
-import com.redveloper.rebator.data.network.auth.model.RegisterRequest
+import com.redveloper.rebator.data.network.auth.model.request.RegisterRequest
 import com.redveloper.rebator.domain.entity.Position
 import com.redveloper.rebator.domain.repository.UserRepository
 import com.redveloper.rebator.domain.usecase.FlowUseCase

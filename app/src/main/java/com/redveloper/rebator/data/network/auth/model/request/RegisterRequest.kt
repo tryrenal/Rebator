@@ -1,4 +1,4 @@
-package com.redveloper.rebator.data.network.auth.model
+package com.redveloper.rebator.data.network.auth.model.request
 
 import com.redveloper.rebator.domain.entity.Position
 

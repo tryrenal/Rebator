@@ -3,10 +3,9 @@ package com.redveloper.rebator.data.network.auth
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.redveloper.rebator.data.network.auth.model.LoginRequest
-import com.redveloper.rebator.data.network.auth.model.RegisterRequest
+import com.redveloper.rebator.data.network.auth.model.request.LoginRequest
+import com.redveloper.rebator.data.network.auth.model.request.RegisterRequest
 import kotlinx.coroutines.tasks.await
 
 class AuthFirebaseImpl (
@@ -16,8 +15,14 @@ class AuthFirebaseImpl (
 
     private val collectionUser = firestore.collection("users")
 
-    override fun loginEmail(request: LoginRequest): Task<AuthResult> {
-        return auth.signInWithEmailAndPassword(request.email, request.password)
+    override suspend fun loginEmail(request: LoginRequest): Result<String> {
+        return try {
+            val userId = auth.signInWithEmailAndPassword(request.email, request.password).await()
+                .user?.uid ?: ""
+            Result.success(userId)
+        }catch (e: Exception){
+            Result.failure(e)
+        }
     }
 
     override fun registerEmail(email: String, password: String): Task<AuthResult> {

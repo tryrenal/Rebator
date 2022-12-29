@@ -1,6 +1,5 @@
 package com.redveloper.rebator.domain.usecase.auth
 
-import com.redveloper.rebator.domain.entity.User
 import com.redveloper.rebator.domain.repository.UserRepository
 import com.redveloper.rebator.domain.usecase.FlowUseCase
 import com.redveloper.rebator.utils.State
@@ -20,9 +19,16 @@ class LoginUseCase(
         return flow<State<String>> {
             if (canExecute()){
                 emit(State.loading())
-                val data = userRepository.loginEmail(email = email.first, password = password.first)
-                    .single()
-                emit(State.success(data))
+                userRepository
+                    .loginEmail(email = email.first, password = password.first)
+                    .collect{
+                        if (it.isSuccess){
+                            emit(State.success(it.getOrDefault("")))
+                        }
+                        if (it.isFailure){
+                            emit(State.failed(it.exceptionOrNull()?.message ?: ""))
+                        }
+                    }
             } else {
                 emit(State.failed("field ada yang kosong"))
             }
