@@ -25,8 +25,14 @@ class AuthFirebaseImpl (
         }
     }
 
-    override fun registerEmail(email: String, password: String): Task<AuthResult> {
-        return auth.createUserWithEmailAndPassword(email, password)
+    override suspend fun registerEmail(email: String, password: String): Result<String> {
+        return try {
+            val userId = auth.createUserWithEmailAndPassword(email, password).await()
+                .user?.uid ?: ""
+            Result.success(userId)
+        } catch (e: Exception){
+            Result.failure(e)
+        }
     }
 
     override fun saveUserData(

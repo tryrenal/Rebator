@@ -19,10 +19,9 @@ class UserRepository (
         }.flowOn(crDispatcher.network())
     }
 
-    fun registerEmail(email: String, password: String): Flow<String>{
+    fun registerEmail(email: String, password: String): Flow<Result<String>>{
         return flow {
-            val userId = authFirebase.registerEmail(email, password).await().user?.uid ?: ""
-            emit(userId)
+            emit(authFirebase.registerEmail(email, password))
         }.flowOn(crDispatcher.network())
     }
 

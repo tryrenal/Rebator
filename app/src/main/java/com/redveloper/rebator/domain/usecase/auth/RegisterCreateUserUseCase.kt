@@ -21,12 +21,16 @@ class RegisterCreateUserUseCase (
             if (canExecute()){
                 emit(State.loading())
 
-                emit(State.success(
-                        userRepository.registerEmail(
-                            email = email.first!!,
-                            password = password.first!!
-                        ).single()
-                    ))
+                userRepository
+                    .registerEmail(email = email.first!!, password = password.first!!)
+                    .collect{
+                        if (it.isSuccess){
+                            emit(State.success(it.getOrDefault("")))
+                        }
+                        if (it.isFailure){
+                            emit(State.failed(it.exceptionOrNull()?.message ?: ""))
+                        }
+                    }
             }
         }.catch {
             emit(State.failed(it.message.toString()))

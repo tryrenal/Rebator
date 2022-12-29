@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthFirebase {
     suspend fun loginEmail(request: LoginRequest): Result<String>
-    fun registerEmail(email: String, password: String): Task<AuthResult>
+    suspend fun registerEmail(email: String, password: String): Result<String>
     fun saveUserData(documentId: String, request: RegisterRequest): Task<Void>
     fun logout()
 }
