@@ -6,8 +6,9 @@ import com.redveloper.rebator.data.network.auth.model.request.RegisterRequest
 import com.redveloper.rebator.utils.dispatchers.CrDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 class UserRepository (
     private val authFirebase: AuthFirebase,
@@ -21,10 +22,10 @@ class UserRepository (
         }.await()
     }
 
-    fun registerEmail(email: String, password: String): Flow<Result<String>>{
-        return flow {
-            emit(authFirebase.registerEmail(email, password))
-        }.flowOn(crDispatcher.network())
+    suspend fun registerEmail(email: String, password: String): Result<String>{
+        return CoroutineScope(crDispatcher.network()).async {
+            authFirebase.registerEmail(email, password)
+        }.await()
     }
 
     fun saveUserData(documentId: String, request: RegisterRequest): Flow<Boolean>{
