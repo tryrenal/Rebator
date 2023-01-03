@@ -19,16 +19,9 @@ class LoginUseCase(
         return flow<State<String>> {
             if (canExecute()){
                 emit(State.loading())
-                userRepository
+                val data = userRepository
                     .loginEmail(email = email.first, password = password.first)
-                    .collect{
-                        if (it.isSuccess){
-                            emit(State.success(it.getOrDefault("")))
-                        }
-                        if (it.isFailure){
-                            emit(State.failed(it.exceptionOrNull()?.message ?: ""))
-                        }
-                    }
+                emit(State.success(data.getOrThrow()))
             } else {
                 emit(State.failed("field ada yang kosong"))
             }

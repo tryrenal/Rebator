@@ -4,6 +4,8 @@ import com.redveloper.rebator.data.network.auth.AuthFirebase
 import com.redveloper.rebator.data.network.auth.model.request.LoginRequest
 import com.redveloper.rebator.data.network.auth.model.request.RegisterRequest
 import com.redveloper.rebator.utils.dispatchers.CrDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.tasks.await
 
@@ -12,11 +14,11 @@ class UserRepository (
     private val crDispatcher: CrDispatcher
 ){
 
-    fun loginEmail(email: String, password: String): Flow<Result<String>>{
+    suspend fun loginEmail(email: String, password: String): Result<String>{
         val request = LoginRequest(email, password)
-        return flow {
-            emit(authFirebase.loginEmail(request))
-        }.flowOn(crDispatcher.network())
+        return CoroutineScope(crDispatcher.network()).async {
+            authFirebase.loginEmail(request)
+        }.await()
     }
 
     fun registerEmail(email: String, password: String): Flow<Result<String>>{
