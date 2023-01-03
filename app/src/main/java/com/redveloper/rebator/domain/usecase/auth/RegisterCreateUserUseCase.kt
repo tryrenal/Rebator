@@ -24,9 +24,15 @@ class RegisterCreateUserUseCase (
             if (canExecute()){
                 emit(State.loading())
 
-                val data = userRepository
+                userRepository
                     .registerEmail(email = email.first!!, password = password.first!!)
-                emit(State.success(data.getOrThrow()))
+                    .map { docId ->
+                        val map = hashMapOf<String, Any>(
+                            "email" to email.first!!
+                        )
+                        userRepository.saveUserData(docId, map)
+                        emit(State.success(docId))
+                    }
             }
         }.catch {
             emit(State.failed(it.message.toString()))

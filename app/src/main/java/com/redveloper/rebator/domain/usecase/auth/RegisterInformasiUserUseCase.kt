@@ -28,9 +28,7 @@ class RegisterInformasiUserUseCase(
                 photo = "", posisi = position.first!!
             )
 
-            emit(State.success(
-                userRepository.saveUserData("", registerRequest).single()
-            ))
+
         }.catch {
             emit(State.failed(it.message.toString()))
         }.flowOn(crDispatcher.network())

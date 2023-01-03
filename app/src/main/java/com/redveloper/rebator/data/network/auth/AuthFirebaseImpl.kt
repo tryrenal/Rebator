@@ -1,10 +1,8 @@
 package com.redveloper.rebator.data.network.auth
 
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.redveloper.rebator.data.network.auth.model.request.LoginRequest
-import com.redveloper.rebator.data.network.auth.model.request.RegisterRequest
 import kotlinx.coroutines.tasks.await
 
 class AuthFirebaseImpl (
@@ -34,18 +32,26 @@ class AuthFirebaseImpl (
         }
     }
 
-    override fun saveUserData(
-        documentId: String,
-        request: RegisterRequest
-    ): Task<Void> {
-        val user = hashMapOf(
-            "name" to request.name,
-            "email" to request.email,
-            "phone_number" to request.phoneNumber,
-            "position" to request.posisi.name,
-            "photo" to request.photo
-        )
-        return collectionUser.document(documentId).set(user)
+    override suspend fun checkDocumentIsExist(documentId: String): Boolean {
+        return collectionUser
+            .document(documentId)
+            .get()
+            .await()
+            .exists()
+    }
+
+    override suspend fun setUser(documentId: String, data: HashMap<String, Any>) {
+        collectionUser
+            .document(documentId)
+            .set(data)
+            .await()
+    }
+
+    override suspend fun updateUser(documentId: String, data: HashMap<String, Any>) {
+        collectionUser
+            .document(documentId)
+            .update(data)
+            .await()
     }
 
     override fun logout() {

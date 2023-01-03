@@ -9,6 +9,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 
 class UserRepository (
     private val authFirebase: AuthFirebase,
@@ -28,10 +29,13 @@ class UserRepository (
         }.await()
     }
 
-    fun saveUserData(documentId: String, request: RegisterRequest): Flow<Boolean>{
-        return flow {
-            val data = authFirebase.saveUserData(documentId, request).isSuccessful
-            emit(data)
-        }.flowOn(crDispatcher.network())
+    suspend fun saveUserData(documentId: String, data: HashMap<String, Any>){
+        CoroutineScope(crDispatcher.network()).launch {
+            if (authFirebase.checkDocumentIsExist(documentId)){
+                authFirebase.updateUser(documentId, data)
+            } else {
+                authFirebase.setUser(documentId, data)
+            }
+        }
     }
 }
