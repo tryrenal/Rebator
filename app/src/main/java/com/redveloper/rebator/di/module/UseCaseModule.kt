@@ -10,6 +10,6 @@ val useCaseModule = module {
     single { LoginUseCase(get(), get()) }
     //register
     single { RegisterCameraUserUseCase(get(), get()) }
-    single { RegisterCreateUserUseCase(get(), get()) }
+    single { RegisterCreateUserUseCase(get(), get(), get()) }
     single { RegisterInformasiUserUseCase(get(), get()) }
 }

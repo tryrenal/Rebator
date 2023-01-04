@@ -2,13 +2,9 @@ package com.redveloper.rebator.domain.repository
 
 import com.redveloper.rebator.data.network.auth.AuthFirebase
 import com.redveloper.rebator.data.network.auth.model.request.LoginRequest
-import com.redveloper.rebator.data.network.auth.model.request.RegisterRequest
 import com.redveloper.rebator.utils.dispatchers.CrDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
 class UserRepository (
