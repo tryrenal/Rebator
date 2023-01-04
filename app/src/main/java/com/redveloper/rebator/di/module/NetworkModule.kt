@@ -5,5 +5,5 @@ import com.redveloper.rebator.data.network.auth.AuthFirebaseImpl
 import org.koin.dsl.module
 
 val networkModule = module {
-    single<AuthFirebase> { AuthFirebaseImpl(get(), get()) }
+    single<AuthFirebase> { AuthFirebaseImpl(get(), get(), get()) }
 }

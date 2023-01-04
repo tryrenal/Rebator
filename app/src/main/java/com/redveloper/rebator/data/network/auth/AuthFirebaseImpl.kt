@@ -1,16 +1,24 @@
 package com.redveloper.rebator.data.network.auth
 
+import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.UploadTask
 import com.redveloper.rebator.data.network.auth.model.request.LoginRequest
 import kotlinx.coroutines.tasks.await
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class AuthFirebaseImpl (
     private val auth: FirebaseAuth,
-    private val firestore: FirebaseFirestore
+    private val firestore: FirebaseFirestore,
+    private val storage: FirebaseStorage
 ): AuthFirebase {
 
     private val collectionUser = firestore.collection("users")
+    private val storageRef = storage.reference
 
     override suspend fun loginEmail(request: LoginRequest): Result<String> {
         return try {
@@ -52,6 +60,31 @@ class AuthFirebaseImpl (
             .document(documentId)
             .update(data)
             .await()
+    }
+
+    override suspend fun savePhotoUser(documentId: String, uri: Uri): String {
+        return suspendCoroutine { continuation ->
+            val storageUser = storageRef.child("users/$documentId")
+            val uploadTask: UploadTask = storageUser.putFile(uri)
+
+            uploadTask.addOnFailureListener {
+                continuation.resumeWithException(it)
+            }.addOnSuccessListener{
+                it.task.continueWithTask { task ->
+                    if (!task.isSuccessful){
+                        task.exception?.let { exception ->
+                            continuation.resumeWithException(exception)
+                        }
+                    }
+                    return@continueWithTask storageUser.downloadUrl
+                }.addOnCompleteListener{
+                        if (it.isSuccessful){
+                            val downloadUrl = it.result
+                            continuation.resume(downloadUrl.toString())
+                        }
+                    }
+            }
+        }
     }
 
     override fun logout() {
