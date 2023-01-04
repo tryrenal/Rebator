@@ -20,7 +20,8 @@ class MyApplication : MultiDexApplication() {
                 repositoryModule,
                 viewModelModule,
                 networkModule,
-                useCaseModule
+                useCaseModule,
+                preferenceModule
             )
         }
     }
