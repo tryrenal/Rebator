@@ -20,7 +20,7 @@ class UserRepository (
         }.await()
     }
 
-    suspend fun registerEmail(email: String, password: String): Result<String>{
+    suspend fun registerEmail(email: String, password: String): String?{
         return CoroutineScope(crDispatcher.network()).async {
             authFirebase.registerEmail(email, password)
         }.await()

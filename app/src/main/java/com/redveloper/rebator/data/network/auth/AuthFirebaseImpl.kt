@@ -33,13 +33,16 @@ class AuthFirebaseImpl (
         }
     }
 
-    override suspend fun registerEmail(email: String, password: String): Result<String> {
-        return try {
-            val userId = auth.createUserWithEmailAndPassword(email, password).await()
-                .user?.uid ?: ""
-            Result.success(userId)
-        } catch (e: Exception){
-            Result.failure(e)
+    override suspend fun registerEmail(email: String, password: String): String?{
+        return suspendCoroutine { continuation ->
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnFailureListener {
+                    continuation.resumeWithException(it)
+                }
+                .addOnSuccessListener {
+                    val userId = it.user?.uid
+                    continuation.resume(userId)
+                }
         }
     }
 

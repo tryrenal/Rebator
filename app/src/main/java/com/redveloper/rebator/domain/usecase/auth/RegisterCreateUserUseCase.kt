@@ -23,23 +23,22 @@ class RegisterCreateUserUseCase (
             if (canExecute()){
                 emit(State.loading())
 
-                userRepository
-                    .registerEmail(email = email.first!!, password = password.first!!)
-                    .onSuccess { docId ->
-                        userPreference.saveUserID(docId)
-                    }
+                val map = hashMapOf<String, Any>(
+                    "email" to email.first!!
+                )
 
-                userPreference.getUserID()
-                    .collect{ docId ->
-                        if (!docId.isNullOrBlank()){
-                            val map = hashMapOf<String, Any>(
-                                "email" to email.first!!
-                            )
-                            val saveData = userRepository.saveUserData(docId, map)
-                            emit(State.success(saveData))
-                        } else {
-                            emit(State.failed("document id kosong"))
-                        }
+                userRepository
+                    .registerEmail(email = email.first!!, password = password.first!!)?.let { uid ->
+                        userPreference.saveUserID(uid)
+                        userPreference.getUserID()
+                            .collect{ docId ->
+                                if (!docId.isNullOrBlank()){
+                                    val saveData = userRepository.saveUserData(docId, map)
+                                    emit(State.success(saveData))
+                                } else {
+                                    emit(State.failed("document id kosong"))
+                                }
+                            }
                     }
             }
         }.catch {
