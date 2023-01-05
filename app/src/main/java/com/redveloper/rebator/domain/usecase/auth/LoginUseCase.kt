@@ -1,29 +1,38 @@
 package com.redveloper.rebator.domain.usecase.auth
 
-import com.google.firebase.auth.AuthResult
+import com.redveloper.rebator.data.local.preference.UserPreference
 import com.redveloper.rebator.domain.repository.UserRepository
 import com.redveloper.rebator.domain.usecase.FlowUseCase
 import com.redveloper.rebator.utils.State
 import com.redveloper.rebator.utils.dispatchers.CrDispatcher
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.flow.catch
 
 class LoginUseCase(
     private val crDispatcher: CrDispatcher,
-    private val userRepository: UserRepository
-) : FlowUseCase<State<AuthResult>>(){
+    private val userRepository: UserRepository,
+    private val userPreference: UserPreference
+) : FlowUseCase<State<String>>(){
 
     private var email = Pair("", false)
     private var password = Pair("", false)
     var output: Output? = null
 
-    override fun perfomAction(): Flow<State<AuthResult>> {
-        return flow<State<AuthResult>> {
+    override fun perfomAction(): Flow<State<String>> {
+        return flow<State<String>> {
             if (canExecute()){
                 emit(State.loading())
-                val data = userRepository.loginEmail(email = email.first, password = password.first)
-                    .single()
-                emit(State.success(data))
+                val userUid = userRepository
+                    .loginEmail(email = email.first, password = password.first)
+                userUid?.let {
+                    userPreference.saveUserID(userUid)
+                    userPreference.getUserID().collect{ uid ->
+                        uid?.let {
+                            emit(State.success(uid))
+                        }
+                    }
+                }
+            } else {
+                emit(State.failed("field ada yang kosong"))
             }
         }.catch {
             emit(State.failed(it.message.toString()))

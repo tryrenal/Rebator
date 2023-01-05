@@ -1,11 +1,14 @@
 package com.redveloper.rebator.data.network.auth
 
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
-import com.redveloper.rebator.data.network.auth.model.LoginRequest
-import kotlinx.coroutines.flow.Flow
+import android.net.Uri
+import com.redveloper.rebator.data.network.auth.model.request.LoginRequest
 
 interface AuthFirebase {
-    fun loginEmail(request: LoginRequest): Task<AuthResult>
+    suspend fun loginEmail(request: LoginRequest): String?
+    suspend fun registerEmail(email: String, password: String): String?
+    suspend fun checkDocumentIsExist(documentId: String): Boolean
+    suspend fun setUser(documentId: String, data: HashMap<String, Any>): Boolean
+    suspend fun updateUser(documentId: String, data: HashMap<String, Any>): Boolean
+    suspend fun savePhotoUser(documentId: String, uri: Uri): String
     fun logout()
 }

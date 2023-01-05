@@ -1,51 +1,53 @@
-package com.redveloper.rebator.ui.login
+package com.redveloper.rebator.ui.register.createuser
 
-import androidx.lifecycle.*
-import com.google.firebase.auth.AuthResult
-import com.redveloper.rebator.domain.usecase.auth.LoginUseCase
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.redveloper.rebator.domain.usecase.auth.RegisterCreateUserUseCase
 import com.redveloper.rebator.utils.Event
 import com.redveloper.rebator.utils.State
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class LoginViewModel (
-    private val loginUseCase: LoginUseCase
-) : ViewModel(){
+class RegisterCreataUserViewModel(
+    private val createUserUseCase: RegisterCreateUserUseCase
+): ViewModel() {
 
     init {
-        loginUseCase.output = LoginUseCase.Output (
+        createUserUseCase.output = RegisterCreateUserUseCase.Output(
             errorEmail = {
                 errorEmailEvent.value = Event(it)
             },
             errorPassword = {
                 errorPasswordEvent.value = Event(it)
-            },
-
+            }
         )
     }
 
     val errorEmailEvent = MutableLiveData<Event<String>>()
     val errorPasswordEvent = MutableLiveData<Event<String>>()
     val loadingEvent = MutableLiveData<Event<Boolean>>()
-    val errorSubmitEvent = MutableLiveData<Event<String>>()
-    val successSubmitEvent = MutableLiveData<Event<String>>()
+    val errorEvent = MutableLiveData<Event<String>>()
+    val successEvent = MutableLiveData<Event<Boolean>>()
 
     fun submit(email: String?, password: String?){
-        loginUseCase.setEmail(email)
-        loginUseCase.setPassword(password)
+        createUserUseCase.setEmail(email)
+        createUserUseCase.setPassword(password)
 
         viewModelScope.launch {
-            loginUseCase.launch()
+            createUserUseCase.launch()
 
-            loginUseCase.resultFlow.collect{ state ->
+            createUserUseCase.resultFlow.collect{ state ->
                 when(state){
                     is State.Loading -> loadingEvent.value = Event(true)
                     is State.Failed -> {
                         loadingEvent.value = Event(false)
-                        errorSubmitEvent.value = Event(state.message)
+                        errorEvent.value = Event(state.message)
                     }
                     is State.Success -> {
                         loadingEvent.value = Event(false)
-                        successSubmitEvent.value = Event(state.data)
+                        successEvent.value = Event(state.data)
                     }
                 }
             }

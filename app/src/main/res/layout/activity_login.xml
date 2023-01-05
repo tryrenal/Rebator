@@ -33,6 +33,13 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"/>
 
+    <Button
+        android:layout_marginTop="20dp"
+        android:id="@+id/btn_to_register"
+        android:text="register"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+
     <ProgressBar
         android:visibility="gone"
         android:id="@+id/progress"
