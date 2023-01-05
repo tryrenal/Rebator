@@ -1,0 +1,8 @@
+com.redveloper.inkubasi-pngs-0 /Users/renaldy/androidProjects/Rebator/inkubasi/build/generated/res/pngs/debug
+com.redveloper.inkubasi-resValues-1 /Users/renaldy/androidProjects/Rebator/inkubasi/build/generated/res/resValues/debug
+com.redveloper.inkubasi-rs-2 /Users/renaldy/androidProjects/Rebator/inkubasi/build/generated/res/rs/debug
+com.redveloper.inkubasi-packageDebugResources-3 /Users/renaldy/androidProjects/Rebator/inkubasi/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.redveloper.inkubasi-packageDebugResources-4 /Users/renaldy/androidProjects/Rebator/inkubasi/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.redveloper.inkubasi-merged_res-5 /Users/renaldy/androidProjects/Rebator/inkubasi/build/intermediates/merged_res/debug
+com.redveloper.inkubasi-debug-6 /Users/renaldy/androidProjects/Rebator/inkubasi/src/debug/res
+com.redveloper.inkubasi-main-7 /Users/renaldy/androidProjects/Rebator/inkubasi/src/main/res
