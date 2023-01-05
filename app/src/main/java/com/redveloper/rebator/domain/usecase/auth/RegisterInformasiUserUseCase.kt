@@ -1,5 +1,6 @@
 package com.redveloper.rebator.domain.usecase.auth
 
+import com.redveloper.rebator.data.local.preference.UserPreference
 import com.redveloper.rebator.data.network.auth.model.request.RegisterRequest
 import com.redveloper.rebator.domain.entity.Position
 import com.redveloper.rebator.domain.repository.UserRepository
@@ -10,7 +11,8 @@ import kotlinx.coroutines.flow.*
 
 class RegisterInformasiUserUseCase(
     private val crDispatcher: CrDispatcher,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val userPreference: UserPreference
 ): FlowUseCase<State<Boolean>>() {
 
     private var name : Pair<String?, Boolean> = Pair(null, false)
@@ -21,17 +23,29 @@ class RegisterInformasiUserUseCase(
 
     override fun perfomAction(): Flow<State<Boolean>> {
         return flow <State<Boolean>>{
-            emit(State.loading())
+            if (checkValidation()){
+                emit(State.loading())
 
-            val registerRequest = RegisterRequest(
-                name = name.first!!, email = "", phoneNumber = phoneNumber.first!!,
-                photo = "", posisi = position.first!!
-            )
+                val mapData = hashMapOf<String, Any>(
+                    "name" to name.first!!,
+                    "phoneNumber" to phoneNumber.first!!,
+                    "position" to position.first!!.name
+                )
 
-
+                userPreference.getUserID().collect{ docId ->
+                    docId?.let {
+                        userRepository.saveUserData(docId, mapData)
+                        emit(State.success(true))
+                    }
+                }
+            }
         }.catch {
             emit(State.failed(it.message.toString()))
         }.flowOn(crDispatcher.network())
+    }
+
+    private fun checkValidation(): Boolean{
+        return name.second && phoneNumber.second && position.second
     }
 
     fun setName(value: String?){
