@@ -20,13 +20,16 @@ class AuthFirebaseImpl (
     private val collectionUser = firestore.collection("users")
     private val storageRef = storage.reference
 
-    override suspend fun loginEmail(request: LoginRequest): Result<String> {
-        return try {
-            val userId = auth.signInWithEmailAndPassword(request.email, request.password).await()
-                .user?.uid ?: ""
-            Result.success(userId)
-        }catch (e: Exception){
-            Result.failure(e)
+    override suspend fun loginEmail(request: LoginRequest): String? {
+        return suspendCoroutine { continuation ->
+            auth.signInWithEmailAndPassword(request.email, request.password)
+                .addOnFailureListener {
+                    continuation.resumeWithException(it)
+                }
+                .addOnSuccessListener {
+                    val userId = it.user?.uid
+                    continuation.resume(userId)
+                }
         }
     }
 

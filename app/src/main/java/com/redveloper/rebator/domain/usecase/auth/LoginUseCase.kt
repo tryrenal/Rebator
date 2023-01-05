@@ -1,5 +1,6 @@
 package com.redveloper.rebator.domain.usecase.auth
 
+import com.redveloper.rebator.data.local.preference.UserPreference
 import com.redveloper.rebator.domain.repository.UserRepository
 import com.redveloper.rebator.domain.usecase.FlowUseCase
 import com.redveloper.rebator.utils.State
@@ -8,7 +9,8 @@ import kotlinx.coroutines.flow.*
 
 class LoginUseCase(
     private val crDispatcher: CrDispatcher,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val userPreference: UserPreference
 ) : FlowUseCase<State<String>>(){
 
     private var email = Pair("", false)
@@ -19,9 +21,16 @@ class LoginUseCase(
         return flow<State<String>> {
             if (canExecute()){
                 emit(State.loading())
-                val data = userRepository
+                val userUid = userRepository
                     .loginEmail(email = email.first, password = password.first)
-                emit(State.success(data.getOrThrow()))
+                userUid?.let {
+                    userPreference.saveUserID(userUid)
+                    userPreference.getUserID().collect{ uid ->
+                        uid?.let {
+                            emit(State.success(uid))
+                        }
+                    }
+                }
             } else {
                 emit(State.failed("field ada yang kosong"))
             }

@@ -13,7 +13,7 @@ class UserRepository (
     private val crDispatcher: CrDispatcher
 ){
 
-    suspend fun loginEmail(email: String, password: String): Result<String>{
+    suspend fun loginEmail(email: String, password: String): String?{
         val request = LoginRequest(email, password)
         return CoroutineScope(crDispatcher.network()).async {
             authFirebase.loginEmail(request)
