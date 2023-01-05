@@ -1,5 +1,6 @@
 package com.redveloper.rebator.ui.register.informasiuser
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.redveloper.rebator.MainActivity
 import com.redveloper.rebator.databinding.FragmentRegisterInformasiUserBinding
 import com.redveloper.rebator.domain.entity.Position
 import com.redveloper.rebator.ui.BaseFragment
@@ -78,6 +80,7 @@ class RegisterInformasiUserFragment : BaseFragment<FragmentRegisterInformasiUser
         regisViewModel.successSubmitEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
                 Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show()
+                activity?.startActivity(Intent(requireContext(), MainActivity::class.java))
             }
         }
     }

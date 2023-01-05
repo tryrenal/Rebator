@@ -48,18 +48,32 @@ class AuthFirebaseImpl (
             .exists()
     }
 
-    override suspend fun setUser(documentId: String, data: HashMap<String, Any>) {
-        collectionUser
-            .document(documentId)
-            .set(data)
-            .await()
+    override suspend fun setUser(documentId: String, data: HashMap<String, Any>): Boolean {
+        return suspendCoroutine { continuation ->
+            collectionUser
+                .document(documentId)
+                .set(data)
+                .addOnFailureListener {
+                    continuation.resumeWithException(it)
+                }
+                .addOnSuccessListener {
+                    continuation.resume(true)
+                }
+        }
     }
 
-    override suspend fun updateUser(documentId: String, data: HashMap<String, Any>) {
-        collectionUser
-            .document(documentId)
-            .update(data)
-            .await()
+    override suspend fun updateUser(documentId: String, data: HashMap<String, Any>): Boolean {
+        return suspendCoroutine { continuation ->
+            collectionUser
+                .document(documentId)
+                .update(data)
+                .addOnFailureListener {
+                    continuation.resumeWithException(it)
+                }
+                .addOnSuccessListener {
+                    continuation.resume(true)
+                }
+        }
     }
 
     override suspend fun savePhotoUser(documentId: String, uri: Uri): String {

@@ -39,11 +39,10 @@ class RegisterCreataUserFragment : BaseFragment<FragmentRegisterCreataUserBindin
 
     private fun initClicklistener(){
         binding.btnRegister.setOnClickListener {
-//            regisViewModel.submit(
-//                email = binding.edtEmail.text.toString(),
-//                password = binding.edtPassword.text.toString()
-//            )
-            findNavController().navigate(R.id.action_to_registerCameraUserFragment)
+            regisViewModel.submit(
+                email = binding.edtEmail.text.toString(),
+                password = binding.edtPassword.text.toString()
+            )
         }
     }
 
@@ -59,6 +58,7 @@ class RegisterCreataUserFragment : BaseFragment<FragmentRegisterCreataUserBindin
         regisViewModel.successEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
                 Toast.makeText(requireContext(), "success: $it", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_to_registerCameraUserFragment)
             }
         }
     }

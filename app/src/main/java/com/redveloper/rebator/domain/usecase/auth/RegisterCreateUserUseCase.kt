@@ -11,15 +11,15 @@ class RegisterCreateUserUseCase (
     private val crDispatcher: CrDispatcher,
     private val userRepository: UserRepository,
     private val userPreference: UserPreference
-): FlowUseCase<State<String>>(){
+): FlowUseCase<State<Boolean>>(){
 
     private var email: Pair<String?, Boolean> = Pair("", false)
     private var password: Pair<String?, Boolean> = Pair("", false)
 
     var output: Output? = null
 
-    override fun perfomAction(): Flow<State<String>> {
-        return flow<State<String>> {
+    override fun perfomAction(): Flow<State<Boolean>> {
+        return flow<State<Boolean>> {
             if (canExecute()){
                 emit(State.loading())
 
@@ -35,8 +35,8 @@ class RegisterCreateUserUseCase (
                             val map = hashMapOf<String, Any>(
                                 "email" to email.first!!
                             )
-                            userRepository.saveUserData(docId, map)
-                            emit(State.success(docId))
+                            val saveData = userRepository.saveUserData(docId, map)
+                            emit(State.success(saveData))
                         } else {
                             emit(State.failed("document id kosong"))
                         }

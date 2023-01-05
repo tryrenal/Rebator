@@ -16,14 +16,14 @@ class RegisterCameraUserUseCase(
     private val crDispatcher: CrDispatcher,
     private val userRepository: UserRepository,
     private val userPreference: UserPreference
-): FlowUseCase<State<String>>() {
+): FlowUseCase<State<Boolean>>() {
 
     private var photo: Pair<File?, Boolean> = Pair(null, false)
 
     var output: Output? = null
 
-    override fun perfomAction(): Flow<State<String>> {
-        return flow <State<String>>{
+    override fun perfomAction(): Flow<State<Boolean>> {
+        return flow <State<Boolean>>{
             emit(State.loading())
 
             if (photo.second){
@@ -33,8 +33,8 @@ class RegisterCameraUserUseCase(
                         val mapData = hashMapOf<String, Any>(
                             "photoUrl" to photoUrl
                         )
-                        userRepository.saveUserData(docId, mapData)
-                        emit(State.success(docId))
+                        val saveData = userRepository.saveUserData(docId, mapData)
+                        emit(State.success(saveData))
                     }
                 }
             }

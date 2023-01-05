@@ -24,7 +24,7 @@ class RegisterCameraUserViewModel(
 
     val errorPhotoEvent = MutableLiveData<Event<String>>()
     val loadingEvent = MutableLiveData<Event<Boolean>>()
-    val successEvent = MutableLiveData<Event<String>>()
+    val successEvent = MutableLiveData<Event<Boolean>>()
     val errorEvent = MutableLiveData<Event<String>>()
 
     fun submit(file: File?){

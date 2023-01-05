@@ -58,8 +58,7 @@ class RegisterCameraUserFragment : BaseFragment<FragmentRegisterCameraUserBindin
             findNavController().navigateUp()
         }
         binding.btnSubmit.setOnClickListener {
-//            regisViewModel.submit(fileTemp)
-            findNavController().navigate(R.id.action_to_registerInformasiUserFragment)
+            regisViewModel.submit(fileTemp)
         }
     }
 
@@ -74,6 +73,7 @@ class RegisterCameraUserFragment : BaseFragment<FragmentRegisterCameraUserBindin
         regisViewModel.successEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
                 Toast.makeText(requireContext(), "success: $it", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_to_registerInformasiUserFragment)
             }
         }
     }

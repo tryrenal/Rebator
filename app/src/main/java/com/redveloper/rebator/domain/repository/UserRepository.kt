@@ -26,14 +26,14 @@ class UserRepository (
         }.await()
     }
 
-    suspend fun saveUserData(documentId: String, data: HashMap<String, Any>){
-        CoroutineScope(crDispatcher.network()).launch {
+    suspend fun saveUserData(documentId: String, data: HashMap<String, Any>): Boolean{
+        return CoroutineScope(crDispatcher.network()).async {
             if (authFirebase.checkDocumentIsExist(documentId)){
                 authFirebase.updateUser(documentId, data)
             } else {
                 authFirebase.setUser(documentId, data)
             }
-        }
+        }.await()
     }
 
     suspend fun setPhotoUser(documentId: String, uri: Uri): String{

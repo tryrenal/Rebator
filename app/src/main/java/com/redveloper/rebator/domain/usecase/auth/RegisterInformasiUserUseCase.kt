@@ -34,8 +34,8 @@ class RegisterInformasiUserUseCase(
 
                 userPreference.getUserID().collect{ docId ->
                     docId?.let {
-                        userRepository.saveUserData(docId, mapData)
-                        emit(State.success(true))
+                        val saveData = userRepository.saveUserData(docId, mapData)
+                        emit(State.success(saveData))
                     }
                 }
             }

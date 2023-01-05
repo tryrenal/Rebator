@@ -29,7 +29,7 @@ class RegisterCreataUserViewModel(
     val errorPasswordEvent = MutableLiveData<Event<String>>()
     val loadingEvent = MutableLiveData<Event<Boolean>>()
     val errorEvent = MutableLiveData<Event<String>>()
-    val successEvent = MutableLiveData<Event<String>>()
+    val successEvent = MutableLiveData<Event<Boolean>>()
 
     fun submit(email: String?, password: String?){
         createUserUseCase.setEmail(email)
