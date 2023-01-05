@@ -4,4 +4,8 @@
     <string name="title_inkubasi">inkubasi</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="first">First OnBoarding</string>
+    <string name="second">Second OnBoarding</string>
+    <string name="third">Third OnBoarding</string>
 </resources>
