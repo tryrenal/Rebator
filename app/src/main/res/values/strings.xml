@@ -5,6 +5,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Kata Sandi</string>
+    <string name="label_if_dont_have_account"><![CDATA[Jika belum memiliki akun <p style="color:#0000FF">daftar disini!</p>]]></string>
+
     <string name="first">First OnBoarding</string>
     <string name="second">Second OnBoarding</string>
     <string name="third">Third OnBoarding</string>

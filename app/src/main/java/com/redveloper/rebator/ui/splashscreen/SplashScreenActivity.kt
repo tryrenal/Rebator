@@ -53,7 +53,7 @@ class SplashScreenActivity : BaseActivity<ActivitySplashScreenBinding>() {
                 if (isLogin){
                     startActivity(Intent(this, MainActivity::class.java))
                 } else {
-                    startActivity(Intent(this, LoginActivity::class.java))
+                    LoginActivity.navigate(activity = this, finish = true)
                 }
             }
         }
