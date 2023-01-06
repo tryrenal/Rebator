@@ -2,6 +2,7 @@ package com.redveloper.rebator.ui.onboarding
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.google.android.material.tabs.TabLayoutMediator
 import com.redveloper.rebator.databinding.ActivityOnBoarding2Binding
 import com.redveloper.rebator.ui.BaseActivity
 import com.redveloper.rebator.ui.onboarding.screen.FirstScreenOnBoarding
@@ -23,5 +24,8 @@ class OnBoardingActivity : BaseActivity<ActivityOnBoarding2Binding>() {
 
         val adapter = OnBoardingPagerAdapter(listFragment, supportFragmentManager, lifecycle)
         binding.viewpager.adapter = adapter
+
+        TabLayoutMediator(binding.tablayout, binding.viewpager){ tab, position ->
+        }.attach()
     }
 }

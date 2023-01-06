@@ -10,7 +10,12 @@
     <string name="password">Kata Sandi</string>
     <string name="label_if_dont_have_account"><![CDATA[Jika belum memiliki akun <p style="color:#0000FF">daftar disini!</p>]]></string>
 
-    <string name="first">First OnBoarding</string>
-    <string name="second">Second OnBoarding</string>
-    <string name="third">Third OnBoarding</string>
+    <string name="title_onboarding_first">Kerjsama</string>
+    <string name="desc_onboarding_first">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</string>
+
+    <string name="title_onboarding_second">Kerjasama</string>
+    <string name="desc_onboarding_second">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</string>
+
+    <string name="title_onboarding_third">Kerjsama</string>
+    <string name="desc_onboarding_third">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</string>
 </resources>

@@ -8,6 +8,7 @@ import com.redveloper.rebator.MainActivity
 import com.redveloper.rebator.databinding.ActivitySplashScreenBinding
 import com.redveloper.rebator.ui.BaseActivity
 import com.redveloper.rebator.ui.login.LoginActivity
+import com.redveloper.rebator.ui.onboarding.OnBoardingActivity
 import com.redveloper.rebator.utils.setVisility
 import com.redveloper.rebator.utils.toast
 import kotlinx.coroutines.delay
@@ -31,7 +32,8 @@ class SplashScreenActivity : BaseActivity<ActivitySplashScreenBinding>() {
     private fun initView(){
         lifecycleScope.launch {
             delay(3000L)
-            splashViewModel.checkLogin()
+//            splashViewModel.checkLogin()
+            startActivity(Intent(this@SplashScreenActivity, OnBoardingActivity::class.java))
         }
     }
 

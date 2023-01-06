@@ -5,6 +5,10 @@
       <map>
         <entry key="app/src/main/res/drawable/bg_button_disable.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/bg_button_enable.xml" value="0.2585" />
+        <entry key="app/src/main/res/drawable/dot_default.xml" value="0.22" />
+        <entry key="app/src/main/res/drawable/dot_selected.xml" value="0.2585" />
+        <entry key="app/src/main/res/drawable/dot_selector.xml" value="0.2585" />
+        <entry key="app/src/main/res/drawable/ic_onboarding_first.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/selector_button.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/selector_password.xml" value="0.2585" />
         <entry key="app/src/main/res/layout/activity_camera.xml" value="0.35625" />
