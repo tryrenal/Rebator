@@ -18,6 +18,7 @@ import com.redveloper.rebator.ui.camerax.CameraActivity
 import com.redveloper.rebator.utils.askPermission
 import com.redveloper.rebator.utils.image.rotateBitmap
 import com.redveloper.rebator.utils.setVisility
+import com.redveloper.rebator.utils.toast
 import id.zelory.compressor.Compressor
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -49,15 +50,15 @@ class RegisterCameraUserFragment : BaseFragment<FragmentRegisterCameraUserBindin
     }
 
     private fun initClicklistener(){
-        binding.imgPhoto.setOnClickListener {
+        binding.imgPhotoProfile.setOnClickListener {
             activity?.askPermission(Manifest.permission.CAMERA){
                 CameraActivity.navigate(requireActivity(), CAMERA_RESULT, launchCameraX)
             }
         }
-        binding.btnCancel.setOnClickListener {
+        binding.appbar.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
-        binding.btnSubmit.setOnClickListener {
+        binding.btnSave.setOnClickListener {
             regisViewModel.submit(fileTemp)
         }
     }
@@ -72,7 +73,6 @@ class RegisterCameraUserFragment : BaseFragment<FragmentRegisterCameraUserBindin
 
         regisViewModel.successEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
-                Toast.makeText(requireContext(), "success: $it", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_to_registerInformasiUserFragment)
             }
         }
@@ -81,13 +81,13 @@ class RegisterCameraUserFragment : BaseFragment<FragmentRegisterCameraUserBindin
     private fun errorObserver(){
         regisViewModel.errorPhotoEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
-                Toast.makeText(requireContext(), "error photo: $it", Toast.LENGTH_SHORT).show()
+                requireActivity().toast(it)
             }
         }
 
         regisViewModel.errorEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
-                Toast.makeText(requireContext(), "error: $it", Toast.LENGTH_SHORT).show()
+                requireActivity().toast(it)
             }
         }
     }
@@ -102,7 +102,7 @@ class RegisterCameraUserFragment : BaseFragment<FragmentRegisterCameraUserBindin
                 fileTemp = Compressor.compress(requireContext(), file)
                 fileTemp?.let {
                     val result = rotateBitmap(BitmapFactory.decodeFile(it.path), isBackCamera)
-                    binding.imgPhoto.setImageBitmap(result)
+                    binding.imgPhotoProfile.setImageBitmap(result)
                 }
             }
         }
