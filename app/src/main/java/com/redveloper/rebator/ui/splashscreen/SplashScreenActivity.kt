@@ -32,8 +32,7 @@ class SplashScreenActivity : BaseActivity<ActivitySplashScreenBinding>() {
     private fun initView(){
         lifecycleScope.launch {
             delay(3000L)
-//            splashViewModel.checkLogin()
-            startActivity(Intent(this@SplashScreenActivity, OnBoardingActivity::class.java))
+            splashViewModel.checkLoginAndOnBoardingStatus()
         }
     }
 
@@ -57,6 +56,12 @@ class SplashScreenActivity : BaseActivity<ActivitySplashScreenBinding>() {
                 } else {
                     LoginActivity.navigate(activity = this, finish = true)
                 }
+            }
+        }
+
+        splashViewModel.toOnBoardingEvent.observe(this){
+            it.contentIfNotHaveBeenHandle?.let {
+                OnBoardingActivity.navigate(activity = this)
             }
         }
     }

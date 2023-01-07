@@ -1,5 +1,7 @@
 package com.redveloper.rebator.ui.onboarding
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
@@ -27,5 +29,13 @@ class OnBoardingActivity : BaseActivity<ActivityOnBoarding2Binding>() {
 
         TabLayoutMediator(binding.tablayout, binding.viewpager){ tab, position ->
         }.attach()
+    }
+
+    companion object{
+        fun navigate(activity: Activity){
+            val intent = Intent(activity, OnBoardingActivity::class.java)
+            activity.startActivity(intent)
+            activity.finish()
+        }
     }
 }
