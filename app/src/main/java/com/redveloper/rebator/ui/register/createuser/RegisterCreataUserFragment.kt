@@ -1,18 +1,17 @@
 package com.redveloper.rebator.ui.register.createuser
 
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.redveloper.rebator.R
 import com.redveloper.rebator.databinding.FragmentRegisterCreataUserBinding
 import com.redveloper.rebator.ui.BaseFragment
-import com.redveloper.rebator.utils.State
-import com.redveloper.rebator.utils.gone
+import com.redveloper.rebator.ui.login.LoginActivity
 import com.redveloper.rebator.utils.setVisility
-import com.redveloper.rebator.utils.visible
+import com.redveloper.rebator.utils.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterCreataUserFragment : BaseFragment<FragmentRegisterCreataUserBinding>() {
@@ -34,7 +33,7 @@ class RegisterCreataUserFragment : BaseFragment<FragmentRegisterCreataUserBindin
     }
 
     private fun initView(){
-
+        binding.tvLogin.text = Html.fromHtml(resources.getString(R.string.label_if_have_account))
     }
 
     private fun initClicklistener(){
@@ -43,6 +42,10 @@ class RegisterCreataUserFragment : BaseFragment<FragmentRegisterCreataUserBindin
                 email = binding.edtEmail.text.toString(),
                 password = binding.edtPassword.text.toString()
             )
+        }
+
+        binding.tvLogin.setOnClickListener {
+            LoginActivity.navigate(activity = requireActivity(), finish = true)
         }
     }
 
@@ -57,7 +60,6 @@ class RegisterCreataUserFragment : BaseFragment<FragmentRegisterCreataUserBindin
 
         regisViewModel.successEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
-                Toast.makeText(requireContext(), "success: $it", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_to_registerCameraUserFragment)
             }
         }
@@ -66,17 +68,17 @@ class RegisterCreataUserFragment : BaseFragment<FragmentRegisterCreataUserBindin
     private fun errorObserver(){
         regisViewModel.errorEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
-                Toast.makeText(requireContext(), "error: $it", Toast.LENGTH_SHORT).show()
+                requireActivity().toast(it)
             }
         }
         regisViewModel.errorEmailEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
-                Toast.makeText(requireContext(), "error email: $it", Toast.LENGTH_SHORT).show()
+                binding.edtEmail.error = it
             }
         }
         regisViewModel.errorPasswordEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
-                Toast.makeText(requireContext(), "error password: $it", Toast.LENGTH_SHORT).show()
+                binding.edtPassword.error = it
             }
         }
     }

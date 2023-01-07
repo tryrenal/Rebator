@@ -18,4 +18,14 @@
 
     <string name="title_onboarding_third">Kerjsama</string>
     <string name="desc_onboarding_third">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</string>
+
+    <string name="register">Register</string>
+    <string name="label_if_have_account"><![CDATA[Jika sudah memiliki akun <p style="color:#0000FF">masuk disini!</p>]]></string>
+    <string name="photo_profile">Foto Profil</string>
+    <string name="tips_photo_profile">Pastikan foto profil terlihat secara jelas</string>
+    <string name="save">Simpan</string>
+    <string name="user_information">Informasi User</string>
+    <string name="name">Nama</string>
+    <string name="phone_number">Nomor Telepon</string>
+    <string name="position">Posisi</string>
 </resources>
