@@ -5,7 +5,27 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="first">First OnBoarding</string>
-    <string name="second">Second OnBoarding</string>
-    <string name="third">Third OnBoarding</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Kata Sandi</string>
+    <string name="label_if_dont_have_account"><![CDATA[Jika belum memiliki akun <p style="color:#0000FF">daftar disini!</p>]]></string>
+
+    <string name="title_onboarding_first">Kerjsama</string>
+    <string name="desc_onboarding_first">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</string>
+
+    <string name="title_onboarding_second">Kerjasama</string>
+    <string name="desc_onboarding_second">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</string>
+
+    <string name="title_onboarding_third">Kerjsama</string>
+    <string name="desc_onboarding_third">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</string>
+
+    <string name="register">Register</string>
+    <string name="label_if_have_account"><![CDATA[Jika sudah memiliki akun <p style="color:#0000FF">masuk disini!</p>]]></string>
+    <string name="photo_profile">Foto Profil</string>
+    <string name="tips_photo_profile">Pastikan foto profil terlihat secara jelas</string>
+    <string name="save">Simpan</string>
+    <string name="user_information">Informasi User</string>
+    <string name="name">Nama</string>
+    <string name="phone_number">Nomor Telepon</string>
+    <string name="position">Posisi</string>
 </resources>

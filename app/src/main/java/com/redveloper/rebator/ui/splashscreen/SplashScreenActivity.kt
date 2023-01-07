@@ -8,7 +8,9 @@ import com.redveloper.rebator.MainActivity
 import com.redveloper.rebator.databinding.ActivitySplashScreenBinding
 import com.redveloper.rebator.ui.BaseActivity
 import com.redveloper.rebator.ui.login.LoginActivity
+import com.redveloper.rebator.ui.onboarding.OnBoardingActivity
 import com.redveloper.rebator.utils.setVisility
+import com.redveloper.rebator.utils.toast
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,7 +32,7 @@ class SplashScreenActivity : BaseActivity<ActivitySplashScreenBinding>() {
     private fun initView(){
         lifecycleScope.launch {
             delay(3000L)
-            splashViewModel.checkLogin()
+            splashViewModel.checkLoginAndOnBoardingStatus()
         }
     }
 
@@ -42,8 +44,8 @@ class SplashScreenActivity : BaseActivity<ActivitySplashScreenBinding>() {
         }
 
         splashViewModel.errorEvent.observe(this){
-            it.contentIfNotHaveBeenHandle?.let {
-                Toast.makeText(this, "error: $it", Toast.LENGTH_SHORT).show()
+            it.contentIfNotHaveBeenHandle?.let { message ->
+                toast(message)
             }
         }
 
@@ -52,8 +54,14 @@ class SplashScreenActivity : BaseActivity<ActivitySplashScreenBinding>() {
                 if (isLogin){
                     startActivity(Intent(this, MainActivity::class.java))
                 } else {
-                    startActivity(Intent(this, LoginActivity::class.java))
+                    LoginActivity.navigate(activity = this, finish = true)
                 }
+            }
+        }
+
+        splashViewModel.toOnBoardingEvent.observe(this){
+            it.contentIfNotHaveBeenHandle?.let {
+                OnBoardingActivity.navigate(activity = this)
             }
         }
     }

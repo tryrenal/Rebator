@@ -1,6 +1,8 @@
 package com.redveloper.rebator.utils
 
+import android.content.Context
 import android.view.View
+import android.widget.Toast
 
 fun View.gone(){
     this.visibility = View.GONE
@@ -20,4 +22,8 @@ fun View.setVisility(show: Boolean){
     } else{
         this.gone()
     }
+}
+
+fun Context.toast(message: String){
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }

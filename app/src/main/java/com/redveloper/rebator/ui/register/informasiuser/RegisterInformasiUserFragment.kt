@@ -1,22 +1,21 @@
 package com.redveloper.rebator.ui.register.informasiuser
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.redveloper.rebator.MainActivity
+import com.redveloper.rebator.R
 import com.redveloper.rebator.databinding.FragmentRegisterInformasiUserBinding
+import com.redveloper.rebator.design.popup.SingleSelectedPopUp
 import com.redveloper.rebator.domain.entity.Position
 import com.redveloper.rebator.ui.BaseFragment
 import com.redveloper.rebator.ui.register.informasiuser.model.RegisterInformasiUserModel
-import com.redveloper.rebator.utils.State
-import com.redveloper.rebator.utils.gone
 import com.redveloper.rebator.utils.setVisility
-import com.redveloper.rebator.utils.visible
+import com.redveloper.rebator.utils.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterInformasiUserFragment : BaseFragment<FragmentRegisterInformasiUserBinding>() {
@@ -38,33 +37,39 @@ class RegisterInformasiUserFragment : BaseFragment<FragmentRegisterInformasiUser
     }
 
     private fun initView(){
-        spinnerPosition()
+
     }
 
-    private fun spinnerPosition(){
-        val data = listOf(Position.AKUSISI.name, Position.INKUBASI.name)
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, data)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerPosition.adapter = adapter
-        binding.spinnerPosition.onItemSelectedListener = object  : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                regisViewModel.positionSelected = Position.valueOf(data[p2])
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                regisViewModel.positionSelected = null
-            }
-        }
-    }
-
+    @SuppressLint("ClickableViewAccessibility")
     private fun initClicklistener(){
-        binding.btnSubmit.setOnClickListener {
+        binding.btnSave.setOnClickListener {
             val data = RegisterInformasiUserModel(
                 name = binding.edtName.text.toString(),
-                phoneNumber = binding.edtPhonenumber.text.toString(),
+                phoneNumber = binding.edtPhoneNumber.text.toString(),
                 position = regisViewModel.positionSelected
             )
             regisViewModel.submit(data)
+        }
+        binding.appbar.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+        binding.edtPosition.setOnClickListener {
+            showPositionChoosen()
+        }
+    }
+
+    private fun showPositionChoosen(){
+        val listData = arrayListOf<Pair<String, String>>(
+            Pair(Position.AKUSISI.name, "Akusisi"),
+            Pair(Position.INKUBASI.name, "Inkubasi"),
+        )
+        val singlePopUp = SingleSelectedPopUp.create(resources.getString(R.string.position), listData)
+        singlePopUp.safeShow(childFragmentManager, "single pop up")
+        singlePopUp.listener = object : SingleSelectedPopUp.Listener{
+            override fun itemChoose(item: Pair<String, String>) {
+                regisViewModel.positionSelected = Position.valueOf(item.first)
+                binding.edtPosition.setText(item.second)
+            }
         }
     }
 
@@ -79,7 +84,6 @@ class RegisterInformasiUserFragment : BaseFragment<FragmentRegisterInformasiUser
 
         regisViewModel.successSubmitEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
-                Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show()
                 activity?.startActivity(Intent(requireContext(), MainActivity::class.java))
             }
         }
@@ -88,24 +92,24 @@ class RegisterInformasiUserFragment : BaseFragment<FragmentRegisterInformasiUser
     private fun errorObserver(){
         regisViewModel.errorSubmitEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
-                Toast.makeText(requireContext(), "error: $it", Toast.LENGTH_SHORT).show()
+                requireActivity().toast(it)
             }
         }
         regisViewModel.errorNameEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
-                Toast.makeText(requireContext(), "error name: $it", Toast.LENGTH_SHORT).show()
+                binding.edtName.error = it
             }
         }
 
         regisViewModel.errorPhoneNumberEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
-                Toast.makeText(requireContext(), "error phonenumber: $it", Toast.LENGTH_SHORT).show()
+                binding.edtPhoneNumber.error = it
             }
         }
 
         regisViewModel.errorPositionEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
-                Toast.makeText(requireContext(), "error position: $it", Toast.LENGTH_SHORT).show()
+                binding.edtPosition.error = it
             }
         }
     }

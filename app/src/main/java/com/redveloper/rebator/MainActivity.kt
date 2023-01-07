@@ -1,11 +1,17 @@
 package com.redveloper.rebator
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.redveloper.rebator.databinding.ActivityMainBinding
+import com.redveloper.rebator.ui.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
+
+    override fun inflate(): ActivityMainBinding {
+        return ActivityMainBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
     }
 }

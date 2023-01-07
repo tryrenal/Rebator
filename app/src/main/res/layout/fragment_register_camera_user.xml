@@ -6,53 +6,76 @@
     android:layout_height="match_parent"
     tools:context=".ui.register.camerauser.RegisterCameraUserFragment">
 
-    <ImageView
-        android:background="@android:color/holo_blue_bright"
-        android:id="@+id/img_photo"
+    <include
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="100dp"
-        android:layout_marginHorizontal="20dp"
+        android:id="@+id/appbar"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        layout="@layout/layout_appbar"/>
+
+    <TextView
+        android:id="@+id/tv_photo_profile"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins_medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appbar"
+        android:text="@string/photo_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/img_photo_profile"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_image"
+        android:background="@drawable/bg_image_choose"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_photo_profile"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tv_tips_photo_profile"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins_thin"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintTop_toBottomOf="@id/img_photo_profile"
+        android:text="@string/tips_photo_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gd_vertical"
-        app:layout_constraintGuide_percent="0.5"
         android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"
+        android:id="@+id/gd_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <Button
-        android:layout_marginBottom="20dp"
-        android:text="Batal"
-        android:id="@+id/btn_cancel"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/gd_vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="50dp"/>
-
-    <Button
-        android:layout_marginBottom="20dp"
-        android:text="Submit"
-        android:id="@+id/btn_submit"
+        android:id="@+id/btn_save"
+        android:textAllCaps="false"
+        android:text="@string/save"
         android:layout_marginEnd="20dp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/gd_vertical"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_tips_photo_profile"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gd_vertical"
         android:layout_width="0dp"
-        android:layout_height="50dp"/>
+        android:layout_height="wrap_content"/>
 
     <ProgressBar
         android:visibility="gone"
+        android:indeterminateTint="@color/pink"
         android:id="@+id/progress_bar"
+        android:layout_marginBottom="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

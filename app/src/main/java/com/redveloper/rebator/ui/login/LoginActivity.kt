@@ -1,14 +1,20 @@
 package com.redveloper.rebator.ui.login
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.redveloper.rebator.MainActivity
+import com.redveloper.rebator.R
 import com.redveloper.rebator.databinding.ActivityLoginBinding
 import com.redveloper.rebator.ui.BaseActivity
 import com.redveloper.rebator.ui.register.RegisterActivity
 import com.redveloper.rebator.utils.State
 import com.redveloper.rebator.utils.setVisility
+import com.redveloper.rebator.utils.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
@@ -27,7 +33,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     }
 
     private fun initView(){
-
+        binding.tvSignUp.text = Html.fromHtml(resources.getString(R.string.label_if_dont_have_account))
     }
 
     private fun initClicklistener(){
@@ -38,7 +44,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             )
         }
 
-        binding.btnToRegister.setOnClickListener {
+        binding.tvSignUp.setOnClickListener {
             RegisterActivity.navigate(this@LoginActivity)
         }
     }
@@ -48,13 +54,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
         loginViewModel.loadingEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let {
-                binding.progress.setVisility(it)
+                binding.progressBar.setVisility(it)
             }
         }
 
         loginViewModel.successSubmitEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let {
-                Toast.makeText(this, "success: $it", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, MainActivity::class.java))
             }
         }
     }
@@ -62,17 +68,27 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     private fun errorObserver(){
         loginViewModel.errorSubmitEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let {
-                Toast.makeText(this, "error: $it", Toast.LENGTH_SHORT).show()
+                toast(it)
             }
         }
         loginViewModel.errorEmailEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let {
-                Toast.makeText(this, "error email: $it", Toast.LENGTH_SHORT).show()
+                binding.edtEmail.error = it
             }
         }
         loginViewModel.errorPasswordEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let {
-                Toast.makeText(this, "error password: $it", Toast.LENGTH_SHORT).show()
+                binding.edtPassword.error = it
+            }
+        }
+    }
+
+    companion object{
+        fun navigate(activity: Activity, finish: Boolean = false){
+            val intent = Intent(activity, LoginActivity::class.java)
+            activity.startActivity(intent)
+            if (finish){
+                activity.finish()
             }
         }
     }
