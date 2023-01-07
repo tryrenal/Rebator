@@ -59,7 +59,8 @@ class RegisterCameraUserFragment : BaseFragment<FragmentRegisterCameraUserBindin
             findNavController().navigateUp()
         }
         binding.btnSave.setOnClickListener {
-            regisViewModel.submit(fileTemp)
+//            regisViewModel.submit(fileTemp)
+            findNavController().navigate(R.id.action_to_registerInformasiUserFragment)
         }
     }
 
