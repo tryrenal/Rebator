@@ -3,15 +3,16 @@ package com.redveloper.rebator.ui.splashscreen
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.redveloper.rebator.data.local.preference.onboarding.OnBoardingPreference
 import com.redveloper.rebator.domain.usecase.auth.CheckLoginUseCase
-import com.redveloper.rebator.domain.usecase.onboarding.GetOnBoardingUseCase
 import com.redveloper.rebator.utils.Event
 import com.redveloper.rebator.utils.State
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class SplashScreenViewModel(
     private val checkLoginUseCase: CheckLoginUseCase,
-    private val getOnBoardingUseCase: GetOnBoardingUseCase
+    private val onBoardingPreference: OnBoardingPreference
 ): ViewModel() {
 
     val loadingEvent = MutableLiveData<Event<Boolean>>()
@@ -21,7 +22,7 @@ class SplashScreenViewModel(
 
     fun checkLoginAndOnBoardingStatus(){
         viewModelScope.launch {
-            getOnBoardingUseCase.getOnBoardingStatus { done ->
+            onBoardingPreference.getOnBoardingStatus().collectLatest { done ->
                 if (done){
                     launch {
                         checkLogin()

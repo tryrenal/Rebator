@@ -13,8 +13,11 @@ import com.redveloper.rebator.ui.onboarding.screen.FirstScreenOnBoarding
 import com.redveloper.rebator.ui.onboarding.screen.SecondScreenOnBoarding
 import com.redveloper.rebator.ui.onboarding.screen.ThirdScreenOnBoarding
 import com.redveloper.rebator.utils.setVisility
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OnBoardingActivity : BaseActivity<ActivityOnBoarding2Binding>() {
+
+    val onBoardingViewModel : OnBoardingViewModel by viewModel()
 
     override fun inflate(): ActivityOnBoarding2Binding {
         return ActivityOnBoarding2Binding.inflate(layoutInflater)
@@ -22,7 +25,12 @@ class OnBoardingActivity : BaseActivity<ActivityOnBoarding2Binding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initView()
+        initClicklistener()
+        initObserver()
+    }
 
+    private fun initView(){
         val listFragment = arrayListOf<Fragment>(
             FirstScreenOnBoarding(), SecondScreenOnBoarding(), ThirdScreenOnBoarding()
         )
@@ -40,9 +48,19 @@ class OnBoardingActivity : BaseActivity<ActivityOnBoarding2Binding>() {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
+    }
 
+    private fun initClicklistener(){
         binding.btnToLogin.setOnClickListener {
-            LoginActivity.navigate(activity = this, finish = true)
+            onBoardingViewModel.setOnBoardingStatus(true)
+        }
+    }
+
+    private fun initObserver(){
+        onBoardingViewModel.toLoginEvent.observe(this){
+            it.contentIfNotHaveBeenHandle?.let{
+                LoginActivity.navigate(activity = this, finish = true)
+            }
         }
     }
 
