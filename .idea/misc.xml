@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/drawable/ic_image.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/ic_onboarding_first.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/image_choose.xml" value="0.2585" />
+        <entry key="app/src/main/res/drawable/rounded_dialog.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/selector_button.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/selector_password.xml" value="0.2585" />
         <entry key="app/src/main/res/layout/activity_camera.xml" value="0.35625" />
@@ -20,6 +21,8 @@
         <entry key="app/src/main/res/layout/activity_on_boarding2.xml" value="0.353713768115942" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.338768115942029" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.353713768115942" />
+        <entry key="app/src/main/res/layout/design_single_selected_item.xml" value="0.353713768115942" />
+        <entry key="app/src/main/res/layout/design_single_selected_layout.xml" value="0.353713768115942" />
         <entry key="app/src/main/res/layout/fragment_first_screen_on_boarding.xml" value="0.353713768115942" />
         <entry key="app/src/main/res/layout/fragment_register_camera_user.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_register_creata_user.xml" value="0.35625" />

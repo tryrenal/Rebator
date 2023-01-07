@@ -38,11 +38,10 @@ class RegisterCreataUserFragment : BaseFragment<FragmentRegisterCreataUserBindin
 
     private fun initClicklistener(){
         binding.btnRegister.setOnClickListener {
-//            regisViewModel.submit(
-//                email = binding.edtEmail.text.toString(),
-//                password = binding.edtPassword.text.toString()
-//            )
-            findNavController().navigate(R.id.action_to_registerCameraUserFragment)
+            regisViewModel.submit(
+                email = binding.edtEmail.text.toString(),
+                password = binding.edtPassword.text.toString()
+            )
         }
 
         binding.tvLogin.setOnClickListener {

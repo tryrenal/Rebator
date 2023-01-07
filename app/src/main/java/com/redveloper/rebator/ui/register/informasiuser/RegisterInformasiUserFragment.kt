@@ -1,5 +1,6 @@
 package com.redveloper.rebator.ui.register.informasiuser
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.redveloper.rebator.MainActivity
+import com.redveloper.rebator.R
 import com.redveloper.rebator.databinding.FragmentRegisterInformasiUserBinding
+import com.redveloper.rebator.design.popup.SingleSelectedPopUp
+import com.redveloper.rebator.domain.entity.Position
 import com.redveloper.rebator.ui.BaseFragment
 import com.redveloper.rebator.ui.register.informasiuser.model.RegisterInformasiUserModel
 import com.redveloper.rebator.utils.setVisility
@@ -36,6 +40,7 @@ class RegisterInformasiUserFragment : BaseFragment<FragmentRegisterInformasiUser
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initClicklistener(){
         binding.btnSave.setOnClickListener {
             val data = RegisterInformasiUserModel(
@@ -47,6 +52,24 @@ class RegisterInformasiUserFragment : BaseFragment<FragmentRegisterInformasiUser
         }
         binding.appbar.btnBack.setOnClickListener {
             findNavController().navigateUp()
+        }
+        binding.edtPosition.setOnClickListener {
+            showPositionChoosen()
+        }
+    }
+
+    private fun showPositionChoosen(){
+        val listData = arrayListOf<Pair<String, String>>(
+            Pair(Position.AKUSISI.name, "Akusisi"),
+            Pair(Position.INKUBASI.name, "Inkubasi"),
+        )
+        val singlePopUp = SingleSelectedPopUp.create(resources.getString(R.string.position), listData)
+        singlePopUp.safeShow(childFragmentManager, "single pop up")
+        singlePopUp.listener = object : SingleSelectedPopUp.Listener{
+            override fun itemChoose(item: Pair<String, String>) {
+                regisViewModel.positionSelected = Position.valueOf(item.first)
+                binding.edtPosition.setText(item.second)
+            }
         }
     }
 
