@@ -21,7 +21,7 @@ class MyApplication : MultiDexApplication() {
                 viewModelModule,
                 networkModule,
                 useCaseModule,
-                preferenceModule
+                preferenceModule,
             )
         }
     }

@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="akusisi/src/main/res/layout/activity_akusisi.xml" value="0.21422101449275363" />
+        <entry key="akusisi/src/main/res/layout/fragment_dashboard.xml" value="0.353713768115942" />
+        <entry key="akusisi/src/main/res/layout/fragment_profile.xml" value="0.353713768115942" />
+        <entry key="akusisi/src/main/res/menu/bottom_navigation.xml" value="0.35625" />
         <entry key="app/src/main/res/drawable/bg_button_disable.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/bg_button_enable.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/bg_image_choose.xml" value="0.2585" />

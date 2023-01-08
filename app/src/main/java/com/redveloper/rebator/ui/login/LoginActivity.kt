@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.redveloper.rebator.MainActivity
 import com.redveloper.rebator.R
 import com.redveloper.rebator.databinding.ActivityLoginBinding
+import com.redveloper.rebator.router.AkusisiRouter
 import com.redveloper.rebator.ui.BaseActivity
 import com.redveloper.rebator.ui.register.RegisterActivity
 import com.redveloper.rebator.utils.State
@@ -60,7 +61,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
         loginViewModel.successSubmitEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let {
-                startActivity(Intent(this, MainActivity::class.java))
+//                startActivity(Intent(this, MainActivity::class.java))
+                AkusisiRouter.navigate(activity = this, finish = true)
             }
         }
     }
