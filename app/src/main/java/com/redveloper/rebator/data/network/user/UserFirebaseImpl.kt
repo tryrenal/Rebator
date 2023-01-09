@@ -38,4 +38,18 @@ class UserFirebaseImpl (
                 }
         }
     }
+
+    override suspend fun editUser(userId: String, user: HashMap<String, Any>): Boolean {
+        return suspendCoroutine { continuation ->
+            collectionUser
+                .document(userId)
+                .update(user)
+                .addOnFailureListener {
+                    continuation.resumeWithException(it)
+                }
+                .addOnSuccessListener {
+                    continuation.resume(true)
+                }
+        }
+    }
 }

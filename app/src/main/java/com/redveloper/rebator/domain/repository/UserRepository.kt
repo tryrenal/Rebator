@@ -16,4 +16,10 @@ class UserRepository (
             userFirebase.getUser(userId)
         }.await()
     }
+
+    suspend fun editUser(userId: String, data: HashMap<String, Any>): Boolean{
+        return CoroutineScope(crDispatcher.network()).async {
+            userFirebase.editUser(userId, data)
+        }.await()
+    }
 }
