@@ -4,7 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.redveloper.rebator.data.local.preference.onboarding.OnBoardingPreference
+import com.redveloper.rebator.domain.entity.Position
 import com.redveloper.rebator.domain.usecase.auth.CheckLoginUseCase
+import com.redveloper.rebator.domain.usecase.user.GetUserUseCase
 import com.redveloper.rebator.utils.Event
 import com.redveloper.rebator.utils.State
 import kotlinx.coroutines.flow.collectLatest
@@ -12,13 +14,16 @@ import kotlinx.coroutines.launch
 
 class SplashScreenViewModel(
     private val checkLoginUseCase: CheckLoginUseCase,
-    private val onBoardingPreference: OnBoardingPreference
+    private val onBoardingPreference: OnBoardingPreference,
+    private val getUserUseCase: GetUserUseCase
 ): ViewModel() {
 
     val loadingEvent = MutableLiveData<Event<Boolean>>()
-    val isLoginEvent = MutableLiveData<Event<Boolean>>()
     val errorEvent = MutableLiveData<Event<String>>()
     val toOnBoardingEvent = MutableLiveData<Event<Any>>()
+    val errorGetUserEvent = MutableLiveData<Event<String>>()
+    val toUserAkusisiEvent = MutableLiveData<Event<Any>>()
+    val toUserInkubasiEvent = MutableLiveData<Event<Any>>()
 
     fun checkLoginAndOnBoardingStatus(){
         viewModelScope.launch {
@@ -46,7 +51,29 @@ class SplashScreenViewModel(
                 }
                 is State.Success -> {
                     loadingEvent.value = Event(false)
-                    isLoginEvent.value = Event(state.data)
+                    getUser()
+                }
+            }
+        }
+    }
+
+    private suspend fun getUser(){
+        getUserUseCase.launch()
+
+        getUserUseCase.resultFlow.collect{ state ->
+            when(state) {
+                is State.Loading -> loadingEvent.value = Event(true)
+                is State.Failed -> {
+                    loadingEvent.value = Event(false)
+                    errorGetUserEvent.value = Event(state.message)
+                }
+                is State.Success -> {
+                    loadingEvent.value = Event(false)
+                    val userType = state.data.position
+                    when(userType){
+                        Position.INKUBASI -> toUserInkubasiEvent.value = Event(Any())
+                        Position.AKUSISI -> toUserAkusisiEvent.value = Event(Any())
+                    }
                 }
             }
         }
