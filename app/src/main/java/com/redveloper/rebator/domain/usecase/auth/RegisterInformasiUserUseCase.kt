@@ -3,6 +3,7 @@ package com.redveloper.rebator.domain.usecase.auth
 import com.redveloper.rebator.data.local.preference.UserPreference
 import com.redveloper.rebator.data.network.auth.model.request.RegisterRequest
 import com.redveloper.rebator.domain.entity.Position
+import com.redveloper.rebator.domain.repository.AuthRepository
 import com.redveloper.rebator.domain.repository.UserRepository
 import com.redveloper.rebator.domain.usecase.FlowUseCase
 import com.redveloper.rebator.utils.State
@@ -11,7 +12,7 @@ import kotlinx.coroutines.flow.*
 
 class RegisterInformasiUserUseCase(
     private val crDispatcher: CrDispatcher,
-    private val userRepository: UserRepository,
+    private val authRepository: AuthRepository,
     private val userPreference: UserPreference
 ): FlowUseCase<State<Boolean>>() {
 
@@ -34,7 +35,7 @@ class RegisterInformasiUserUseCase(
 
                 userPreference.getUserID().collect{ docId ->
                     docId?.let {
-                        val saveData = userRepository.saveUserData(docId, mapData)
+                        val saveData = authRepository.saveUserData(docId, mapData)
                         emit(State.success(saveData))
                     }
                 }

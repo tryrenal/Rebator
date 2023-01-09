@@ -1,6 +1,7 @@
 package com.redveloper.rebator.domain.usecase.auth
 
 import com.redveloper.rebator.data.local.preference.UserPreference
+import com.redveloper.rebator.domain.repository.AuthRepository
 import com.redveloper.rebator.domain.repository.UserRepository
 import com.redveloper.rebator.domain.usecase.FlowUseCase
 import com.redveloper.rebator.utils.State
@@ -9,7 +10,7 @@ import kotlinx.coroutines.flow.*
 
 class RegisterCreateUserUseCase (
     private val crDispatcher: CrDispatcher,
-    private val userRepository: UserRepository,
+    private val authRepository: AuthRepository,
     private val userPreference: UserPreference
 ): FlowUseCase<State<Boolean>>(){
 
@@ -27,13 +28,13 @@ class RegisterCreateUserUseCase (
                     "email" to email.first!!
                 )
 
-                userRepository
+                authRepository
                     .registerEmail(email = email.first!!, password = password.first!!)?.let { uid ->
                         userPreference.saveUserID(uid)
                         userPreference.getUserID()
                             .collect{ docId ->
                                 if (!docId.isNullOrBlank()){
-                                    val saveData = userRepository.saveUserData(docId, map)
+                                    val saveData = authRepository.saveUserData(docId, map)
                                     emit(State.success(saveData))
                                 } else {
                                     emit(State.failed("document id kosong"))
