@@ -13,7 +13,7 @@ val viewModelModule = module {
     viewModel { OnBoardingViewModel(get()) }
     viewModel { SplashScreenViewModel(get(), get()) }
     //login
-    viewModel { LoginViewModel(get()) }
+    viewModel { LoginViewModel(get(), get()) }
     //register
     viewModel { RegisterCameraUserViewModel(get()) }
     viewModel { RegisterCreataUserViewModel(get()) }

@@ -106,8 +106,4 @@ class AuthFirebaseImpl (
             }
         }
     }
-
-    override fun logout() {
-
-    }
 }

@@ -2,13 +2,17 @@ package com.redveloper.rebator.ui.login
 
 import androidx.lifecycle.*
 import com.google.firebase.auth.AuthResult
+import com.redveloper.rebator.domain.entity.Position
 import com.redveloper.rebator.domain.usecase.auth.LoginUseCase
+import com.redveloper.rebator.domain.usecase.user.GetUserUseCase
 import com.redveloper.rebator.utils.Event
 import com.redveloper.rebator.utils.State
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class LoginViewModel (
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val getUserUseCase: GetUserUseCase
 ) : ViewModel(){
 
     init {
@@ -27,7 +31,9 @@ class LoginViewModel (
     val errorPasswordEvent = MutableLiveData<Event<String>>()
     val loadingEvent = MutableLiveData<Event<Boolean>>()
     val errorSubmitEvent = MutableLiveData<Event<String>>()
-    val successSubmitEvent = MutableLiveData<Event<String>>()
+    val errorGetUserEvent = MutableLiveData<Event<String>>()
+    val toUserAkusisiEvent = MutableLiveData<Event<Any>>()
+    val toUserInkubasiEvent = MutableLiveData<Event<Any>>()
 
     fun submit(email: String?, password: String?){
         loginUseCase.setEmail(email)
@@ -45,7 +51,29 @@ class LoginViewModel (
                     }
                     is State.Success -> {
                         loadingEvent.value = Event(false)
-                        successSubmitEvent.value = Event(state.data)
+                        getUser()
+                    }
+                }
+            }
+        }
+    }
+
+    private suspend fun getUser(){
+        getUserUseCase.launch()
+
+        getUserUseCase.resultFlow.collect{ state ->
+            when(state) {
+                is State.Loading -> loadingEvent.value = Event(true)
+                is State.Failed -> {
+                    loadingEvent.value = Event(false)
+                    errorGetUserEvent.value = Event(state.message)
+                }
+                is State.Success -> {
+                    loadingEvent.value = Event(false)
+                    val userType = state.data.position
+                    when(userType){
+                        Position.INKUBASI -> toUserInkubasiEvent.value = Event(Any())
+                        Position.AKUSISI -> toUserAkusisiEvent.value = Event(Any())
                     }
                 }
             }

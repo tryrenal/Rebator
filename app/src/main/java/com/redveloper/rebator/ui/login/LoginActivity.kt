@@ -59,9 +59,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             }
         }
 
-        loginViewModel.successSubmitEvent.observe(this){
+        loginViewModel.toUserInkubasiEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let {
-//                startActivity(Intent(this, MainActivity::class.java))
+                toast("to user inkubasi")
+            }
+        }
+
+        loginViewModel.toUserAkusisiEvent.observe(this){
+            it.contentIfNotHaveBeenHandle?.let {
                 AkusisiRouter.navigate(activity = this, finish = true)
             }
         }
@@ -81,6 +86,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         loginViewModel.errorPasswordEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let {
                 binding.edtPassword.error = it
+            }
+        }
+        loginViewModel.errorGetUserEvent.observe(this){
+            it.contentIfNotHaveBeenHandle?.let {
+                toast(it)
             }
         }
     }
