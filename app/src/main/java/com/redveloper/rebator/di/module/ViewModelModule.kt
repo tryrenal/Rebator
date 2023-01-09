@@ -11,11 +11,11 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { OnBoardingViewModel(get()) }
-    viewModel { SplashScreenViewModel(get(), get()) }
+    viewModel { SplashScreenViewModel(get(), get(), get()) }
     //login
-    viewModel { LoginViewModel(get()) }
+    viewModel { LoginViewModel(get(), get()) }
     //register
     viewModel { RegisterCameraUserViewModel(get()) }
     viewModel { RegisterCreataUserViewModel(get()) }
-    viewModel { RegisterInformasiUserViewModel(get()) }
+    viewModel { RegisterInformasiUserViewModel(get(), get()) }
 }

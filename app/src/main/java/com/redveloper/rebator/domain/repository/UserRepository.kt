@@ -3,6 +3,8 @@ package com.redveloper.rebator.domain.repository
 import android.net.Uri
 import com.redveloper.rebator.data.network.auth.AuthFirebase
 import com.redveloper.rebator.data.network.auth.model.request.LoginRequest
+import com.redveloper.rebator.data.network.user.UserFirebase
+import com.redveloper.rebator.domain.entity.User
 import com.redveloper.rebator.utils.dispatchers.CrDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
@@ -10,6 +12,7 @@ import kotlinx.coroutines.launch
 
 class UserRepository (
     private val authFirebase: AuthFirebase,
+    private val userFirebase: UserFirebase,
     private val crDispatcher: CrDispatcher
 ){
 
@@ -39,6 +42,12 @@ class UserRepository (
     suspend fun setPhotoUser(documentId: String, uri: Uri): String{
         return CoroutineScope(crDispatcher.network()).async {
             authFirebase.savePhotoUser(documentId, uri)
+        }.await()
+    }
+
+    suspend fun getUser(userId: String): User{
+        return CoroutineScope(crDispatcher.network()).async {
+            userFirebase.getUser(userId)
         }.await()
     }
 }

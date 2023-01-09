@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.redveloper.rebator.MainActivity
 import com.redveloper.rebator.databinding.ActivitySplashScreenBinding
+import com.redveloper.rebator.router.AkusisiRouter
 import com.redveloper.rebator.ui.BaseActivity
 import com.redveloper.rebator.ui.login.LoginActivity
 import com.redveloper.rebator.ui.onboarding.OnBoardingActivity
@@ -49,19 +50,27 @@ class SplashScreenActivity : BaseActivity<ActivitySplashScreenBinding>() {
             }
         }
 
-        splashViewModel.isLoginEvent.observe(this){
-            it.contentIfNotHaveBeenHandle?.let { isLogin ->
-                if (isLogin){
-                    startActivity(Intent(this, MainActivity::class.java))
-                } else {
-                    LoginActivity.navigate(activity = this, finish = true)
-                }
+        splashViewModel.toUserInkubasiEvent.observe(this){
+            it.contentIfNotHaveBeenHandle?.let {
+                toast("to user inkubasi")
+            }
+        }
+
+        splashViewModel.toUserAkusisiEvent.observe(this){
+            it.contentIfNotHaveBeenHandle?.let {
+                AkusisiRouter.navigate(activity = this, finish = true)
             }
         }
 
         splashViewModel.toOnBoardingEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let {
                 OnBoardingActivity.navigate(activity = this)
+            }
+        }
+
+        splashViewModel.errorGetUserEvent.observe(this){
+            it.contentIfNotHaveBeenHandle?.let {
+                toast(it)
             }
         }
     }
