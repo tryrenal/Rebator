@@ -12,6 +12,7 @@ import com.redveloper.rebator.R
 import com.redveloper.rebator.databinding.FragmentRegisterInformasiUserBinding
 import com.redveloper.rebator.design.popup.SingleSelectedPopUp
 import com.redveloper.rebator.domain.entity.Position
+import com.redveloper.rebator.router.AkusisiRouter
 import com.redveloper.rebator.ui.BaseFragment
 import com.redveloper.rebator.ui.register.informasiuser.model.RegisterInformasiUserModel
 import com.redveloper.rebator.utils.setVisility
@@ -40,7 +41,6 @@ class RegisterInformasiUserFragment : BaseFragment<FragmentRegisterInformasiUser
 
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     private fun initClicklistener(){
         binding.btnSave.setOnClickListener {
             val data = RegisterInformasiUserModel(
@@ -82,9 +82,15 @@ class RegisterInformasiUserFragment : BaseFragment<FragmentRegisterInformasiUser
             }
         }
 
-        regisViewModel.successSubmitEvent.observe(viewLifecycleOwner){
+        regisViewModel.toUserInkubasiEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
-                activity?.startActivity(Intent(requireContext(), MainActivity::class.java))
+                requireActivity().toast("to user inkubasi")
+            }
+        }
+
+        regisViewModel.toUserAkusisiEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                AkusisiRouter.navigate(activity = requireActivity(), finish = true)
             }
         }
     }
@@ -110,6 +116,12 @@ class RegisterInformasiUserFragment : BaseFragment<FragmentRegisterInformasiUser
         regisViewModel.errorPositionEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
                 binding.edtPosition.error = it
+            }
+        }
+
+        regisViewModel.errorGetUserEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                requireActivity().toast(it)
             }
         }
     }

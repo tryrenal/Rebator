@@ -17,5 +17,5 @@ val viewModelModule = module {
     //register
     viewModel { RegisterCameraUserViewModel(get()) }
     viewModel { RegisterCreataUserViewModel(get()) }
-    viewModel { RegisterInformasiUserViewModel(get()) }
+    viewModel { RegisterInformasiUserViewModel(get(), get()) }
 }
