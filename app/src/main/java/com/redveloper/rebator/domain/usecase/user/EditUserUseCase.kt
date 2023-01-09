@@ -25,7 +25,7 @@ class EditUserUseCase(
     private var position: Pair<Position?, Boolean> = Pair(null, false)
     private var phoneNumber: Pair<String?, Boolean> = Pair(null, false)
 
-    val error: Error? = null
+    var error: Error? = null
 
     override fun perfomAction(): Flow<State<Boolean>> {
         return flow<State<Boolean>> {
