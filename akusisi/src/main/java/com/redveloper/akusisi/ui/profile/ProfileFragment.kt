@@ -105,7 +105,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 MenuProfileEnum.EDIT_DATA_USER -> {
                     findNavController().navigate(AkusisiR.id.action_to_edit_profile)
                 }
-                MenuProfileEnum.ABOUT_US -> requireActivity().toast("menu about us")
+                MenuProfileEnum.ABOUT_US -> {
+                    findNavController().navigate(AkusisiR.id.action_to_aboutUs)
+                }
                 MenuProfileEnum.LOG_OUT -> {
                     profileViewModel.logout()
                 }
