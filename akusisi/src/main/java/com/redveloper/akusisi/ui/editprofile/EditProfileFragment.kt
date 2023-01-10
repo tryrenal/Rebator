@@ -1,27 +1,43 @@
 package com.redveloper.akusisi.ui.editprofile
 
+import android.Manifest
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.redveloper.akusisi.databinding.FragmentEditProfileBinding
 import com.redveloper.akusisi.di.Inject
 import com.redveloper.akusisi.ui.AkusisiActivity
 import com.redveloper.akusisi.ui.editprofile.model.EditProfileModel
+import com.redveloper.rebator.R
+import com.redveloper.rebator.design.popup.SingleSelectedPopUp
 import com.redveloper.rebator.domain.entity.Position
 import com.redveloper.rebator.domain.entity.User
 import com.redveloper.rebator.ui.BaseFragment
+import com.redveloper.rebator.ui.camerax.CameraActivity
+import com.redveloper.rebator.utils.askPermission
 import com.redveloper.rebator.utils.image.load
+import com.redveloper.rebator.utils.image.rotateBitmap
+import com.redveloper.rebator.utils.mapper.PositionMapper
 import com.redveloper.rebator.utils.setVisility
 import com.redveloper.rebator.utils.toast
+import id.zelory.compressor.Compressor
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 
 class EditProfileFragment : BaseFragment<FragmentEditProfileBinding>() {
 
     val editViewModel: EditProfileViewModel by viewModel()
 
     fun inject() = Inject.loadKoinModules
+
+    private var fileTemp: File? = null
 
     override fun inflate(
         inflater: LayoutInflater,
@@ -108,9 +124,10 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding>() {
     private fun initialUserData(data: User){
         binding.imgUser.load(data.photoUrl)
         editViewModel.photoUri = data.photoUrl
+
         binding.edtEmail.setText(data.email)
         binding.edtName.setText(data.name)
-        binding.edtPosition.setText(data.position.name)
+        binding.edtPosition.setText(PositionMapper.getValueOfPosition(data.position))
         binding.edtPhoneNumber.setText(data.phoneNumber)
     }
 
@@ -121,6 +138,12 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding>() {
         binding.layoutAppbar.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        binding.imgUser.setOnClickListener {
+            activity?.askPermission(Manifest.permission.CAMERA){
+                CameraActivity.navigate(requireActivity(), CAMERA_RESULT, launchCameraX)
+            }
+        }
     }
 
     private fun submitData(){
@@ -128,10 +151,31 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding>() {
             name = binding.edtName.text.toString(),
             photoUri = editViewModel.photoUri,
             phoneNumber = binding.edtPhoneNumber.text.toString(),
-            position = Position.valueOf(binding.edtPosition.text.toString())
+            position = PositionMapper.getPositionByValue(binding.edtPosition.text.toString())
         )
 
         editViewModel.submit(data)
+    }
+
+    private val launchCameraX = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ){
+        if (it.resultCode == CAMERA_RESULT){
+            lifecycleScope.launch {
+                val file = it.data?.getSerializableExtra("picture") as File
+                val isBackCamera = it.data?.getBooleanExtra("isBackCamera", true) as Boolean
+                fileTemp = Compressor.compress(requireContext(), file)
+                fileTemp?.let {
+                    val result = rotateBitmap(BitmapFactory.decodeFile(it.path), isBackCamera)
+                    binding.imgUser.setImageBitmap(result)
+                    editViewModel.photoUri = Uri.fromFile(it).toString()
+                }
+            }
+        }
+    }
+
+    companion object{
+        private const val CAMERA_RESULT = 234
     }
 
 }

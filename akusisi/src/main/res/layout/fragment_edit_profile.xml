@@ -94,6 +94,7 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:enabled="false"
             android:focusable="false"
             android:id="@+id/edt_position"
             android:inputType="text"
