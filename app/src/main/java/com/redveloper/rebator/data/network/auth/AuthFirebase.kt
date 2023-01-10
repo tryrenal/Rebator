@@ -10,4 +10,5 @@ interface AuthFirebase {
     suspend fun setUser(documentId: String, data: HashMap<String, Any>): Boolean
     suspend fun updateUser(documentId: String, data: HashMap<String, Any>): Boolean
     suspend fun savePhotoUser(documentId: String, uri: Uri): String
+    suspend fun logout()
 }

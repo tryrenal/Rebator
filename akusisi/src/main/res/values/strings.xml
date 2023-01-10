@@ -6,5 +6,6 @@
 
     <string name="edit_data_user">Edit data User</string>
     <string name="about_us">About Us</string>
+    <string name="desc_about_us"><![CDATA[Aplikasi ini dibangun dan diciptakan sebagai aplikasi yang akan membantu pihak Akusisi untuk dapat mengoptimalkan pekerjaannya.<br><br>&copy;Redveloper]]></string>
     <string name="logout">Logout</string>
 </resources>

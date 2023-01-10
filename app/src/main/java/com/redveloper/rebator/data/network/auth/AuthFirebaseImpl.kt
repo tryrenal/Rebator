@@ -106,4 +106,8 @@ class AuthFirebaseImpl (
             }
         }
     }
+
+    override suspend fun logout(){
+        auth.signOut()
+    }
 }

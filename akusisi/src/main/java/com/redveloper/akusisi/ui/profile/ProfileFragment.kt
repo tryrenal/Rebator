@@ -13,6 +13,7 @@ import com.redveloper.akusisi.di.Inject
 import com.redveloper.akusisi.ui.profile.model.MenuProfile
 import com.redveloper.akusisi.ui.profile.model.MenuProfileEnum
 import com.redveloper.rebator.ui.BaseFragment
+import com.redveloper.rebator.ui.login.LoginActivity
 import com.redveloper.rebator.utils.image.load
 import com.redveloper.rebator.utils.setVisility
 import com.redveloper.rebator.utils.toast
@@ -82,6 +83,20 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 requireActivity().toast(it)
             }
         }
+
+        profileViewModel.logoutUserEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let { done ->
+                if (done){
+                    LoginActivity.navigate(activity = requireActivity(), finish = true)
+                }
+            }
+        }
+
+        profileViewModel.errorLogoutEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                requireActivity().toast(it)
+            }
+        }
     }
 
     private fun initClicklistener(){
@@ -90,8 +105,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 MenuProfileEnum.EDIT_DATA_USER -> {
                     findNavController().navigate(AkusisiR.id.action_to_edit_profile)
                 }
-                MenuProfileEnum.ABOUT_US -> requireActivity().toast("menu about us")
-                MenuProfileEnum.LOG_OUT -> requireActivity().toast("menu logout")
+                MenuProfileEnum.ABOUT_US -> {
+                    findNavController().navigate(AkusisiR.id.action_to_aboutUs)
+                }
+                MenuProfileEnum.LOG_OUT -> {
+                    profileViewModel.logout()
+                }
             }
         }
     }

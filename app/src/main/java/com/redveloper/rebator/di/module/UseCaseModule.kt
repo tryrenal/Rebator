@@ -15,4 +15,6 @@ val useCaseModule = module {
 
     single { GetUserUseCase(get(), get(), get()) }
     single { EditUserUseCase(get(), get(), get(), get()) }
+
+    single { LogoutUseCase(get(), get(), get()) }
 }

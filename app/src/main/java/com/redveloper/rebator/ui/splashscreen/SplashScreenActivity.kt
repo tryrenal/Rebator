@@ -68,6 +68,12 @@ class SplashScreenActivity : BaseActivity<ActivitySplashScreenBinding>() {
             }
         }
 
+        splashViewModel.toLoginEvent.observe(this){
+            it.contentIfNotHaveBeenHandle?.let {
+                LoginActivity.navigate(activity = this, finish = true)
+            }
+        }
+
         splashViewModel.errorGetUserEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let {
                 toast(it)

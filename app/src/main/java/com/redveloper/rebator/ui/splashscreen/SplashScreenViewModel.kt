@@ -21,6 +21,7 @@ class SplashScreenViewModel(
     val loadingEvent = MutableLiveData<Event<Boolean>>()
     val errorEvent = MutableLiveData<Event<String>>()
     val toOnBoardingEvent = MutableLiveData<Event<Any>>()
+    val toLoginEvent = MutableLiveData<Event<Any>>()
     val errorGetUserEvent = MutableLiveData<Event<String>>()
     val toUserAkusisiEvent = MutableLiveData<Event<Any>>()
     val toUserInkubasiEvent = MutableLiveData<Event<Any>>()
@@ -51,7 +52,11 @@ class SplashScreenViewModel(
                 }
                 is State.Success -> {
                     loadingEvent.value = Event(false)
-                    getUser()
+                    if (state.data){
+                        getUser()
+                    } else {
+                        toLoginEvent.value = Event(Any())
+                    }
                 }
             }
         }
