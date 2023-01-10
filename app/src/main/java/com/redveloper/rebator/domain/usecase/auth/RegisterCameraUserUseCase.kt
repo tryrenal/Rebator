@@ -2,6 +2,7 @@ package com.redveloper.rebator.domain.usecase.auth
 
 import android.net.Uri
 import com.redveloper.rebator.data.local.preference.UserPreference
+import com.redveloper.rebator.domain.repository.AuthRepository
 import com.redveloper.rebator.domain.repository.UserRepository
 import com.redveloper.rebator.domain.usecase.FlowUseCase
 import com.redveloper.rebator.utils.State
@@ -14,7 +15,7 @@ import java.io.File
 
 class RegisterCameraUserUseCase(
     private val crDispatcher: CrDispatcher,
-    private val userRepository: UserRepository,
+    private val authRepository: AuthRepository,
     private val userPreference: UserPreference
 ): FlowUseCase<State<Boolean>>() {
 
@@ -29,11 +30,11 @@ class RegisterCameraUserUseCase(
             if (photo.second){
                 userPreference.getUserID().collect{ docId ->
                     docId?.let {
-                        val photoUrl = userRepository.setPhotoUser(it, Uri.fromFile(photo.first))
+                        val photoUrl = authRepository.setPhotoUser(it, Uri.fromFile(photo.first))
                         val mapData = hashMapOf<String, Any>(
                             "photoUrl" to photoUrl
                         )
-                        val saveData = userRepository.saveUserData(docId, mapData)
+                        val saveData = authRepository.saveUserData(docId, mapData)
                         emit(State.success(saveData))
                     }
                 }

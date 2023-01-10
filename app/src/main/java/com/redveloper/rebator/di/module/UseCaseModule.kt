@@ -1,6 +1,7 @@
 package com.redveloper.rebator.di.module
 
 import com.redveloper.rebator.domain.usecase.auth.*
+import com.redveloper.rebator.domain.usecase.user.EditUserUseCase
 import com.redveloper.rebator.domain.usecase.user.GetUserUseCase
 import org.koin.dsl.module
 
@@ -13,4 +14,5 @@ val useCaseModule = module {
     single { RegisterInformasiUserUseCase(get(), get(), get()) }
 
     single { GetUserUseCase(get(), get(), get()) }
+    single { EditUserUseCase(get(), get(), get(), get()) }
 }

@@ -1,6 +1,7 @@
 package com.redveloper.rebator.domain.usecase.auth
 
 import com.redveloper.rebator.data.local.preference.UserPreference
+import com.redveloper.rebator.domain.repository.AuthRepository
 import com.redveloper.rebator.domain.repository.UserRepository
 import com.redveloper.rebator.domain.usecase.FlowUseCase
 import com.redveloper.rebator.utils.State
@@ -9,7 +10,7 @@ import kotlinx.coroutines.flow.*
 
 class LoginUseCase(
     private val crDispatcher: CrDispatcher,
-    private val userRepository: UserRepository,
+    private val authRepository: AuthRepository,
     private val userPreference: UserPreference
 ) : FlowUseCase<State<String>>(){
 
@@ -21,7 +22,7 @@ class LoginUseCase(
         return flow<State<String>> {
             if (canExecute()){
                 emit(State.loading())
-                val userUid = userRepository
+                val userUid = authRepository
                     .loginEmail(email = email.first, password = password.first)
                 userUid?.let {
                     userPreference.saveUserID(userUid)

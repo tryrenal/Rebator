@@ -6,7 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.AkusisiActivity">
 
-    <FrameLayout
+    <fragment
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/akusisi_nav_graph"
         android:id="@+id/framelayout"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
         app:layout_constraintTop_toTopOf="parent"

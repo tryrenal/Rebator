@@ -15,6 +15,7 @@ import com.redveloper.rebator.domain.entity.Position
 import com.redveloper.rebator.router.AkusisiRouter
 import com.redveloper.rebator.ui.BaseFragment
 import com.redveloper.rebator.ui.register.informasiuser.model.RegisterInformasiUserModel
+import com.redveloper.rebator.utils.mapper.PositionMapper
 import com.redveloper.rebator.utils.setVisility
 import com.redveloper.rebator.utils.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -60,8 +61,8 @@ class RegisterInformasiUserFragment : BaseFragment<FragmentRegisterInformasiUser
 
     private fun showPositionChoosen(){
         val listData = arrayListOf<Pair<String, String>>(
-            Pair(Position.AKUSISI.name, "Akusisi"),
-            Pair(Position.INKUBASI.name, "Inkubasi"),
+            Pair(Position.AKUSISI.name, PositionMapper.getValueOfPosition(Position.AKUSISI)),
+            Pair(Position.INKUBASI.name, PositionMapper.getValueOfPosition(Position.INKUBASI)),
         )
         val singlePopUp = SingleSelectedPopUp.create(resources.getString(R.string.position), listData)
         singlePopUp.safeShow(childFragmentManager, "single pop up")
