@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.view.menu.MenuAdapter
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.akusisi.databinding.FragmentProfileBinding
 import com.redveloper.akusisi.di.Inject
@@ -86,7 +87,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     private fun initClicklistener(){
         menuAdapter.menuSelected = { menu ->
             when(menu){
-                MenuProfileEnum.EDIT_DATA_USER -> requireActivity().toast("menu edit")
+                MenuProfileEnum.EDIT_DATA_USER -> {
+                    findNavController().navigate(AkusisiR.id.action_to_edit_profile)
+                }
                 MenuProfileEnum.ABOUT_US -> requireActivity().toast("menu about us")
                 MenuProfileEnum.LOG_OUT -> requireActivity().toast("menu logout")
             }

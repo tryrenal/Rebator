@@ -49,6 +49,11 @@ class EditProfileViewModel(
 
     fun submit(data: EditProfileModel){
         viewModelScope.launch {
+            editUserUseCase.setName(data.name)
+            editUserUseCase.setPhoto(data.photoUri)
+            editUserUseCase.setPosition(data.position)
+            editUserUseCase.setPhoneNumber(data.phoneNumber)
+
             editUserUseCase.launch()
             editUserUseCase.resultFlow.collect{ state ->
                 when(state){

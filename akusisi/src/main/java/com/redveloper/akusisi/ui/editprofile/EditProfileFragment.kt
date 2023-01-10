@@ -60,7 +60,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding>() {
 
         editViewModel.successSubmitEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let { done ->
-                AkusisiActivity.navigate(requireActivity(), true)
+                if (done){
+                    findNavController().navigateUp()
+                }
             }
         }
     }
@@ -105,6 +107,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding>() {
 
     private fun initialUserData(data: User){
         binding.imgUser.load(data.photoUrl)
+        editViewModel.photoUri = data.photoUrl
         binding.edtEmail.setText(data.email)
         binding.edtName.setText(data.name)
         binding.edtPosition.setText(data.position.name)
@@ -112,8 +115,11 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding>() {
     }
 
     private fun initClicklistener(){
-        binding.btnLogin.setOnClickListener {
+        binding.btnSave.setOnClickListener {
             submitData()
+        }
+        binding.layoutAppbar.btnBack.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 
