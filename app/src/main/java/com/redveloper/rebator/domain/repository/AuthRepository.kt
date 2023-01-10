@@ -40,4 +40,8 @@ class AuthRepository(
             }
         }.await()
     }
+
+    suspend fun logout(){
+        authFirebase.logout()
+    }
 }
