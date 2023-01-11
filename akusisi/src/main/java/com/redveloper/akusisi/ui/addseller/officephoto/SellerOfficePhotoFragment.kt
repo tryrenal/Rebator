@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.redveloper.akusisi.R
 import com.redveloper.akusisi.databinding.FragmentSellerOfficePhotoBinding
-import com.redveloper.rebator.ui.BaseFragment
+import com.redveloper.akusisi.ui.AkusisiBaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SellerOfficePhotoFragment : BaseFragment<FragmentSellerOfficePhotoBinding>() {
+class SellerOfficePhotoFragment : AkusisiBaseFragment<FragmentSellerOfficePhotoBinding>() {
 
     val sellerViewModel: SellerOfficePhotoViewModel by viewModel()
 

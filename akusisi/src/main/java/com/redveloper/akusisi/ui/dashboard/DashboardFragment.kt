@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.redveloper.akusisi.R
 import com.redveloper.akusisi.databinding.FragmentDashboardBinding
+import com.redveloper.akusisi.ui.AkusisiBaseFragment
 import com.redveloper.rebator.ui.BaseFragment
 
-class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
+class DashboardFragment : AkusisiBaseFragment<FragmentDashboardBinding>() {
+
+    override var bottomNavigationVisibility: Int = View.VISIBLE
 
     override fun inflate(
         inflater: LayoutInflater,

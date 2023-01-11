@@ -14,6 +14,7 @@ import com.redveloper.akusisi.databinding.ActivityAkusisiBinding
 import com.redveloper.akusisi.ui.dashboard.DashboardFragment
 import com.redveloper.akusisi.ui.profile.ProfileFragment
 import com.redveloper.rebator.ui.BaseActivity
+import com.redveloper.rebator.utils.setVisility
 
 class AkusisiActivity : BaseActivity<ActivityAkusisiBinding>() {
 
@@ -34,6 +35,10 @@ class AkusisiActivity : BaseActivity<ActivityAkusisiBinding>() {
 
         navController = Navigation.findNavController(this, R.id.framelayout)
         binding.bottomNavigationView.setupWithNavController(navController)
+    }
+
+    fun setBottomNavigationVisibility(visibility: Int){
+        binding.bottomNavigationView.visibility = visibility
     }
 
     companion object{

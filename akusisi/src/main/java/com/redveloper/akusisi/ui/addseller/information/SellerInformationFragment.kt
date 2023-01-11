@@ -5,20 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.redveloper.akusisi.R
 import com.redveloper.akusisi.databinding.FragmentSellerInformationBinding
-import com.redveloper.akusisi.di.Inject
+import com.redveloper.akusisi.ui.AkusisiBaseFragment
 import com.redveloper.akusisi.ui.addseller.model.AddSellerModel
-import com.redveloper.rebator.ui.BaseFragment
 import com.redveloper.rebator.utils.setVisility
 import com.redveloper.rebator.utils.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SellerInformationFragment : BaseFragment<FragmentSellerInformationBinding>() {
+class SellerInformationFragment : AkusisiBaseFragment<FragmentSellerInformationBinding>() {
 
     val sellerViewModel: SellerInformationViewModel by viewModel()
-
-    fun inject() = Inject.loadKoinModules
 
     override fun inflate(
         inflater: LayoutInflater,

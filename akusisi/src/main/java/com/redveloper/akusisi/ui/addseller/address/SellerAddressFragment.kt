@@ -9,16 +9,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.redveloper.akusisi.R
 import com.redveloper.akusisi.databinding.FragmentSellerAddressBinding
-import com.redveloper.akusisi.di.Inject
+import com.redveloper.akusisi.ui.AkusisiBaseFragment
 import com.redveloper.akusisi.ui.addseller.model.AddSellerModel
-import com.redveloper.rebator.ui.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class SellerAddressFragment : BaseFragment<FragmentSellerAddressBinding>() {
+class SellerAddressFragment : AkusisiBaseFragment<FragmentSellerAddressBinding>() {
 
     val sellerViewModel: SellerAddressViewModel by viewModel()
-    fun inject() = Inject.loadKoinModules
 
     val args by navArgs<SellerAddressFragmentArgs>()
 

@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.redveloper.akusisi.databinding.FragmentEditProfileBinding
 import com.redveloper.akusisi.di.Inject
 import com.redveloper.akusisi.ui.AkusisiActivity
+import com.redveloper.akusisi.ui.AkusisiBaseFragment
 import com.redveloper.akusisi.ui.editprofile.model.EditProfileModel
 import com.redveloper.rebator.R
 import com.redveloper.rebator.design.popup.SingleSelectedPopUp
@@ -31,11 +32,9 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
-class EditProfileFragment : BaseFragment<FragmentEditProfileBinding>() {
+class EditProfileFragment : AkusisiBaseFragment<FragmentEditProfileBinding>() {
 
     val editViewModel: EditProfileViewModel by viewModel()
-
-    fun inject() = Inject.loadKoinModules
 
     private var fileTemp: File? = null
 
@@ -46,10 +45,8 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding>() {
         return FragmentEditProfileBinding.inflate(inflater, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        inject()
         initView()
         initClicklistener()
         initObserver()

@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.redveloper.akusisi.databinding.FragmentSellerContactBinding
-import com.redveloper.rebator.ui.BaseFragment
+import com.redveloper.akusisi.ui.AkusisiBaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SellerContactFragment : BaseFragment<FragmentSellerContactBinding>() {
+class SellerContactFragment : AkusisiBaseFragment<FragmentSellerContactBinding>() {
 
     val sellerViewModel: SellerContactViewModel by viewModel()
 

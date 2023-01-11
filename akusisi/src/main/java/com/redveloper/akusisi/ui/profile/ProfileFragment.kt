@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.akusisi.databinding.FragmentProfileBinding
 import com.redveloper.akusisi.di.Inject
+import com.redveloper.akusisi.ui.AkusisiBaseFragment
 import com.redveloper.akusisi.ui.profile.model.MenuProfile
 import com.redveloper.akusisi.ui.profile.model.MenuProfileEnum
 import com.redveloper.rebator.ui.BaseFragment
@@ -21,11 +22,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.redveloper.rebator.R as AppR
 import com.redveloper.akusisi.R as AkusisiR
 
-class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
+class ProfileFragment : AkusisiBaseFragment<FragmentProfileBinding>() {
 
     val profileViewModel: ProfileViewModel by viewModel()
 
-    fun inject() = Inject.loadKoinModules
+    override var bottomNavigationVisibility: Int = View.VISIBLE
 
     private lateinit var menuAdapter: AdapterMenuProfile
 
