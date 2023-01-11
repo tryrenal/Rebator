@@ -8,8 +8,11 @@ import androidx.navigation.fragment.findNavController
 import com.redveloper.akusisi.R
 import com.redveloper.akusisi.databinding.FragmentSellerOfficePhotoBinding
 import com.redveloper.rebator.ui.BaseFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SellerOfficePhotoFragment : BaseFragment<FragmentSellerOfficePhotoBinding>() {
+
+    val sellerViewModel: SellerOfficePhotoViewModel by viewModel()
 
     override fun inflate(
         inflater: LayoutInflater,

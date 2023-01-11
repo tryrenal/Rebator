@@ -37,6 +37,8 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:focusable="false"
+            android:enabled="false"
             android:id="@+id/edt_akusisi"
             android:inputType="text"
             android:layout_width="match_parent"

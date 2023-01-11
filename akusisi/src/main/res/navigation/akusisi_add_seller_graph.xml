@@ -22,6 +22,11 @@
         <action
             android:id="@+id/action_to_seller_photo"
             app:destination="@id/sellerOfficePhotoFragment" />
+        <argument
+            android:name="addSellerModel"
+            app:argType="com.redveloper.akusisi.ui.addseller.model.AddSellerModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/sellerOfficePhotoFragment"
@@ -31,10 +36,21 @@
         <action
             android:id="@+id/action_to_seller_contact"
             app:destination="@id/sellerContactFragment" />
+        <argument
+            android:name="addSellerModel"
+            app:argType="com.redveloper.akusisi.ui.addseller.model.AddSellerModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/sellerContactFragment"
         android:name="com.redveloper.akusisi.ui.addseller.contact.SellerContactFragment"
         android:label="fragment_seller_contact"
-        tools:layout="@layout/fragment_seller_contact" />
+        tools:layout="@layout/fragment_seller_contact" >
+        <argument
+            android:name="addSellerModel"
+            app:argType="com.redveloper.akusisi.ui.addseller.model.AddSellerModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

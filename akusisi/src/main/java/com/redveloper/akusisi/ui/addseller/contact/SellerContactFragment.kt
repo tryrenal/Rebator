@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.redveloper.akusisi.databinding.FragmentSellerContactBinding
 import com.redveloper.rebator.ui.BaseFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SellerContactFragment : BaseFragment<FragmentSellerContactBinding>() {
+
+    val sellerViewModel: SellerContactViewModel by viewModel()
 
     override fun inflate(
         inflater: LayoutInflater,
