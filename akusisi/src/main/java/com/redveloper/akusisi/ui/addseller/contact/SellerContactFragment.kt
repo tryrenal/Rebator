@@ -1,11 +1,10 @@
-package com.redveloper.akusisi.ui.seller.contact
+package com.redveloper.akusisi.ui.addseller.contact
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.redveloper.akusisi.R
+import androidx.navigation.fragment.findNavController
 import com.redveloper.akusisi.databinding.FragmentSellerContactBinding
 import com.redveloper.rebator.ui.BaseFragment
 
@@ -20,7 +19,9 @@ class SellerContactFragment : BaseFragment<FragmentSellerContactBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.layoutAppbar.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
 

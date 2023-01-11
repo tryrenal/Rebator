@@ -9,6 +9,10 @@
         <entry key="akusisi/src/main/res/layout/fragment_dashboard.xml" value="0.353713768115942" />
         <entry key="akusisi/src/main/res/layout/fragment_edit_profile.xml" value="0.25" />
         <entry key="akusisi/src/main/res/layout/fragment_profile.xml" value="0.353713768115942" />
+        <entry key="akusisi/src/main/res/layout/fragment_seller_address.xml" value="0.33" />
+        <entry key="akusisi/src/main/res/layout/fragment_seller_contact.xml" value="0.353713768115942" />
+        <entry key="akusisi/src/main/res/layout/fragment_seller_information.xml" value="0.353713768115942" />
+        <entry key="akusisi/src/main/res/layout/fragment_seller_office_photo.xml" value="0.353713768115942" />
         <entry key="akusisi/src/main/res/layout/layout_appbar.xml" value="0.353713768115942" />
         <entry key="akusisi/src/main/res/menu/bottom_navigation.xml" value="0.35625" />
         <entry key="app/src/main/res/drawable/bg_button_disable.xml" value="0.2585" />
