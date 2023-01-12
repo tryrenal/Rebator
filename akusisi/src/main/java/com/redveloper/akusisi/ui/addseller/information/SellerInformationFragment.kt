@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.redveloper.akusisi.databinding.FragmentSellerInformationBinding
 import com.redveloper.akusisi.ui.AkusisiBaseFragment
 import com.redveloper.akusisi.ui.addseller.model.AddSellerModel
+import com.redveloper.rebator.utils.safeNavigate
 import com.redveloper.rebator.utils.setVisility
 import com.redveloper.rebator.utils.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -73,7 +74,7 @@ class SellerInformationFragment : AkusisiBaseFragment<FragmentSellerInformationB
             it.contentIfNotHaveBeenHandle?.let { data ->
                 val action = SellerInformationFragmentDirections.actionToSellerAddress(
                     addSellerModel = data)
-                findNavController().navigate(action)
+                findNavController().safeNavigate(action)
             }
         }
     }

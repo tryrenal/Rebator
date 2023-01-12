@@ -11,6 +11,7 @@ import com.redveloper.akusisi.R
 import com.redveloper.akusisi.databinding.FragmentSellerAddressBinding
 import com.redveloper.akusisi.ui.AkusisiBaseFragment
 import com.redveloper.akusisi.ui.addseller.model.AddSellerModel
+import com.redveloper.rebator.utils.safeNavigate
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -54,7 +55,7 @@ class SellerAddressFragment : AkusisiBaseFragment<FragmentSellerAddressBinding>(
         }
 
         binding.btnSave.setOnClickListener {
-            findNavController().navigate(R.id.action_to_seller_photo)
+            findNavController().safeNavigate(SellerAddressFragmentDirections.actionToSellerPhoto())
         }
     }
 }
