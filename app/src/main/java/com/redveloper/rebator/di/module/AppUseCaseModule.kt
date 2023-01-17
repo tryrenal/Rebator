@@ -1,11 +1,12 @@
 package com.redveloper.rebator.di.module
 
+import com.redveloper.rebator.domain.usecase.address.GetProvinceUseCase
 import com.redveloper.rebator.domain.usecase.auth.*
 import com.redveloper.rebator.domain.usecase.user.EditUserUseCase
 import com.redveloper.rebator.domain.usecase.user.GetUserUseCase
 import org.koin.dsl.module
 
-val useCaseModule = module {
+val appUseCaseModule = module {
     single { CheckLoginUseCase(get(), get()) }
     single { LoginUseCase(get(), get(), get()) }
     //register
@@ -17,4 +18,7 @@ val useCaseModule = module {
     single { EditUserUseCase(get(), get(), get(), get()) }
 
     single { LogoutUseCase(get(), get(), get()) }
+
+    //master address
+    single { GetProvinceUseCase(get(), get()) }
 }
