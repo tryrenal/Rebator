@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.redveloper.rebator.domain.entity.KeyValue
 import com.redveloper.rebator.domain.usecase.address.GetCitysUseCase
+import com.redveloper.rebator.domain.usecase.address.GetDistrictUseCase
 import com.redveloper.rebator.domain.usecase.address.GetProvinceUseCase
 import com.redveloper.rebator.utils.Event
 import com.redveloper.rebator.utils.State
@@ -11,7 +12,8 @@ import kotlinx.coroutines.flow.collect
 
 class SellerAddressViewModel(
     private val getProvinceUseCase: GetProvinceUseCase,
-    private val getCitysUseCase: GetCitysUseCase
+    private val getCitysUseCase: GetCitysUseCase,
+    private val getDistrictUseCase: GetDistrictUseCase
 ) : ViewModel() {
 
     val loadingEvent = MutableLiveData<Event<Boolean>>()
@@ -21,6 +23,8 @@ class SellerAddressViewModel(
     var provinceSelected : Pair<Int, String>? = null
     val listCity = MutableLiveData<Event<List<KeyValue>>>()
     var citySelected: Pair<Int, String>? = null
+    val listDistrict = MutableLiveData<Event<List<KeyValue>>>()
+    var districtSelected: Pair<Int, String>? = null
 
     suspend fun getProvinces(){
         getProvinceUseCase.launch()
@@ -40,8 +44,8 @@ class SellerAddressViewModel(
         }
     }
 
-    suspend fun getCitys(){
-        getCitysUseCase.setIdProvince(provinceSelected?.first)
+    suspend fun getCitys(idProvince: Int){
+        getCitysUseCase.setIdProvince(idProvince)
         getCitysUseCase.launch()
 
         getCitysUseCase.resultFlow.collect{ state ->
@@ -58,4 +62,25 @@ class SellerAddressViewModel(
             }
         }
     }
+
+    suspend fun getDistrict(idCity: Int){
+        getDistrictUseCase.setIdCity(idCity)
+        getDistrictUseCase.launch()
+
+        getDistrictUseCase.resultFlow.collect{ state ->
+            when(state){
+                is State.Loading -> loadingEvent.value = Event(true)
+                is State.Failed  -> {
+                    loadingEvent.value = Event(false)
+                    errorAddress.value = Event(state.message)
+                }
+                is State.Success -> {
+                    loadingEvent.value = Event(false)
+                    listDistrict.value = Event(state.data)
+                }
+            }
+        }
+    }
+
+
 }

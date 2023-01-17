@@ -22,4 +22,10 @@ class MasterRepository(
             addressApi.getCitys(idProvince)
         }.await()
     }
+
+    suspend fun getDistricts(idCity: Int): List<KeyValue>{
+        return CoroutineScope(crDispatcher.network()).async {
+            addressApi.getDistrict(idCity)
+        }.await()
+    }
 }
