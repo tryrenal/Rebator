@@ -8,7 +8,7 @@ import org.koin.dsl.module
 
 val useCaseModule = module {
     single { SetSellerAddressUseCase(get(), get()) }
-    single { SetSellerContactUseCase() }
+    single { SetSellerContactUseCase(get(), get()) }
     single { SetSellerInformationUseCase(get(), get()) }
     single { SetSellerOfficePhotoUseCase(get(), get()) }
 }

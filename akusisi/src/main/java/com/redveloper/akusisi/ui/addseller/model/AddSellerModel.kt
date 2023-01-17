@@ -16,6 +16,7 @@ data class AddSellerModel(
     var officeDistrictId: Int? = null,
     var officeDistrictName: String? = null,
     var officePhoto: Uri? = null,
+    var officePhotoUrl: String? = null,
     var sellerName: String? = null,
     var sellerPhoneNumber: String? = null,
 ): Serializable
