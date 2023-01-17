@@ -27,8 +27,6 @@ class SellerAddressFragment : AkusisiBaseFragment<FragmentSellerAddressBinding>(
 
     val args by navArgs<SellerAddressFragmentArgs>()
 
-    var addSellerModel: AddSellerModel = AddSellerModel()
-
     override fun inflate(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -46,7 +44,7 @@ class SellerAddressFragment : AkusisiBaseFragment<FragmentSellerAddressBinding>(
 
     private fun initView(){
         args.addSellerModel?.let {
-            addSellerModel = it
+            sellerViewModel.addSellerModel = it
         }
     }
 
@@ -61,7 +59,7 @@ class SellerAddressFragment : AkusisiBaseFragment<FragmentSellerAddressBinding>(
 
         sellerViewModel.successSubmitEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
-                findNavController().navigate(SellerAddressFragmentDirections.actionToSellerPhoto(addSellerModel))
+                findNavController().navigate(SellerAddressFragmentDirections.actionToSellerPhoto(it))
             }
         }
 

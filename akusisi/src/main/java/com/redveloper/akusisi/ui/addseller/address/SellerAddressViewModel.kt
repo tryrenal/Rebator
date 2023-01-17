@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.redveloper.akusisi.domain.usecase.addseller.SetSellerAddressUseCase
+import com.redveloper.akusisi.ui.addseller.model.AddSellerModel
 import com.redveloper.rebator.domain.usecase.address.GetCitysUseCase
 import com.redveloper.rebator.domain.usecase.address.GetDistrictUseCase
 import com.redveloper.rebator.domain.usecase.address.GetProvinceUseCase
@@ -35,9 +36,12 @@ class SellerAddressViewModel(
         )
     }
 
+    var addSellerModel: AddSellerModel? = null
+        set(value) {field = value}
+
     val loadingEvent = MutableLiveData<Event<Boolean>>()
     val errorAddress = MutableLiveData<Event<String>>()
-    val successSubmitEvent = MutableLiveData<Event<Any>>()
+    val successSubmitEvent = MutableLiveData<Event<AddSellerModel>>()
 
     val listProvince = MutableLiveData<Event<List<Pair<String, String>>>>()
     var provinceSelected : Pair<Int, String>? = null
@@ -128,7 +132,17 @@ class SellerAddressViewModel(
                     }
                     is State.Success -> {
                         loadingEvent.value = Event(false)
-                        successSubmitEvent.value = Event(state.data)
+
+                        val newAddresSellerModel = addSellerModel ?: AddSellerModel()
+                        newAddresSellerModel.officeAddress = address
+                        newAddresSellerModel.officeProvinceId = provinceSelected?.first
+                        newAddresSellerModel.officeProvinceName = provinceSelected?.second
+                        newAddresSellerModel.officeCityId = citySelected?.first
+                        newAddresSellerModel.officeCityName = citySelected?.second
+                        newAddresSellerModel.officeDistrictId = districtSelected?.first
+                        newAddresSellerModel.officeDistrictName = districtSelected?.second
+
+                        successSubmitEvent.value = Event(newAddresSellerModel)
                     }
                 }
             }
