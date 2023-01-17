@@ -16,4 +16,10 @@ class MasterRepository(
             addressApi.getProvince()
         }.await()
     }
+
+    suspend fun getCitys(idProvince: Int): List<KeyValue>{
+        return CoroutineScope(crDispatcher.network()).async {
+            addressApi.getCitys(idProvince)
+        }.await()
+    }
 }

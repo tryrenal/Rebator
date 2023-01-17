@@ -11,4 +11,10 @@ class AddressApiServiceImpl(
             KeyValue(key = it.id.toString(), value = it.nama)
         }
     }
+
+    override suspend fun getCitys(idProvince: Int): List<KeyValue> {
+        return addressApi.getCitys(idProvince).citys.map {
+            KeyValue(key = it.id.toString(), value = it.name)
+        }
+    }
 }

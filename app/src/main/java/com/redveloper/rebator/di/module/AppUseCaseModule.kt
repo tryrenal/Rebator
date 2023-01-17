@@ -1,5 +1,6 @@
 package com.redveloper.rebator.di.module
 
+import com.redveloper.rebator.domain.usecase.address.GetCitysUseCase
 import com.redveloper.rebator.domain.usecase.address.GetProvinceUseCase
 import com.redveloper.rebator.domain.usecase.auth.*
 import com.redveloper.rebator.domain.usecase.user.EditUserUseCase
@@ -21,4 +22,5 @@ val appUseCaseModule = module {
 
     //master address
     single { GetProvinceUseCase(get(), get()) }
+    single { GetCitysUseCase(get(), get()) }
 }

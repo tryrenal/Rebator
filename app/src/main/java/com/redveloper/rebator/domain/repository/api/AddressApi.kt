@@ -4,4 +4,5 @@ import com.redveloper.rebator.domain.entity.KeyValue
 
 interface AddressApi{
     suspend fun getProvince(): List<KeyValue>
+    suspend fun getCitys(idProvince: Int): List<KeyValue>
 }
