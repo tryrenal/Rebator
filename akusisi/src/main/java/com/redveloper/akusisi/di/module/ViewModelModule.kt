@@ -18,6 +18,6 @@ val viewModelModule = module {
     //add seller
     viewModel { SellerInformationViewModel(get(), get()) }
     viewModel{ SellerAddressViewModel(get(), get(), get(), get()) }
-    viewModel { SellerOfficePhotoViewModel() }
+    viewModel { SellerOfficePhotoViewModel(get()) }
     viewModel { SellerContactViewModel() }
 }

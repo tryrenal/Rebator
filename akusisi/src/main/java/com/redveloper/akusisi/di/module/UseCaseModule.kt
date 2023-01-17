@@ -10,5 +10,5 @@ val useCaseModule = module {
     single { SetSellerAddressUseCase(get(), get()) }
     single { SetSellerContactUseCase() }
     single { SetSellerInformationUseCase(get(), get()) }
-    single { SetSellerOfficePhotoUseCase() }
+    single { SetSellerOfficePhotoUseCase(get(), get()) }
 }
