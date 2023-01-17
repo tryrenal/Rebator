@@ -2,29 +2,54 @@ package com.redveloper.akusisi.ui.addseller.address
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.redveloper.rebator.domain.entity.KeyValue
+import androidx.lifecycle.viewModelScope
+import com.redveloper.akusisi.domain.usecase.addseller.SetSellerAddressUseCase
 import com.redveloper.rebator.domain.usecase.address.GetCitysUseCase
 import com.redveloper.rebator.domain.usecase.address.GetDistrictUseCase
 import com.redveloper.rebator.domain.usecase.address.GetProvinceUseCase
 import com.redveloper.rebator.utils.Event
 import com.redveloper.rebator.utils.State
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class SellerAddressViewModel(
     private val getProvinceUseCase: GetProvinceUseCase,
     private val getCitysUseCase: GetCitysUseCase,
-    private val getDistrictUseCase: GetDistrictUseCase
+    private val getDistrictUseCase: GetDistrictUseCase,
+    private val setSellerAddressUseCase: SetSellerAddressUseCase
 ) : ViewModel() {
+
+    init {
+        setSellerAddressUseCase.error = SetSellerAddressUseCase.Error(
+            errorAddress = {
+                errorAddressEvent.value = Event(it)
+            },
+            errorProvince = {
+                errorProvinceEvent.value = Event(it)
+            },
+            errorCity = {
+                errorCityEvent.value = Event(it)
+            },
+            errorDistrict = {
+                errorDistrictEvent.value = Event(it)
+            }
+        )
+    }
 
     val loadingEvent = MutableLiveData<Event<Boolean>>()
     val errorAddress = MutableLiveData<Event<String>>()
+    val successSubmitEvent = MutableLiveData<Event<Any>>()
 
-    val listProvince = MutableLiveData<Event<List<KeyValue>>>()
+    val listProvince = MutableLiveData<Event<List<Pair<String, String>>>>()
     var provinceSelected : Pair<Int, String>? = null
-    val listCity = MutableLiveData<Event<List<KeyValue>>>()
+    val listCity = MutableLiveData<Event<List<Pair<String, String>>>>()
     var citySelected: Pair<Int, String>? = null
-    val listDistrict = MutableLiveData<Event<List<KeyValue>>>()
+    val listDistrict = MutableLiveData<Event<List<Pair<String, String>>>>()
     var districtSelected: Pair<Int, String>? = null
+
+    val errorAddressEvent = MutableLiveData<Event<String>>()
+    val errorProvinceEvent = MutableLiveData<Event<String>>()
+    val errorCityEvent = MutableLiveData<Event<String>>()
+    val errorDistrictEvent = MutableLiveData<Event<String>>()
 
     suspend fun getProvinces(){
         getProvinceUseCase.launch()
@@ -38,13 +63,14 @@ class SellerAddressViewModel(
                 }
                 is State.Success -> {
                     loadingEvent.value = Event(false)
-                    listProvince.value = Event(state.data)
+                    val data: List<Pair<String, String>> = state.data.map { Pair(it.key?: "", it.value?: "") }
+                    listProvince.value = Event(data)
                 }
             }
         }
     }
 
-    suspend fun getCitys(idProvince: Int){
+    suspend fun getCitys(idProvince: Int?){
         getCitysUseCase.setIdProvince(idProvince)
         getCitysUseCase.launch()
 
@@ -57,13 +83,14 @@ class SellerAddressViewModel(
                 }
                 is State.Success -> {
                     loadingEvent.value = Event(false)
-                    listCity.value = Event(state.data)
+                    val data: List<Pair<String, String>> = state.data.map { Pair(it.key?: "", it.value?: "") }
+                    listCity.value = Event(data)
                 }
             }
         }
     }
 
-    suspend fun getDistrict(idCity: Int){
+    suspend fun getDistrict(idCity: Int?){
         getDistrictUseCase.setIdCity(idCity)
         getDistrictUseCase.launch()
 
@@ -76,11 +103,36 @@ class SellerAddressViewModel(
                 }
                 is State.Success -> {
                     loadingEvent.value = Event(false)
-                    listDistrict.value = Event(state.data)
+                    val data: List<Pair<String, String>> = state.data.map { Pair(it.key?: "", it.value?: "") }
+                    listDistrict.value = Event(data)
                 }
             }
         }
     }
 
+    fun submit(address: String?){
+        viewModelScope.launch {
+            setSellerAddressUseCase.setAddress(address)
+            setSellerAddressUseCase.setProvince(provinceSelected?.first, provinceSelected?.second)
+            setSellerAddressUseCase.setCity(citySelected?.first, citySelected?.second)
+            setSellerAddressUseCase.setDistrict(districtSelected?.first, districtSelected?.second)
+
+            setSellerAddressUseCase.launch()
+
+            setSellerAddressUseCase.resultFlow.collect{ state ->
+                when(state){
+                    is State.Loading -> loadingEvent.value = Event(true)
+                    is State.Failed -> {
+                        loadingEvent.value = Event(false)
+                        errorAddress.value = Event(state.message)
+                    }
+                    is State.Success -> {
+                        loadingEvent.value = Event(false)
+                        successSubmitEvent.value = Event(state.data)
+                    }
+                }
+            }
+        }
+    }
 
 }

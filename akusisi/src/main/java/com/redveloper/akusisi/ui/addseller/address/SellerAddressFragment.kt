@@ -12,11 +12,13 @@ import com.redveloper.akusisi.R
 import com.redveloper.akusisi.databinding.FragmentSellerAddressBinding
 import com.redveloper.akusisi.ui.AkusisiBaseFragment
 import com.redveloper.akusisi.ui.addseller.model.AddSellerModel
+import com.redveloper.rebator.design.popup.SingleSelectedPopUp
 import com.redveloper.rebator.utils.safeNavigate
 import com.redveloper.rebator.utils.setVisility
 import com.redveloper.rebator.utils.toast
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.redveloper.rebator.R as AppR
 
 
 class SellerAddressFragment : AkusisiBaseFragment<FragmentSellerAddressBinding>() {
@@ -25,7 +27,7 @@ class SellerAddressFragment : AkusisiBaseFragment<FragmentSellerAddressBinding>(
 
     val args by navArgs<SellerAddressFragmentArgs>()
 
-    lateinit var addSellerModel: AddSellerModel
+    var addSellerModel: AddSellerModel = AddSellerModel()
 
     override fun inflate(
         inflater: LayoutInflater,
@@ -45,30 +47,74 @@ class SellerAddressFragment : AkusisiBaseFragment<FragmentSellerAddressBinding>(
     private fun initView(){
         args.addSellerModel?.let {
             addSellerModel = it
-            Log.i("dataSeller", addSellerModel.toString())
-        }
-
-        lifecycleScope.launch {
-            sellerViewModel.getProvinces()
         }
     }
 
     private fun initObserver(){
+        observerError()
+        observerArea()
         sellerViewModel.loadingEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
                 binding.progressBar.setVisility(it)
             }
         }
 
+        sellerViewModel.successSubmitEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                findNavController().navigate(SellerAddressFragmentDirections.actionToSellerPhoto(addSellerModel))
+            }
+        }
+
+    }
+
+    private fun observerError(){
         sellerViewModel.errorAddress.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
                 requireActivity().toast(it)
             }
         }
 
+        sellerViewModel.errorAddressEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                binding.edtAddress.error = it
+            }
+        }
+
+        sellerViewModel.errorProvinceEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                binding.edtProvince.error = it
+            }
+        }
+
+        sellerViewModel.errorCityEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                binding.edtCity.error = it
+            }
+        }
+
+        sellerViewModel.errorDistrictEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                binding.edtDistrict.error = it
+            }
+        }
+    }
+
+    private fun observerArea(){
         sellerViewModel.listProvince.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
-                Log.i("dataProvince", it.toString())
+                showListProvince(it as ArrayList<Pair<String, String>>)
+            }
+        }
+
+        sellerViewModel.listCity.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                showListCity(it as ArrayList<Pair<String, String>>)
+            }
+        }
+
+        sellerViewModel.listDistrict.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                showListDistrict(it as ArrayList<Pair<String, String>>)
             }
         }
     }
@@ -79,7 +125,62 @@ class SellerAddressFragment : AkusisiBaseFragment<FragmentSellerAddressBinding>(
         }
 
         binding.btnSave.setOnClickListener {
-            findNavController().safeNavigate(SellerAddressFragmentDirections.actionToSellerPhoto())
+            sellerViewModel.submit(
+                address = binding.edtAddress.text.toString()
+            )
+        }
+
+        binding.edtProvince.setOnClickListener {
+            lifecycleScope.launch{
+                sellerViewModel.getProvinces()
+            }
+        }
+
+        binding.edtCity.setOnClickListener {
+            lifecycleScope.launch{
+                val provinceId = sellerViewModel.provinceSelected?.first
+                sellerViewModel.getCitys(provinceId)
+            }
+        }
+
+        binding.edtDistrict.setOnClickListener {
+            lifecycleScope.launch {
+                val cityId = sellerViewModel.citySelected?.first
+                sellerViewModel.getDistrict(cityId)
+            }
+        }
+    }
+
+    private fun showListProvince(datas: ArrayList<Pair<String, String>>){
+        val provincePopUp = SingleSelectedPopUp.create(resources.getString(AppR.string.province), datas)
+        provincePopUp.safeShow(childFragmentManager, "province pop up")
+        provincePopUp.listener = object : SingleSelectedPopUp.Listener{
+            override fun itemChoose(item: Pair<String, String>) {
+                sellerViewModel.provinceSelected = Pair(item.first.toInt(), item.second)
+                binding.edtProvince.setText(item.second)
+            }
+        }
+    }
+
+    private fun showListCity(datas: ArrayList<Pair<String, String>>){
+        val cityPopUp = SingleSelectedPopUp.create(resources.getString(AppR.string.city), datas)
+        cityPopUp.safeShow(childFragmentManager, "city pop up")
+        cityPopUp.listener = object : SingleSelectedPopUp.Listener{
+            override fun itemChoose(item: Pair<String, String>) {
+                sellerViewModel.citySelected = Pair(item.first.toInt(), item.second)
+                binding.edtCity.setText(item.second)
+            }
+        }
+    }
+
+    private fun showListDistrict(datas: ArrayList<Pair<String, String>>){
+        val districtPopUp = SingleSelectedPopUp.create(resources.getString(AppR.string.district), datas)
+        districtPopUp.safeShow(childFragmentManager, "district pop up")
+        districtPopUp.listener = object : SingleSelectedPopUp.Listener{
+            override fun itemChoose(item: Pair<String, String>) {
+                sellerViewModel.districtSelected = Pair(item.first.toInt(), item.second)
+                binding.edtDistrict.setText(item.second)
+            }
         }
     }
 }
