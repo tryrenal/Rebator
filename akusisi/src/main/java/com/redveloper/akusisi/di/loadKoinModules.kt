@@ -1,9 +1,21 @@
 package com.redveloper.akusisi.di
 
+import com.redveloper.akusisi.di.module.networkModule
+import com.redveloper.akusisi.di.module.repositoryModule
+import com.redveloper.akusisi.di.module.useCaseModule
+import com.redveloper.rebator.di.module.appUseCaseModule
 import org.koin.core.context.loadKoinModules
 
 object Inject {
     val loadKoinModules by lazy {
-        loadKoinModules(viewModelModule)
+        loadKoinModules(
+            listOf(
+                viewModelModule,
+                networkModule,
+                useCaseModule,
+                repositoryModule,
+                appUseCaseModule
+            )
+        )
     }
 }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/akusisi_add_seller_graph"
+    app:startDestination="@id/sellerInformationFragment">
+
+    <fragment
+        android:id="@+id/sellerInformationFragment"
+        android:name="com.redveloper.akusisi.ui.addseller.information.SellerInformationFragment"
+        android:label="fragment_seller_information"
+        tools:layout="@layout/fragment_seller_information" >
+        <action
+            android:id="@+id/action_to_seller_address"
+            app:destination="@id/sellerAddressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sellerAddressFragment"
+        android:name="com.redveloper.akusisi.ui.addseller.address.SellerAddressFragment"
+        android:label="fragment_seller_address"
+        tools:layout="@layout/fragment_seller_address" >
+        <action
+            android:id="@+id/action_to_seller_photo"
+            app:destination="@id/sellerOfficePhotoFragment" />
+        <argument
+            android:name="addSellerModel"
+            app:argType="com.redveloper.akusisi.ui.addseller.model.AddSellerModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/sellerOfficePhotoFragment"
+        android:name="com.redveloper.akusisi.ui.addseller.officephoto.SellerOfficePhotoFragment"
+        android:label="fragment_seller_office_photo"
+        tools:layout="@layout/fragment_seller_office_photo" >
+        <action
+            android:id="@+id/action_to_seller_contact"
+            app:destination="@id/sellerContactFragment" />
+        <argument
+            android:name="addSellerModel"
+            app:argType="com.redveloper.akusisi.ui.addseller.model.AddSellerModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/sellerContactFragment"
+        android:name="com.redveloper.akusisi.ui.addseller.contact.SellerContactFragment"
+        android:label="fragment_seller_contact"
+        tools:layout="@layout/fragment_seller_contact" >
+        <argument
+            android:name="addSellerModel"
+            app:argType="com.redveloper.akusisi.ui.addseller.model.AddSellerModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+</navigation>

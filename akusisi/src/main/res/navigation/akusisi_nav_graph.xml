@@ -9,7 +9,11 @@
         android:id="@+id/menu_home"
         android:name="com.redveloper.akusisi.ui.dashboard.DashboardFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_to_add_seller"
+            app:destination="@id/akusisi_add_seller_graph" />
+    </fragment>
     <fragment
         android:id="@+id/menu_profile"
         android:name="com.redveloper.akusisi.ui.profile.ProfileFragment"
@@ -33,4 +37,7 @@
         android:name="com.redveloper.akusisi.ui.aboutus.AboutUsFragment"
         android:label="fragment_about_us"
         tools:layout="@layout/fragment_about_us" />
+
+    <include app:graph="@navigation/akusisi_add_seller_graph" />
+
 </navigation>

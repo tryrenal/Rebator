@@ -20,8 +20,9 @@ class MyApplication : MultiDexApplication() {
                 repositoryModule,
                 viewModelModule,
                 networkModule,
-                useCaseModule,
-                preferenceModule
+                appUseCaseModule,
+                preferenceModule,
+                retrofitModule("https://dev.farizdotid.com/api/daerahindonesia/")
             )
         }
     }

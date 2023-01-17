@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.addseller.officephoto.SellerOfficePhotoFragment">
+
+    <include
+        android:id="@+id/layout_appbar"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        layout="@layout/layout_akusisi_appbar"/>
+
+    <TextView
+        android:layout_marginTop="50dp"
+        android:id="@+id/tv_photo"
+        android:textSize="25sp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toBottomOf="@id/layout_appbar"
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/black"
+        android:text="@string/office_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/tv_tips_photo"
+        android:textSize="12sp"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_photo"
+        android:fontFamily="@font/poppins_thin"
+        android:textColor="@color/black"
+        android:text="@string/tips_office_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/img_office_photo"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_image"
+        android:background="@drawable/bg_image_choose"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_tips_photo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        tools:ignore="ContentDescription" />
+
+    <androidx.constraintlayout.widget.Guideline
+        app:layout_constraintGuide_percent="0.5"
+        android:id="@+id/gd_vertical"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_save"
+        android:background="@drawable/selector_button"
+        android:layout_marginEnd="20dp"
+        android:textAllCaps="false"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/img_office_photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gd_vertical"
+        android:layout_width="0dp"
+        android:layout_height="50dp"/>
+
+    <ProgressBar
+        android:visibility="gone"
+        android:indeterminateTint="@color/pink"
+        android:id="@+id/progress_bar"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

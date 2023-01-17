@@ -12,7 +12,6 @@ abstract class BaseActivity<T: ViewBinding> : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         binding = inflate()
         setContentView(binding.root)
-
     }
 
     abstract fun inflate(): T
