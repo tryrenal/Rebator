@@ -15,6 +15,7 @@ import com.redveloper.rebator.R
 import com.redveloper.rebator.design.popup.SingleSelectedPopUp
 import com.redveloper.rebator.domain.entity.Gender
 import com.redveloper.rebator.domain.entity.Position
+import com.redveloper.rebator.utils.date.DateUtils
 import com.redveloper.rebator.utils.mapper.GenderMapper
 import com.redveloper.rebator.utils.setVisility
 import com.redveloper.rebator.utils.toast
@@ -44,6 +45,7 @@ class SellerContactFragment : AkusisiBaseFragment<FragmentSellerContactBinding>(
     private fun initView(){
         args.addSellerModel?.let {
             addSellerModel = it
+            addSellerModel.timestamp = DateUtils.getCurrentTimestamp()
         }
     }
 
