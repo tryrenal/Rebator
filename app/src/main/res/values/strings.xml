@@ -44,5 +44,6 @@
     <string name="contact">Kontak</string>
     <string name="seller_name">Nama Penjual</string>
     <string name="seller_phone_number">Nomor Telepon Penjual</string>
+    <string name="gender">Jenis Kelamin</string>
 
 </resources>

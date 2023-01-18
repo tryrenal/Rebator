@@ -7,6 +7,7 @@ import com.redveloper.akusisi.domain.usecase.addseller.SetSellerContactUseCase
 import com.redveloper.akusisi.ui.addseller.model.AddSellerModel
 import com.redveloper.rebator.utils.Event
 import com.redveloper.rebator.utils.State
+import com.redveloper.rebator.utils.mapper.GenderMapper
 import kotlinx.coroutines.launch
 
 class SellerContactViewModel(
@@ -20,22 +21,29 @@ class SellerContactViewModel(
             },
             phoneNumberError = {
                 errorPhoneNumberEvent.value = Event(it)
+            },
+            genderError = {
+                errorGenderEvent.value = Event(it)
             }
         )
     }
 
     val errorNameEvent = MutableLiveData<Event<String>>()
     val errorPhoneNumberEvent = MutableLiveData<Event<String>>()
+    val errorGenderEvent = MutableLiveData<Event<String>>()
     val errorSubmitEvent = MutableLiveData<Event<String>>()
 
     val loadingEvent = MutableLiveData<Event<Boolean>>()
     val successSubmitEvent = MutableLiveData<Event<Any>>()
+
+    var genderSelected: Pair<String, String>? = null
 
     fun submit(addSellerModel: AddSellerModel){
         viewModelScope.launch {
             setSellerContactUseCase.setAddSellerModel(addSellerModel)
             setSellerContactUseCase.setName(addSellerModel.sellerName)
             setSellerContactUseCase.setPhoneNumber(addSellerModel.sellerPhoneNumber)
+            setSellerContactUseCase.setGender(GenderMapper.getGenderByValue(genderSelected?.first?: ""))
 
             setSellerContactUseCase.launch()
             setSellerContactUseCase.resultFlow.collect{ state ->
