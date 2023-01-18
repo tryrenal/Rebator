@@ -2,6 +2,7 @@ package com.redveloper.akusisi.domain.usecase.addseller
 
 import com.redveloper.akusisi.domain.repository.SellerRepository
 import com.redveloper.akusisi.ui.addseller.model.AddSellerModel
+import com.redveloper.rebator.domain.entity.Gender
 import com.redveloper.rebator.domain.usecase.FlowUseCase
 import com.redveloper.rebator.utils.State
 import com.redveloper.rebator.utils.dispatchers.CrDispatcher
@@ -17,6 +18,7 @@ class SetSellerContactUseCase(
 
     private var name: Pair<String?, Boolean> = Pair(null, false)
     private var phoneNumber: Pair<String?, Boolean> = Pair(null, false)
+    private var gender: Pair<String?, Boolean> = Pair(null, false)
     private var addSellerModel: Pair<AddSellerModel?, Boolean> = Pair(null, false)
 
     var error: Error? = null
@@ -32,6 +34,7 @@ class SetSellerContactUseCase(
                         docId = data.tiktokID!!,
                         photoUri = data.officePhoto!!)
                     data.officePhotoUrl = photoUrl
+                    data.sellerGender = gender.first
 
                     val addSeller = sellerRepository.addSeller(data)
                     emit(State.success(addSeller))
@@ -44,7 +47,7 @@ class SetSellerContactUseCase(
     }
 
     private fun canExecute(): Boolean {
-        return name.second && phoneNumber.second && addSellerModel.second
+        return name.second && phoneNumber.second && addSellerModel.second && gender.second
     }
 
     fun setName(value: String?){
@@ -65,6 +68,15 @@ class SetSellerContactUseCase(
         }
     }
 
+    fun setGender(value: Gender?) {
+        if (value == null){
+            gender = Pair(null, false)
+            error?.genderError?.invoke("jenis kelamin masih salah")
+        } else {
+            gender = Pair(value.name, true)
+        }
+    }
+
     fun setAddSellerModel(value: AddSellerModel?){
         if (value == null){
             addSellerModel = Pair(null, false)
@@ -77,6 +89,7 @@ class SetSellerContactUseCase(
     data class Error(
         val nameError: ((String) -> Unit)? = null,
         val phoneNumberError: ((String) -> Unit)? = null,
+        val genderError: ((String) -> Unit)? = null,
         val modelError: ((String) -> Unit)? = null
     )
 }

@@ -1,7 +1,6 @@
 package com.redveloper.akusisi.ui.addseller.model
 
 import android.net.Uri
-import java.io.File
 import java.io.Serializable
 
 data class AddSellerModel(
@@ -19,4 +18,6 @@ data class AddSellerModel(
     var officePhotoUrl: String? = null,
     var sellerName: String? = null,
     var sellerPhoneNumber: String? = null,
+    var sellerGender: String? = null,
+    var timestamp: String? = null
 ): Serializable
