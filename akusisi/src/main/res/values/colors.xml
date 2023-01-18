@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_january">#AD6A47</color>
+    <color name="color_february">#BD96CA</color>
+    <color name="color_march">#C1E9E3</color>
+    <color name="color_april">#DA4955</color>
+    <color name="color_may">#75A769</color>
+    <color name="color_june">#FFD958</color>
+    <color name="color_july">#E8B6C1</color>
+    <color name="color_august">#F38332</color>
+    <color name="color_september">#5064B1</color>
+    <color name="color_october">#96B4D2</color>
+    <color name="color_november">#C14A65</color>
+    <color name="color_december">#128192</color>
+</resources>
