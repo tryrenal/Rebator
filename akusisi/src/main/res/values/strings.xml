@@ -10,4 +10,7 @@
     <string name="logout">Logout</string>
 
     <string name="akusisi">Akusisi</string>
+    <string name="data_seller">Data Seller</string>
+    <string name="data_seller_desc">Berisikan kumpulan data seller yang sudah dimasukan oleh Team Akusisi</string>
+    <string name="desc_add_seller">Belum terdapat data seller, silahkan tambahkan dengan menekan tombol diatas.</string>
 </resources>

@@ -7,7 +7,7 @@
         <entry key="akusisi/src/main/res/layout/activity_akusisi.xml" value="0.21422101449275363" />
         <entry key="akusisi/src/main/res/layout/card_menu.xml" value="0.353713768115942" />
         <entry key="akusisi/src/main/res/layout/fragment_about_us.xml" value="0.353713768115942" />
-        <entry key="akusisi/src/main/res/layout/fragment_dashboard.xml" value="0.353713768115942" />
+        <entry key="akusisi/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
         <entry key="akusisi/src/main/res/layout/fragment_edit_profile.xml" value="0.25" />
         <entry key="akusisi/src/main/res/layout/fragment_profile.xml" value="0.353713768115942" />
         <entry key="akusisi/src/main/res/layout/fragment_seller_address.xml" value="0.33" />
@@ -20,12 +20,14 @@
         <entry key="app/src/main/res/drawable/bg_button_disable.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/bg_button_enable.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/bg_image_choose.xml" value="0.2585" />
+        <entry key="app/src/main/res/drawable/bg_rounded.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/dot_default.xml" value="0.22" />
         <entry key="app/src/main/res/drawable/dot_selected.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/dot_selector.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/ic_image.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/ic_onboarding_first.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/image_choose.xml" value="0.2585" />
+        <entry key="app/src/main/res/drawable/left_rounded.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/rounded_dialog.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/selector_button.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/selector_password.xml" value="0.2585" />

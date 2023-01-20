@@ -2,6 +2,7 @@ package com.redveloper.akusisi.data.network.seller
 
 import android.net.Uri
 import com.redveloper.akusisi.data.network.seller.response.ResponseSellerModel
+import com.redveloper.akusisi.domain.entity.Seller
 
 interface SellerFirebase {
     suspend fun getSellers(): List<ResponseSellerModel>
