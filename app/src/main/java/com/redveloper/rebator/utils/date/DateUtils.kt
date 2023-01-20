@@ -11,4 +11,14 @@ object DateUtils {
         val dateFormat = SimpleDateFormat(format)
         return dateFormat.format(Date())
     }
+
+    @SuppressLint("SimpleDateFormat")
+    fun convertToDate(date: String): Date? {
+        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date)
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun convertToString(date: Date, format: String = "dd-MMMM-yyyy"): String {
+        return SimpleDateFormat(format).format(date)
+    }
 }

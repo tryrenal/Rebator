@@ -43,7 +43,7 @@ class SellerContactViewModel(
             setSellerContactUseCase.setAddSellerModel(addSellerModel)
             setSellerContactUseCase.setName(addSellerModel.sellerName)
             setSellerContactUseCase.setPhoneNumber(addSellerModel.sellerPhoneNumber)
-            setSellerContactUseCase.setGender(GenderMapper.getGenderByValue(genderSelected?.first?: ""))
+            setSellerContactUseCase.setGender(GenderMapper.getGenderByValue(genderSelected?.second?: ""))
 
             setSellerContactUseCase.launch()
             setSellerContactUseCase.resultFlow.collect{ state ->

@@ -1,19 +1,24 @@
 package com.redveloper.akusisi.ui.dashboard
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.redveloper.akusisi.R
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.akusisi.databinding.FragmentDashboardBinding
 import com.redveloper.akusisi.ui.AkusisiBaseFragment
-import com.redveloper.rebator.ui.BaseFragment
+import com.redveloper.akusisi.ui.dashboard.model.SellerModel
+import com.redveloper.rebator.utils.setVisility
+import com.redveloper.rebator.utils.toast
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DashboardFragment : AkusisiBaseFragment<FragmentDashboardBinding>() {
 
     override var bottomNavigationVisibility: Int = View.VISIBLE
+
+    val dashboardViewModel: DashboardViewModel by viewModel()
+    lateinit var dashboardAdapter: DashboardAdapter
 
     override fun inflate(
         inflater: LayoutInflater,
@@ -24,9 +29,59 @@ class DashboardFragment : AkusisiBaseFragment<FragmentDashboardBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
+        initObserver()
+        initClicklistener()
+    }
 
-        binding.btnExample.setOnClickListener {
-            findNavController().navigate(R.id.action_to_add_seller)
+    private fun initView(){
+        dashboardViewModel.getSellers()
+    }
+
+    private fun setEmptyData(empty: Boolean){
+        binding.btnAddSeller.setVisility(empty)
+        binding.tvDescEmptySeller.setVisility(empty)
+        binding.icEmpty.setVisility(empty)
+        binding.layoutAddSeller.setVisility(!empty)
+        binding.recyclerDashboard.setVisility(!empty)
+    }
+
+    private fun initObserver(){
+        dashboardViewModel.loadingEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                binding.progressBar.setVisility(it)
+            }
+        }
+        dashboardViewModel.errorGetSellerEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                requireActivity().toast(it)
+            }
+        }
+        dashboardViewModel.successGetSellerEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                setEmptyData(it.isEmpty())
+                setRecyclerData(it)
+            }
+        }
+    }
+
+    private fun setRecyclerData(listData: List<SellerModel>){
+        dashboardAdapter = DashboardAdapter()
+        binding.recyclerDashboard.layoutManager = LinearLayoutManager(requireContext())
+        dashboardAdapter.submitList(listData)
+        binding.recyclerDashboard.adapter = dashboardAdapter
+        dashboardAdapter.itemSelected = {
+            findNavController().navigate(DashboardFragmentDirections.actionToDetail(it))
+        }
+    }
+
+    private fun initClicklistener(){
+        binding.btnAddSeller.setOnClickListener {
+            findNavController().navigate(DashboardFragmentDirections.actionToAddSeller())
+        }
+
+        binding.layoutAddSeller.setOnClickListener{
+            findNavController().navigate(DashboardFragmentDirections.actionToAddSeller())
         }
     }
 
