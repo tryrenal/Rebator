@@ -5,6 +5,7 @@ import com.redveloper.akusisi.ui.addseller.contact.SellerContactViewModel
 import com.redveloper.akusisi.ui.addseller.information.SellerInformationViewModel
 import com.redveloper.akusisi.ui.addseller.officephoto.SellerOfficePhotoViewModel
 import com.redveloper.akusisi.ui.dashboard.DashboardViewModel
+import com.redveloper.akusisi.ui.detailseller.DetailSellerViewModel
 import com.redveloper.akusisi.ui.editprofile.EditProfileViewModel
 import com.redveloper.akusisi.ui.profile.ProfileViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -20,4 +21,6 @@ val viewModelModule = module {
     viewModel{ SellerAddressViewModel(get(), get(), get(), get()) }
     viewModel { SellerOfficePhotoViewModel(get()) }
     viewModel { SellerContactViewModel(get()) }
+
+    viewModel{ DetailSellerViewModel(get()) }
 }

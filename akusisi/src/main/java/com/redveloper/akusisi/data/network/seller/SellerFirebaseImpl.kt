@@ -52,6 +52,39 @@ class SellerFirebaseImpl(
         }
     }
 
+    override suspend fun getDetailSeller(tiktokId: String): ResponseSellerModel {
+        return suspendCoroutine { continuation ->
+            collectionSeller
+                .document(tiktokId)
+                .get()
+                .addOnFailureListener {
+                    continuation.resumeWithException(it)
+                }
+                .addOnSuccessListener { result ->
+                    result.data?.let { data ->
+                        val responseModel = ResponseSellerModel()
+                        responseModel.akusisiName = data.get("akusisi").toString()
+                        responseModel.tiktokId = data.get("tiktok_id").toString()
+                        responseModel.officeName = data.get("office_name").toString()
+                        responseModel.officeAddress = data.get("office_address").toString()
+                        responseModel.officeProviceId = data.get("office_province_id").toString()
+                        responseModel.officeProvinceName = data.get("office_province_name").toString()
+                        responseModel.officeCityId = data.get("office_city_id").toString()
+                        responseModel.officeCityName = data.get("office_city_name").toString()
+                        responseModel.officeDistrictId = data.get("office_district_id").toString()
+                        responseModel.officeDistrictName = data.get("office_district_name").toString()
+                        responseModel.officePhotoUrl = data.get("office_photo_url").toString()
+                        responseModel.sellerName = data.get("seller_name").toString()
+                        responseModel.sellerPhoneNumber = data.get("seller_phone_number").toString()
+                        responseModel.sellerGender = data.get("seller_gender").toString()
+                        responseModel.timeStamp = data.get("timestamp").toString()
+
+                        continuation.resume(responseModel)
+                    }
+                }
+        }
+    }
+
     override suspend fun checkTiktokIdAvailable(tiktokId: String): Boolean {
         return collectionSeller
             .document(tiktokId)

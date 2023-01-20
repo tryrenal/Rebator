@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_to_add_seller"
             app:destination="@id/akusisi_add_seller_graph" />
+        <action
+            android:id="@+id/action_to_detail"
+            app:destination="@id/detailSellerFragment" />
     </fragment>
     <fragment
         android:id="@+id/menu_profile"
@@ -39,5 +42,16 @@
         tools:layout="@layout/fragment_about_us" />
 
     <include app:graph="@navigation/akusisi_add_seller_graph" />
+    <fragment
+        android:id="@+id/detailSellerFragment"
+        android:name="com.redveloper.akusisi.ui.detailseller.DetailSellerFragment"
+        android:label="fragment_detail_seller"
+        tools:layout="@layout/fragment_detail_seller" >
+        <argument
+            android:name="tiktokId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
 </navigation>

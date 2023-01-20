@@ -4,6 +4,7 @@ import com.redveloper.akusisi.domain.usecase.addseller.SetSellerAddressUseCase
 import com.redveloper.akusisi.domain.usecase.addseller.SetSellerContactUseCase
 import com.redveloper.akusisi.domain.usecase.addseller.SetSellerInformationUseCase
 import com.redveloper.akusisi.domain.usecase.addseller.SetSellerOfficePhotoUseCase
+import com.redveloper.akusisi.domain.usecase.seller.GetDetailSellerUseCase
 import com.redveloper.akusisi.domain.usecase.seller.GetSellerUseCase
 import org.koin.dsl.module
 
@@ -13,4 +14,5 @@ val useCaseModule = module {
     single { SetSellerInformationUseCase(get(), get()) }
     single { SetSellerOfficePhotoUseCase(get(), get()) }
     single { GetSellerUseCase(get(), get()) }
+    single { GetDetailSellerUseCase(get(), get()) }
 }

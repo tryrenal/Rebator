@@ -9,4 +9,5 @@ interface SellerFirebase {
     suspend fun checkTiktokIdAvailable(tiktokId: String): Boolean
     suspend fun addSeller(documentId: String, data: HashMap<String, Any>): Boolean
     suspend fun addPhotoSeller(documentId: String, uri: Uri): String
+    suspend fun getDetailSeller(tiktokId: String): ResponseSellerModel
 }

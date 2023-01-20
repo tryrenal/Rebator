@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.redveloper.akusisi.R as AkusisiR
 import com.redveloper.akusisi.databinding.LayoutDashboardItemBinding
 import com.redveloper.akusisi.ui.dashboard.model.SellerModel
+import com.redveloper.akusisi.utils.ColorUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -42,32 +43,13 @@ class DashboardAdapter: ListAdapter<SellerModel, DashboardAdapter.ViewHolder>(Di
             binding.tvDistrict.text = data.districtName
 
             data.date?.let {
-                binding.layoutMonth.setCardBackgroundColor(ContextCompat.getColor(itemView.context, setCollorView(it)))
-                binding.viewBottom.setBackgroundColor(ContextCompat.getColor(itemView.context, setCollorView(it)))
+                binding.layoutMonth.setCardBackgroundColor(ContextCompat.getColor(itemView.context, ColorUtils.setCollorView(it)))
+                binding.viewBottom.setBackgroundColor(ContextCompat.getColor(itemView.context, ColorUtils.setCollorView(it)))
             }
         }
     }
 
-    private fun setCollorView(date: Date): Int{
-        val calender = Calendar.getInstance()
-        calender.time = date
-        val intMonth = calender.get(Calendar.MONTH)
-        return when(intMonth){
-            1 -> AkusisiR.color.color_january
-            2 -> AkusisiR.color.color_february
-            3 -> AkusisiR.color.color_march
-            4 -> AkusisiR.color.color_april
-            5 -> AkusisiR.color.color_may
-            6 -> AkusisiR.color.color_june
-            7 -> AkusisiR.color.color_july
-            8 -> AkusisiR.color.color_august
-            9 -> AkusisiR.color.color_september
-            10 -> AkusisiR.color.color_october
-            11-> AkusisiR.color.color_november
-            12 -> AkusisiR.color.color_december
-            else -> AkusisiR.color.color_december
-        }
-    }
+
 
     private class DiffUtilCallback: DiffUtil.ItemCallback<SellerModel>(){
         override fun areItemsTheSame(oldItem: SellerModel, newItem: SellerModel): Boolean {

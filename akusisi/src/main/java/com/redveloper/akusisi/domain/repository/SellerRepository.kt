@@ -74,4 +74,28 @@ class SellerRepository(
             }
         }.await()
     }
+
+    suspend fun getDetailSeller(tiktokId: String): Seller{
+        return CoroutineScope(crDispatcher.network()).async {
+            sellerFirebase.getDetailSeller(tiktokId).let {
+                Seller(
+                    akusisiName = it.akusisiName,
+                    tiktokId = it.tiktokId,
+                    officeName = it.officeName,
+                    officeAddress = it.officeAddress,
+                    officeProviceId = it.officeProviceId?.toIntOrNull(),
+                    officeProvinceName = it.officeProvinceName,
+                    officeCityId = it.officeCityId?.toIntOrNull(),
+                    officeCityName = it.officeCityName,
+                    officeDistrictId = it.officeDistrictId?.toIntOrNull(),
+                    officeDistrictName = it.officeDistrictName,
+                    officePhotoUrl = it.officePhotoUrl,
+                    sellerName = it.sellerName,
+                    sellerPhoneNumber = it.sellerPhoneNumber,
+                    sellerGender = it.sellerGender?.let { it1 -> Gender.valueOf(it1) },
+                    timeStamp = it.timeStamp?.let { it1 -> DateUtils.convertToDate(it1) }
+                )
+            }
+        }.await()
+    }
 }

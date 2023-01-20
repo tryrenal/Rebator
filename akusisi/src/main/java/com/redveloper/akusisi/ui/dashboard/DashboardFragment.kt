@@ -70,6 +70,9 @@ class DashboardFragment : AkusisiBaseFragment<FragmentDashboardBinding>() {
         binding.recyclerDashboard.layoutManager = LinearLayoutManager(requireContext())
         dashboardAdapter.submitList(listData)
         binding.recyclerDashboard.adapter = dashboardAdapter
+        dashboardAdapter.itemSelected = {
+            findNavController().navigate(DashboardFragmentDirections.actionToDetail(it))
+        }
     }
 
     private fun initClicklistener(){
