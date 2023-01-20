@@ -3,6 +3,7 @@ package com.redveloper.akusisi.ui.dashboard
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -41,8 +42,8 @@ class DashboardAdapter: ListAdapter<SellerModel, DashboardAdapter.ViewHolder>(Di
             binding.tvDistrict.text = data.districtName
 
             data.date?.let {
-                binding.layoutMonth.setBackgroundColor(setCollorView(it))
-                binding.viewBottom.setBackgroundColor(setCollorView(it))
+                binding.layoutMonth.setCardBackgroundColor(ContextCompat.getColor(itemView.context, setCollorView(it)))
+                binding.viewBottom.setBackgroundColor(ContextCompat.getColor(itemView.context, setCollorView(it)))
             }
         }
     }

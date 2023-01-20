@@ -38,7 +38,7 @@
 
         <androidx.cardview.widget.CardView
             app:cardCornerRadius="5dp"
-            android:backgroundTint="@color/pink"
+            app:cardBackgroundColor="@color/pink"
             android:id="@+id/layout_month"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

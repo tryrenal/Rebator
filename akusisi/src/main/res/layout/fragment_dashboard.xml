@@ -20,6 +20,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <ImageView
+        android:id="@+id/ic_empty"
+        android:translationY="180dp"
+        android:alpha="0.7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_teamwork"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="ContentDescription" />
+
     <TextView
         android:layout_marginTop="10dp"
         android:id="@+id/tv_data_seller"
@@ -95,17 +106,6 @@
         android:text="@string/desc_add_seller"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
-    <ImageView
-        android:id="@+id/ic_empty"
-        android:translationY="180dp"
-        android:alpha="0.7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_teamwork"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="ContentDescription" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_dashboard"

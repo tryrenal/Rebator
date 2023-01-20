@@ -43,6 +43,7 @@ class DashboardFragment : AkusisiBaseFragment<FragmentDashboardBinding>() {
         binding.tvDescEmptySeller.setVisility(empty)
         binding.icEmpty.setVisility(empty)
         binding.layoutAddSeller.setVisility(!empty)
+        binding.recyclerDashboard.setVisility(!empty)
     }
 
     private fun initObserver(){
