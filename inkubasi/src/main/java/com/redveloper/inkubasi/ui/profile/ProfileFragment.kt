@@ -1,27 +1,30 @@
 package com.redveloper.inkubasi.ui.profile
 
-import android.opengl.Visibility
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.redveloper.inkubasi.R as InkubasiR
-import com.redveloper.rebator.R as AppR
 import com.redveloper.inkubasi.databinding.FragmentProfileBinding
 import com.redveloper.inkubasi.ui.InkubasiActivity
 import com.redveloper.inkubasi.ui.InkubasiBaseFragment
 import com.redveloper.inkubasi.ui.profile.model.MenuProfile
 import com.redveloper.inkubasi.ui.profile.model.MenuProfileEnum
+import com.redveloper.rebator.ui.login.LoginActivity
 import com.redveloper.rebator.utils.image.load
+import com.redveloper.rebator.utils.setVisility
+import com.redveloper.rebator.utils.toast
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.redveloper.inkubasi.R as InkubasiR
+import com.redveloper.rebator.R as AppR
 
 
 class ProfileFragment : InkubasiBaseFragment<FragmentProfileBinding>() {
 
     private lateinit var menuAdapter: ProfileAdapter
+    val profileViewModel: ProfileViewModel by viewModel()
 
     override var bottomNavigationVisibility: Int = View.VISIBLE
 
@@ -39,6 +42,9 @@ class ProfileFragment : InkubasiBaseFragment<FragmentProfileBinding>() {
 
     private fun initView(){
         menuAdapter = ProfileAdapter()
+
+        profileViewModel.getUser()
+
         ContextCompat.getDrawable(requireContext(), AppR.drawable.ic_pencil_edit)?.let {
             binding.layoutNameInkubasi.icArrow.setImageDrawable(it)
         }
@@ -70,13 +76,42 @@ class ProfileFragment : InkubasiBaseFragment<FragmentProfileBinding>() {
                     findNavController().navigate(InkubasiR.id.action_to_aboutus)
                 }
                 MenuProfileEnum.LOGOUT -> {
-
+                    profileViewModel.logout()
                 }
             }
         }
     }
 
     private fun initObserver(){
+        profileViewModel.loadingEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                binding.progressBar.setVisility(it)
+            }
+        }
 
+        profileViewModel.errorGetUserEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                requireActivity().toast(it)
+            }
+        }
+
+        profileViewModel.errorLogoutEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                requireActivity().toast(it)
+            }
+        }
+
+        profileViewModel.userEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                binding.imgUser.load(it.photoUrl)
+                binding.layoutNameInkubasi.tvMenu.text = it.name
+            }
+        }
+
+        profileViewModel.logoutUserEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                LoginActivity.navigate(activity = requireActivity(), finish = true)
+            }
+        }
     }
 }
