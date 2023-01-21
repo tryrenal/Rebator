@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.akusisi.databinding.FragmentProfileBinding
 import com.redveloper.akusisi.di.Inject
+import com.redveloper.akusisi.ui.AkusisiActivity
 import com.redveloper.akusisi.ui.AkusisiBaseFragment
 import com.redveloper.akusisi.ui.profile.model.MenuProfile
 import com.redveloper.akusisi.ui.profile.model.MenuProfileEnum
@@ -104,9 +105,11 @@ class ProfileFragment : AkusisiBaseFragment<FragmentProfileBinding>() {
         menuAdapter.menuSelected = { menu ->
             when(menu){
                 MenuProfileEnum.EDIT_DATA_USER -> {
+                    (activity as AkusisiActivity).setBottomNavigationVisibility(View.GONE)
                     findNavController().navigate(AkusisiR.id.action_to_edit_profile)
                 }
                 MenuProfileEnum.ABOUT_US -> {
+                    (activity as AkusisiActivity).setBottomNavigationVisibility(View.GONE)
                     findNavController().navigate(AkusisiR.id.action_to_aboutUs)
                 }
                 MenuProfileEnum.LOG_OUT -> {

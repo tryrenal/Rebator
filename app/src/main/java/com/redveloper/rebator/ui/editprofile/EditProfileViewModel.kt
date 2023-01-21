@@ -1,12 +1,12 @@
-package com.redveloper.akusisi.ui.editprofile
+package com.redveloper.rebator.ui.editprofile
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.redveloper.akusisi.ui.editprofile.model.EditProfileModel
 import com.redveloper.rebator.domain.entity.User
 import com.redveloper.rebator.domain.usecase.user.EditUserUseCase
 import com.redveloper.rebator.domain.usecase.user.GetUserUseCase
+import com.redveloper.rebator.ui.editprofile.model.EditProfileModel
 import com.redveloper.rebator.utils.Event
 import com.redveloper.rebator.utils.State
 import kotlinx.coroutines.launch

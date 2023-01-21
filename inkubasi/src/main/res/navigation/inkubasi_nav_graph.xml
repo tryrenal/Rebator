@@ -18,9 +18,17 @@
         <action
             android:id="@+id/action_to_aboutus"
             app:destination="@id/aboutUsFragment" />
+        <action
+            android:id="@+id/action_to_editprofile"
+            app:destination="@id/editProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutUsFragment"
         android:name="com.redveloper.rebator.ui.aboutus.AboutUsFragment"
         android:label="AboutUsFragment" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.redveloper.rebator.ui.editprofile.EditProfileFragment"
+        android:label="EditProfileFragment" />
+
 </navigation>

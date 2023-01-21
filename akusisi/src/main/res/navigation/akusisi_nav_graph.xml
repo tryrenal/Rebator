@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.redveloper.akusisi.ui.editprofile.EditProfileFragment"
+        android:name="com.redveloper.rebator.ui.editprofile.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment

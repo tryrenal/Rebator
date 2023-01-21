@@ -69,7 +69,8 @@ class ProfileFragment : InkubasiBaseFragment<FragmentProfileBinding>() {
         menuAdapter.menuSelected = { menu ->
             when(menu){
                 MenuProfileEnum.EDIT_DATA_USER -> {
-
+                    (activity as InkubasiActivity).setBottomNavigationVisibiility(View.GONE)
+                    findNavController().navigate(InkubasiR.id.action_to_editprofile)
                 }
                 MenuProfileEnum.ABOUT_US -> {
                     (activity as InkubasiActivity).setBottomNavigationVisibiility(View.GONE)
