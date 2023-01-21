@@ -3,17 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/inkubasi_nav_graph"
-    app:startDestination="@id/menu_home">
+    app:startDestination="@id/menuHome">
 
     <fragment
-        android:id="@+id/menu_home"
-        android:name="com.redveloper.inkubasi.ui.dashboard.DashboardFragment"
-        android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/menuHome"
+        android:name="com.redveloper.inkubasi.ui.dashboard.DashboardInkubasiFragment"
+        android:label="fragment_dashboard_inkubasi"
+        tools:layout="@layout/fragment_dashboard_inkubasi">
+        <action
+            android:id="@+id/action_to_detail"
+            app:destination="@id/detailSellerFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/menu_profile"
+        android:id="@+id/menuProfile"
         android:name="com.redveloper.inkubasi.ui.profile.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="fragment_profile_inkubasi"
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_to_aboutus"
@@ -30,5 +34,16 @@
         android:id="@+id/editProfileFragment"
         android:name="com.redveloper.rebator.ui.editprofile.EditProfileFragment"
         android:label="EditProfileFragment" />
+    <fragment
+        android:id="@+id/detailSellerFragment"
+        android:name="com.redveloper.inkubasi.ui.detailseller.DetailSellerFragment"
+        android:label="fragment_detail_seller"
+        tools:layout="@layout/fragment_detail_seller" >
+        <argument
+            android:name="tiktokId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
 </navigation>

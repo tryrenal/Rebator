@@ -11,7 +11,7 @@ import com.redveloper.rebator.utils.State
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class DashboardViewModel(
+class DashboardInkubasiViewModel(
     private val getSellerUseCase: GetSellerUseCase
 ): ViewModel() {
 

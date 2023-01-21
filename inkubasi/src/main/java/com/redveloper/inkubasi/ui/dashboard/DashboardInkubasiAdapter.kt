@@ -6,12 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.redveloper.inkubasi.databinding.LayoutDashboardItemBinding
-import com.redveloper.inkubasi.domain.entity.StatusSeller
 import com.redveloper.inkubasi.ui.dashboard.model.DashboardModel
 import com.redveloper.inkubasi.utils.StatusSellerMapper
 import com.redveloper.rebator.utils.image.load
 
-class DashboardAdapter : ListAdapter<DashboardModel, DashboardAdapter.ViewHolder>(DiffUtilCallback()){
+class DashboardInkubasiAdapter : ListAdapter<DashboardModel, DashboardInkubasiAdapter.ViewHolder>(DiffUtilCallback()){
 
     var itemSelected: ((tiktokId: String?) -> Unit)? = null
 

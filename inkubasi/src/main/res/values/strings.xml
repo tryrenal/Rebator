@@ -8,4 +8,8 @@
     <string name="about_us">About Us</string>
     <string name="desc_about_us"><![CDATA[Aplikasi ini dibangun dan diciptakan sebagai aplikasi yang akan membantu pihak Akusisi untuk dapat mengoptimalkan pekerjaannya.<br><br>&copy;Redveloper]]></string>
     <string name="logout">Logout</string>
+    <string name="status">Status</string>
+    <string name="join_date">Tanggal Gabung</string>
+    <string name="seller">Seller</string>
+    <string name="next">Lanjutkan</string>
 </resources>

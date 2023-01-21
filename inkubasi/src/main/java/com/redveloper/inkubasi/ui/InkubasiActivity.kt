@@ -8,7 +8,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import com.redveloper.inkubasi.R
 import com.redveloper.inkubasi.databinding.ActivityInkubasiBinding
-import com.redveloper.inkubasi.ui.dashboard.DashboardFragment
+import com.redveloper.inkubasi.ui.dashboard.DashboardInkubasiFragment
 import com.redveloper.inkubasi.ui.profile.ProfileFragment
 import com.redveloper.rebator.ui.BaseActivity
 
@@ -16,7 +16,7 @@ class InkubasiActivity : BaseActivity<ActivityInkubasiBinding>() {
 
     private lateinit var navController: NavController
 
-    private lateinit var dashboardFragment: DashboardFragment
+    private lateinit var dashboardInkubasiFragment: DashboardInkubasiFragment
     private lateinit var profileFragment: ProfileFragment
 
     override fun inflate(): ActivityInkubasiBinding {
@@ -26,7 +26,7 @@ class InkubasiActivity : BaseActivity<ActivityInkubasiBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        dashboardFragment = DashboardFragment()
+        dashboardInkubasiFragment = DashboardInkubasiFragment()
         profileFragment = ProfileFragment()
 
         navController = Navigation.findNavController(this, R.id.framelayout)
