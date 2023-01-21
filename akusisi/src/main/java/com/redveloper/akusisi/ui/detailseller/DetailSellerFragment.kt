@@ -2,19 +2,16 @@ package com.redveloper.akusisi.ui.detailseller
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.redveloper.akusisi.R
 import com.redveloper.akusisi.databinding.FragmentDetailSellerBinding
-import com.redveloper.akusisi.domain.entity.Seller
 import com.redveloper.akusisi.ui.AkusisiBaseFragment
 import com.redveloper.akusisi.utils.ColorUtils
-import com.redveloper.rebator.domain.entity.Gender
+import com.redveloper.rebator.domain.entity.Seller
 import com.redveloper.rebator.utils.date.DateUtils
 import com.redveloper.rebator.utils.image.load
 import com.redveloper.rebator.utils.mapper.GenderMapper

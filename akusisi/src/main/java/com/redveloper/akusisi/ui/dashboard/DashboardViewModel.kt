@@ -3,8 +3,8 @@ package com.redveloper.akusisi.ui.dashboard
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.redveloper.akusisi.domain.usecase.seller.GetSellerUseCase
 import com.redveloper.akusisi.ui.dashboard.model.SellerModel
+import com.redveloper.rebator.domain.usecase.seller.GetSellerUseCase
 import com.redveloper.rebator.utils.Event
 import com.redveloper.rebator.utils.State
 import kotlinx.coroutines.launch

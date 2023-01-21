@@ -1,7 +1,7 @@
-package com.redveloper.akusisi.domain.usecase.seller
+package com.redveloper.rebator.domain.usecase.seller
 
-import com.redveloper.akusisi.domain.entity.Seller
-import com.redveloper.akusisi.domain.repository.SellerRepository
+import com.redveloper.rebator.domain.entity.Seller
+import com.redveloper.rebator.domain.repository.AppSellerRepository
 import com.redveloper.rebator.domain.usecase.FlowUseCase
 import com.redveloper.rebator.utils.State
 import com.redveloper.rebator.utils.dispatchers.CrDispatcher
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
 class GetDetailSellerUseCase (
-    private val sellerRepository: SellerRepository,
+    private val sellerRepository: AppSellerRepository,
     private val crDispatcher: CrDispatcher
 ): FlowUseCase<State<Seller>>() {
 
