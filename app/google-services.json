@@ -7,6 +7,80 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:949899633920:android:7d7d9e2c4ff9a2b8643fe5",
+        "android_client_info": {
+          "package_name": "com.redveloper.akusisi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "949899633920-lslirlapmnl1bjf0qvh1e83mtbupq09n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.redveloper.akusisi",
+            "certificate_hash": "270b4437bd96392f9fa7e820de2301b520242909"
+          }
+        },
+        {
+          "client_id": "949899633920-di6hr1tn8r42mne8ea7dibmljma4rq2j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAumntI_Ala5c0f01XYzzo4CS-U0-uqlbk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "949899633920-di6hr1tn8r42mne8ea7dibmljma4rq2j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:949899633920:android:19d103f473e23933643fe5",
+        "android_client_info": {
+          "package_name": "com.redveloper.inkubasi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "949899633920-d243rs0r6oibfov28vh8ucnbledst5rg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.redveloper.inkubasi",
+            "certificate_hash": "270b4437bd96392f9fa7e820de2301b520242909"
+          }
+        },
+        {
+          "client_id": "949899633920-di6hr1tn8r42mne8ea7dibmljma4rq2j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAumntI_Ala5c0f01XYzzo4CS-U0-uqlbk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "949899633920-di6hr1tn8r42mne8ea7dibmljma4rq2j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:949899633920:android:fb81fe41b6c8861a643fe5",
         "android_client_info": {
           "package_name": "com.redveloper.rebator"
