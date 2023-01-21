@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.redveloper.rebator.MainActivity
 import com.redveloper.rebator.databinding.ActivitySplashScreenBinding
 import com.redveloper.rebator.router.AkusisiRouter
+import com.redveloper.rebator.router.InkubasiRouter
 import com.redveloper.rebator.ui.BaseActivity
 import com.redveloper.rebator.ui.login.LoginActivity
 import com.redveloper.rebator.ui.onboarding.OnBoardingActivity
@@ -52,7 +53,7 @@ class SplashScreenActivity : BaseActivity<ActivitySplashScreenBinding>() {
 
         splashViewModel.toUserInkubasiEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let {
-                toast("to user inkubasi")
+                InkubasiRouter.navigate(activity = this, finish = true)
             }
         }
 

@@ -11,6 +11,7 @@ import com.redveloper.rebator.MainActivity
 import com.redveloper.rebator.R
 import com.redveloper.rebator.databinding.ActivityLoginBinding
 import com.redveloper.rebator.router.AkusisiRouter
+import com.redveloper.rebator.router.InkubasiRouter
 import com.redveloper.rebator.ui.BaseActivity
 import com.redveloper.rebator.ui.register.RegisterActivity
 import com.redveloper.rebator.utils.State
@@ -61,7 +62,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
         loginViewModel.toUserInkubasiEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let {
-                toast("to user inkubasi")
+                InkubasiRouter.navigate(activity = this, finish = true)
             }
         }
 

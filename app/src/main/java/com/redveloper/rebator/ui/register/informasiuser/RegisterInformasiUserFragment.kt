@@ -13,6 +13,7 @@ import com.redveloper.rebator.databinding.FragmentRegisterInformasiUserBinding
 import com.redveloper.rebator.design.popup.SingleSelectedPopUp
 import com.redveloper.rebator.domain.entity.Position
 import com.redveloper.rebator.router.AkusisiRouter
+import com.redveloper.rebator.router.InkubasiRouter
 import com.redveloper.rebator.ui.BaseFragment
 import com.redveloper.rebator.ui.register.informasiuser.model.RegisterInformasiUserModel
 import com.redveloper.rebator.utils.mapper.PositionMapper
@@ -85,7 +86,7 @@ class RegisterInformasiUserFragment : BaseFragment<FragmentRegisterInformasiUser
 
         regisViewModel.toUserInkubasiEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
-                requireActivity().toast("to user inkubasi")
+                InkubasiRouter.navigate(activity = requireActivity(), finish = true)
             }
         }
 
