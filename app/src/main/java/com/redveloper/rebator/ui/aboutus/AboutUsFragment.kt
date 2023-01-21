@@ -1,16 +1,17 @@
-package com.redveloper.akusisi.ui.aboutus
+package com.redveloper.rebator.ui.aboutus
 
 import android.os.Bundle
 import android.text.Html
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.redveloper.akusisi.R
-import com.redveloper.akusisi.databinding.FragmentAboutUsBinding
-import com.redveloper.akusisi.ui.AkusisiBaseFragment
+import com.redveloper.rebator.R
+import com.redveloper.rebator.databinding.FragmentAboutUsBinding
+import com.redveloper.rebator.ui.BaseFragment
 
-class AboutUsFragment : AkusisiBaseFragment<FragmentAboutUsBinding>() {
+class AboutUsFragment : BaseFragment<FragmentAboutUsBinding>() {
 
     override fun inflate(inflater: LayoutInflater, container: ViewGroup?): FragmentAboutUsBinding {
         return FragmentAboutUsBinding.inflate(inflater, container, false)

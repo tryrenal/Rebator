@@ -3,11 +3,10 @@ package com.redveloper.akusisi.ui.detailseller
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.redveloper.akusisi.domain.entity.Seller
-import com.redveloper.akusisi.domain.usecase.seller.GetDetailSellerUseCase
+import com.redveloper.rebator.domain.entity.Seller
+import com.redveloper.rebator.domain.usecase.seller.GetDetailSellerUseCase
 import com.redveloper.rebator.utils.Event
 import com.redveloper.rebator.utils.State
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class DetailSellerViewModel(

@@ -1,5 +1,6 @@
 package com.redveloper.rebator.di.module
 
+import com.redveloper.rebator.ui.editprofile.EditProfileViewModel
 import com.redveloper.rebator.ui.login.LoginViewModel
 import com.redveloper.rebator.ui.onboarding.OnBoardingViewModel
 import com.redveloper.rebator.ui.register.camerauser.RegisterCameraUserViewModel
@@ -18,4 +19,6 @@ val viewModelModule = module {
     viewModel { RegisterCameraUserViewModel(get()) }
     viewModel { RegisterCreataUserViewModel(get()) }
     viewModel { RegisterInformasiUserViewModel(get(), get()) }
+
+    viewModel { EditProfileViewModel(get(), get()) }
 }

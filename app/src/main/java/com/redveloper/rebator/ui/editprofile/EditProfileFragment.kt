@@ -1,4 +1,4 @@
-package com.redveloper.akusisi.ui.editprofile
+package com.redveloper.rebator.ui.editprofile
 
 import android.Manifest
 import android.graphics.BitmapFactory
@@ -10,17 +10,11 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.redveloper.akusisi.databinding.FragmentEditProfileBinding
-import com.redveloper.akusisi.di.Inject
-import com.redveloper.akusisi.ui.AkusisiActivity
-import com.redveloper.akusisi.ui.AkusisiBaseFragment
-import com.redveloper.akusisi.ui.editprofile.model.EditProfileModel
-import com.redveloper.rebator.R
-import com.redveloper.rebator.design.popup.SingleSelectedPopUp
-import com.redveloper.rebator.domain.entity.Position
+import com.redveloper.rebator.databinding.FragmentEditProfileBinding
 import com.redveloper.rebator.domain.entity.User
 import com.redveloper.rebator.ui.BaseFragment
 import com.redveloper.rebator.ui.camerax.CameraActivity
+import com.redveloper.rebator.ui.editprofile.model.EditProfileModel
 import com.redveloper.rebator.utils.askPermission
 import com.redveloper.rebator.utils.image.load
 import com.redveloper.rebator.utils.image.rotateBitmap
@@ -32,7 +26,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
-class EditProfileFragment : AkusisiBaseFragment<FragmentEditProfileBinding>() {
+class EditProfileFragment : BaseFragment<FragmentEditProfileBinding>() {
 
     val editViewModel: EditProfileViewModel by viewModel()
 

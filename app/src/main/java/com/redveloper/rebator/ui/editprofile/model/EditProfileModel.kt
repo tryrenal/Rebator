@@ -1,4 +1,4 @@
-package com.redveloper.akusisi.ui.editprofile.model
+package com.redveloper.rebator.ui.editprofile.model
 
 import com.redveloper.rebator.domain.entity.Position
 

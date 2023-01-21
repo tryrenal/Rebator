@@ -5,6 +5,8 @@ import com.redveloper.rebator.data.network.address.AddressApiService
 import com.redveloper.rebator.data.network.address.AddressApiServiceImpl
 import com.redveloper.rebator.data.network.auth.AuthFirebase
 import com.redveloper.rebator.data.network.auth.AuthFirebaseImpl
+import com.redveloper.rebator.data.network.seller.AppSellerFirebase
+import com.redveloper.rebator.data.network.seller.AppSellerFirebaseImpl
 import com.redveloper.rebator.data.network.user.UserFirebase
 import com.redveloper.rebator.data.network.user.UserFirebaseImpl
 import com.redveloper.rebator.domain.repository.api.AddressApi
@@ -18,6 +20,7 @@ val networkModule = module {
     single<AuthFirebase> { AuthFirebaseImpl(get(), get(), get()) }
     single<UserFirebase> { UserFirebaseImpl(get(), get()) }
     single<AddressApi> { AddressApiServiceImpl(get()) }
+    single<AppSellerFirebase> { AppSellerFirebaseImpl(get()) }
 }
 
 fun retrofitModule(baseUrl: String) = module{

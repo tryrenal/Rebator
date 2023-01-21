@@ -2,14 +2,10 @@ package com.redveloper.akusisi.domain.repository
 
 import android.net.Uri
 import com.redveloper.akusisi.data.network.seller.SellerFirebase
-import com.redveloper.akusisi.domain.entity.Seller
 import com.redveloper.akusisi.ui.addseller.model.AddSellerModel
-import com.redveloper.rebator.domain.entity.Gender
-import com.redveloper.rebator.utils.date.DateUtils
 import com.redveloper.rebator.utils.dispatchers.CrDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
-import java.text.SimpleDateFormat
 
 class SellerRepository(
     private val sellerFirebase: SellerFirebase,
@@ -48,54 +44,6 @@ class SellerRepository(
     suspend fun addPhotoSeller(docId: String, photoUri: Uri): String{
         return CoroutineScope(crDispatcher.network()).async {
             sellerFirebase.addPhotoSeller(docId, photoUri)
-        }.await()
-    }
-
-    suspend fun getSeller() : List<Seller>{
-        return CoroutineScope(crDispatcher.network()).async {
-            sellerFirebase.getSellers().map {
-                Seller(
-                    akusisiName = it.akusisiName,
-                    tiktokId = it.tiktokId,
-                    officeName = it.officeName,
-                    officeAddress = it.officeAddress,
-                    officeProviceId = it.officeProviceId?.toIntOrNull(),
-                    officeProvinceName = it.officeProvinceName,
-                    officeCityId = it.officeCityId?.toIntOrNull(),
-                    officeCityName = it.officeCityName,
-                    officeDistrictId = it.officeDistrictId?.toIntOrNull(),
-                    officeDistrictName = it.officeDistrictName,
-                    officePhotoUrl = it.officePhotoUrl,
-                    sellerName = it.sellerName,
-                    sellerPhoneNumber = it.sellerPhoneNumber,
-                    sellerGender = it.sellerGender?.let { it1 -> Gender.valueOf(it1) },
-                    timeStamp = it.timeStamp?.let { it1 -> DateUtils.convertToDate(it1) }
-                )
-            }
-        }.await()
-    }
-
-    suspend fun getDetailSeller(tiktokId: String): Seller{
-        return CoroutineScope(crDispatcher.network()).async {
-            sellerFirebase.getDetailSeller(tiktokId).let {
-                Seller(
-                    akusisiName = it.akusisiName,
-                    tiktokId = it.tiktokId,
-                    officeName = it.officeName,
-                    officeAddress = it.officeAddress,
-                    officeProviceId = it.officeProviceId?.toIntOrNull(),
-                    officeProvinceName = it.officeProvinceName,
-                    officeCityId = it.officeCityId?.toIntOrNull(),
-                    officeCityName = it.officeCityName,
-                    officeDistrictId = it.officeDistrictId?.toIntOrNull(),
-                    officeDistrictName = it.officeDistrictName,
-                    officePhotoUrl = it.officePhotoUrl,
-                    sellerName = it.sellerName,
-                    sellerPhoneNumber = it.sellerPhoneNumber,
-                    sellerGender = it.sellerGender?.let { it1 -> Gender.valueOf(it1) },
-                    timeStamp = it.timeStamp?.let { it1 -> DateUtils.convertToDate(it1) }
-                )
-            }
         }.await()
     }
 }

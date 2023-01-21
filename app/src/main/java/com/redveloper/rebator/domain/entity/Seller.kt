@@ -1,19 +1,22 @@
-package com.redveloper.akusisi.data.network.seller.response
+package com.redveloper.rebator.domain.entity
 
-data class ResponseSellerModel(
+import com.redveloper.rebator.domain.entity.Gender
+import java.util.*
+
+data class Seller(
     var akusisiName: String? = null,
     var tiktokId: String? = null,
     var officeName: String? = null,
     var officeAddress: String? = null,
-    var officeProviceId: String? = null,
+    var officeProviceId: Int? = null,
     var officeProvinceName: String? = null,
-    var officeCityId: String? = null,
+    var officeCityId: Int? = null,
     var officeCityName: String? = null,
-    var officeDistrictId: String? = null,
+    var officeDistrictId: Int? = null,
     var officeDistrictName: String? = null,
     var officePhotoUrl: String? = null,
     var sellerName: String? = null,
     var sellerPhoneNumber: String? = null,
-    var sellerGender: String? = null,
-    var timeStamp: String? = null
+    var sellerGender: Gender? = null,
+    var timeStamp: Date? = null
 )
