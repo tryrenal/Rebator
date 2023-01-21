@@ -46,4 +46,7 @@
     <string name="seller_phone_number">Nomor Telepon Penjual</string>
     <string name="gender">Jenis Kelamin</string>
 
+    <string name="about_us">About Us</string>
+    <string name="desc_about_us"><![CDATA[Aplikasi ini dibangun dan diciptakan sebagai aplikasi yang akan membantu pihak Akusisi untuk dapat mengoptimalkan pekerjaannya.<br><br>&copy;Redveloper]]></string>
+
 </resources>

@@ -1,15 +1,18 @@
 package com.redveloper.inkubasi.ui.profile
 
+import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.inkubasi.R as InkubasiR
 import com.redveloper.rebator.R as AppR
 import com.redveloper.inkubasi.databinding.FragmentProfileBinding
+import com.redveloper.inkubasi.ui.InkubasiActivity
 import com.redveloper.inkubasi.ui.InkubasiBaseFragment
 import com.redveloper.inkubasi.ui.profile.model.MenuProfile
 import com.redveloper.inkubasi.ui.profile.model.MenuProfileEnum
@@ -63,7 +66,8 @@ class ProfileFragment : InkubasiBaseFragment<FragmentProfileBinding>() {
 
                 }
                 MenuProfileEnum.ABOUT_US -> {
-
+                    (activity as InkubasiActivity).setBottomNavigationVisibiility(View.GONE)
+                    findNavController().navigate(InkubasiR.id.action_to_aboutus)
                 }
                 MenuProfileEnum.LOGOUT -> {
 
