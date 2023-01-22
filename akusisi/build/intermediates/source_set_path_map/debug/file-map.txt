@@ -1,0 +1,8 @@
+com.redveloper.akusisi-pngs-0 /Users/renaldy/androidProjects/Rebator/akusisi/build/generated/res/pngs/debug
+com.redveloper.akusisi-resValues-1 /Users/renaldy/androidProjects/Rebator/akusisi/build/generated/res/resValues/debug
+com.redveloper.akusisi-rs-2 /Users/renaldy/androidProjects/Rebator/akusisi/build/generated/res/rs/debug
+com.redveloper.akusisi-packageDebugResources-3 /Users/renaldy/androidProjects/Rebator/akusisi/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.redveloper.akusisi-packageDebugResources-4 /Users/renaldy/androidProjects/Rebator/akusisi/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.redveloper.akusisi-merged_res-5 /Users/renaldy/androidProjects/Rebator/akusisi/build/intermediates/merged_res/debug
+com.redveloper.akusisi-debug-6 /Users/renaldy/androidProjects/Rebator/akusisi/src/debug/res
+com.redveloper.akusisi-main-7 /Users/renaldy/androidProjects/Rebator/akusisi/src/main/res
