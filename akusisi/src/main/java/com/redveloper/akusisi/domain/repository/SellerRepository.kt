@@ -41,9 +41,9 @@ class SellerRepository(
         }.await()
     }
 
-    suspend fun addPhotoSeller(docId: String, photoUri: Uri): String{
+    suspend fun addPhotoSeller(docId: String, photoUri: Uri, sellerName: String): String{
         return CoroutineScope(crDispatcher.network()).async {
-            sellerFirebase.addPhotoSeller(docId, photoUri)
+            sellerFirebase.addPhotoSeller(docId, photoUri, sellerName)
         }.await()
     }
 }

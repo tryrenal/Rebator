@@ -39,9 +39,9 @@ class SellerFirebaseImpl(
         }
     }
 
-    override suspend fun addPhotoSeller(documentId: String, uri: Uri): String {
+    override suspend fun addPhotoSeller(documentId: String, uri: Uri, sellerName: String): String {
         return suspendCoroutine { continuation ->
-            val storageSeller = storageRef.child("sellers/$documentId")
+            val storageSeller = storageRef.child("sellers/$documentId/$sellerName")
             val uploadTask: UploadTask = storageSeller.putFile(uri)
 
             uploadTask.addOnFailureListener{

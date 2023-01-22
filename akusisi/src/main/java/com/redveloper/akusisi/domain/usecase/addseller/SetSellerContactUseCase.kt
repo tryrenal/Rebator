@@ -32,7 +32,9 @@ class SetSellerContactUseCase(
                 data?.let {
                     val photoUrl = sellerRepository.addPhotoSeller(
                         docId = data.tiktokID!!,
-                        photoUri = data.officePhoto!!)
+                        photoUri = data.officePhoto!!,
+                        sellerName = data.sellerName!!
+                    )
                     data.officePhotoUrl = photoUrl
                     data.sellerGender = gender.first
 
