@@ -13,11 +13,15 @@ import androidx.navigation.fragment.navArgs
 import com.redveloper.inkubasi.R as InkubasiR
 import com.redveloper.rebator.R as AppR
 import com.redveloper.inkubasi.databinding.FragmentUpdateSellerBinding
+import com.redveloper.inkubasi.ui.InkubasiActivity
 import com.redveloper.inkubasi.ui.InkubasiBaseFragment
 import com.redveloper.rebator.design.popup.SingleSelectedPopUp
 import com.redveloper.rebator.ui.camerax.CameraActivity
 import com.redveloper.rebator.utils.askPermission
+import com.redveloper.rebator.utils.date.DateUtils
 import com.redveloper.rebator.utils.image.rotateBitmap
+import com.redveloper.rebator.utils.setVisility
+import com.redveloper.rebator.utils.toast
 import id.zelory.compressor.Compressor
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -45,7 +49,8 @@ class UpdateSellerFragment : InkubasiBaseFragment<FragmentUpdateSellerBinding>()
     }
 
     private fun initView(){
-
+        updateViewModel.getUser()
+        binding.tvTiktokId.text = args.tiktokid
     }
 
     private fun initClicklistener(){
@@ -63,9 +68,29 @@ class UpdateSellerFragment : InkubasiBaseFragment<FragmentUpdateSellerBinding>()
         binding.edtStatus.setOnClickListener {
             updateViewModel.getListStatus()
         }
+        binding.btnSave.setOnClickListener {
+            submit()
+        }
+    }
+
+    private fun submit(){
+        val date = DateUtils.getCurrentTimestamp()
+        updateViewModel.submit(
+            tiktokId = binding.tvTiktokId.text.toString(),
+            inkubasiName = binding.edtName.text.toString(),
+            inkubasiDate = date,
+            note = binding.edtNote.text.toString(),
+            photo = fileTemp
+        )
     }
 
     private fun initObserver(){
+        observerError()
+        updateViewModel.loadingEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                binding.progressBar.setVisility(it)
+            }
+        }
         updateViewModel.listPotentialEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
                 showPopUpPotential(it)
@@ -79,6 +104,39 @@ class UpdateSellerFragment : InkubasiBaseFragment<FragmentUpdateSellerBinding>()
         updateViewModel.listStatusSellerEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
                 showPopUpStatus(it)
+            }
+        }
+        updateViewModel.userEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                binding.edtName.setText(it.name)
+            }
+        }
+        updateViewModel.submitSuccessEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                InkubasiActivity.navigate(activity = requireActivity(), finish = true)
+            }
+        }
+    }
+
+    private fun observerError(){
+        updateViewModel.errorMessageEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                requireActivity().toast(it)
+            }
+        }
+        updateViewModel.errorPotentialEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                binding.edtPotential.error = it
+            }
+        }
+        updateViewModel.errorStatusEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                binding.edtStatus.error = it
+            }
+        }
+        updateViewModel.errorVisitEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                binding.edtVisit.error = it
             }
         }
     }

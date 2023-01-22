@@ -55,12 +55,33 @@
             </androidx.cardview.widget.CardView>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_edt_inkubasi_name"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:hint="@string/inkubasi_name"
+                style="@style/EditText.OutlinedBox"
+                app:layout_constraintTop_toBottomOf="@id/img_seller"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:id="@+id/edt_name"
+                    android:inputType="text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_edt_status"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 android:hint="@string/status"
                 style="@style/EditText.OutlinedBox"
-                app:layout_constraintTop_toBottomOf="@id/img_seller"
+                app:layout_constraintTop_toBottomOf="@id/layout_edt_inkubasi_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

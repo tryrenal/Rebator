@@ -1,5 +1,6 @@
 package com.redveloper.inkubasi.di
 
+import com.redveloper.inkubasi.di.modules.networkModules
 import com.redveloper.inkubasi.di.modules.repositoryModules
 import com.redveloper.inkubasi.di.modules.useCaseModules
 import com.redveloper.inkubasi.di.modules.viewModelModule
@@ -13,7 +14,8 @@ object Inject {
                 viewModelModule,
                 useCaseModules,
                 repositoryModules,
-                appUseCaseModule
+                appUseCaseModule,
+                networkModules
             )
         )
     }
