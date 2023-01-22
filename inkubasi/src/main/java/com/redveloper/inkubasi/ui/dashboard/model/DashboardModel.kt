@@ -1,6 +1,6 @@
 package com.redveloper.inkubasi.ui.dashboard.model
 
-import com.redveloper.inkubasi.domain.entity.StatusSeller
+import com.redveloper.rebator.domain.entity.StatusSeller
 
 data class DashboardModel(
     val photoUrl: String?,
@@ -8,5 +8,5 @@ data class DashboardModel(
     val sellerName: String?,
     val cityName: String?,
     val districtName: String?,
-    val status: StatusSeller
+    val status: StatusSeller?
 )

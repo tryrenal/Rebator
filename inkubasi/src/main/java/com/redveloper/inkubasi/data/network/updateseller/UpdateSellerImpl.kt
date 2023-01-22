@@ -14,6 +14,7 @@ class UpdateSellerImpl(
 ) : UpdateSeller{
 
     private val collectionInkubasi = firestore.collection("inkubasi")
+    private val collectionSeller = firestore.collection("sellers")
     private val storageRef = storage.reference
 
     override suspend fun addPhoto(tiktokId: String, uri: Uri, inkubasiName: String): String {
@@ -46,6 +47,20 @@ class UpdateSellerImpl(
             collectionInkubasi
                 .document(tiktokId)
                 .set(data)
+                .addOnFailureListener {
+                    continuation.resumeWithException(it)
+                }
+                .addOnSuccessListener {
+                    continuation.resume(true)
+                }
+        }
+    }
+
+    override suspend fun updateStatus(tiktokId: String, data: HashMap<String, Any>): Boolean {
+        return suspendCoroutine { continuation ->
+            collectionSeller
+                .document(tiktokId)
+                .update(data)
                 .addOnFailureListener {
                     continuation.resumeWithException(it)
                 }

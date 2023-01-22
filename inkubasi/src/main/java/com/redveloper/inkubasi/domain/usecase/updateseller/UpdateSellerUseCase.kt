@@ -3,6 +3,7 @@ package com.redveloper.inkubasi.domain.usecase.updateseller
 import android.net.Uri
 import com.redveloper.inkubasi.domain.entity.SellerInkubasi
 import com.redveloper.inkubasi.domain.repository.InkubasiSellerRepository
+import com.redveloper.rebator.domain.entity.StatusSeller
 import com.redveloper.rebator.domain.usecase.FlowUseCase
 import com.redveloper.rebator.utils.State
 import com.redveloper.rebator.utils.date.DateUtils
@@ -45,11 +46,11 @@ class UpdateSellerUseCase(
                     photoUrl = photoUrl,
                     inkubasiDate = inkubasiDate.first!!,
                     tiktokId = tiktokId.first!!,
-                    status = status.first!!,
                     resultVisit = visit.first!!,
                     sellerPotential = potential.first!!,
                     note = note.first
                 )
+                inkubasiSellerRepository.updateStatus(tiktokId.first!!, StatusSeller.valueOf(status.first!!))
                 emit(State.success(inkubasiSellerRepository.addInkubasi(sellerInkubasi)))
             }
         }.catch {

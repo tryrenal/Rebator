@@ -38,6 +38,7 @@ class AppSellerFirebaseImpl(
                         responseModel.sellerPhoneNumber = document.data.get("seller_phone_number").toString()
                         responseModel.sellerGender = document.data.get("seller_gender").toString()
                         responseModel.timeStamp = document.data.get("timestamp").toString()
+                        responseModel.status = document.data.get("status").toString()
                         sellers.add(responseModel)
                     }
                     continuation.resume(sellers)
@@ -71,6 +72,7 @@ class AppSellerFirebaseImpl(
                         responseModel.sellerPhoneNumber = data.get("seller_phone_number").toString()
                         responseModel.sellerGender = data.get("seller_gender").toString()
                         responseModel.timeStamp = data.get("timestamp").toString()
+                        responseModel.status = data.get("status").toString()
 
                         continuation.resume(responseModel)
                     }

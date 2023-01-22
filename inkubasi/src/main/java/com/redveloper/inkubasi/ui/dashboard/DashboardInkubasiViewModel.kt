@@ -3,12 +3,10 @@ package com.redveloper.inkubasi.ui.dashboard
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.redveloper.inkubasi.domain.entity.StatusSeller
 import com.redveloper.inkubasi.ui.dashboard.model.DashboardModel
 import com.redveloper.rebator.domain.usecase.seller.GetSellerUseCase
 import com.redveloper.rebator.utils.Event
 import com.redveloper.rebator.utils.State
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class DashboardInkubasiViewModel(
@@ -38,7 +36,7 @@ class DashboardInkubasiViewModel(
                                 sellerName = it.sellerName,
                                 cityName = it.officeCityName,
                                 districtName = it.officeDistrictName,
-                                status = StatusSeller.DRAFT
+                                status = it.status
                             )
                         }
                         sellerEvent.value = Event(data)

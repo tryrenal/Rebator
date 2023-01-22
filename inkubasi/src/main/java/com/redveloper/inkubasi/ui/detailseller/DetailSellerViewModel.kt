@@ -3,7 +3,6 @@ package com.redveloper.inkubasi.ui.detailseller
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.redveloper.inkubasi.domain.entity.StatusSeller
 import com.redveloper.inkubasi.ui.detailseller.model.DetailSellerModel
 import com.redveloper.rebator.domain.usecase.seller.GetDetailSellerUseCase
 import com.redveloper.rebator.utils.Event
@@ -45,7 +44,7 @@ class DetailSellerViewModel(
                         val data = state.data.let {
                             DetailSellerModel(
                                 photoUrl = it.officePhotoUrl,
-                                status = StatusSeller.DRAFT,
+                                status = it.status,
                                 joinDate = it.timeStamp,
                                 officeAddress = it.officeAddress,
                                 officeProvince = it.officeProvinceName,

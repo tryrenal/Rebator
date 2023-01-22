@@ -3,6 +3,7 @@ package com.redveloper.akusisi.domain.usecase.addseller
 import com.redveloper.akusisi.domain.repository.SellerRepository
 import com.redveloper.akusisi.ui.addseller.model.AddSellerModel
 import com.redveloper.rebator.domain.entity.Gender
+import com.redveloper.rebator.domain.entity.StatusSeller
 import com.redveloper.rebator.domain.usecase.FlowUseCase
 import com.redveloper.rebator.utils.State
 import com.redveloper.rebator.utils.dispatchers.CrDispatcher
@@ -37,6 +38,7 @@ class SetSellerContactUseCase(
                     )
                     data.officePhotoUrl = photoUrl
                     data.sellerGender = gender.first
+                    data.status = StatusSeller.DRAFT.name
 
                     val addSeller = sellerRepository.addSeller(data)
                     emit(State.success(addSeller))

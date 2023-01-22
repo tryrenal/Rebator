@@ -3,6 +3,7 @@ package com.redveloper.rebator.domain.repository
 import com.redveloper.rebator.data.network.seller.AppSellerFirebase
 import com.redveloper.rebator.domain.entity.Gender
 import com.redveloper.rebator.domain.entity.Seller
+import com.redveloper.rebator.domain.entity.StatusSeller
 import com.redveloper.rebator.utils.date.DateUtils
 import com.redveloper.rebator.utils.dispatchers.CrDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -31,7 +32,8 @@ class AppSellerRepository(
                     sellerName = it.sellerName,
                     sellerPhoneNumber = it.sellerPhoneNumber,
                     sellerGender = it.sellerGender?.let { it1 -> Gender.valueOf(it1) },
-                    timeStamp = it.timeStamp?.let { it1 -> DateUtils.convertToDate(it1) }
+                    timeStamp = it.timeStamp?.let { it1 -> DateUtils.convertToDate(it1) },
+                    status = it.status?.let { it1 -> StatusSeller.valueOf(it1) }
                 )
             }
         }.await()
@@ -55,7 +57,8 @@ class AppSellerRepository(
                     sellerName = it.sellerName,
                     sellerPhoneNumber = it.sellerPhoneNumber,
                     sellerGender = it.sellerGender?.let { it1 -> Gender.valueOf(it1) },
-                    timeStamp = it.timeStamp?.let { it1 -> DateUtils.convertToDate(it1) }
+                    timeStamp = it.timeStamp?.let { it1 -> DateUtils.convertToDate(it1) },
+                    status = it.status?.let { it1 -> StatusSeller.valueOf(it1) }
                 )
             }
         }.await()
