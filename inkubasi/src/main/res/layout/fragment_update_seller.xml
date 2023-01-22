@@ -25,9 +25,10 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:src="@drawable/ic_image"
                 android:background="@color/blue_50"
                 android:id="@+id/img_seller"
-                android:scaleType="centerCrop"
+                android:scaleType="centerInside"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
