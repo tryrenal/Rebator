@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.redveloper.inkubasi.databinding.FragmentDetailSellerBinding
+import com.redveloper.inkubasi.domain.entity.Inkubasi
 import com.redveloper.inkubasi.ui.InkubasiBaseFragment
 import com.redveloper.inkubasi.ui.detailseller.model.DetailSellerModel
+import com.redveloper.inkubasi.utils.mapper.PotentialSellerMapper
+import com.redveloper.inkubasi.utils.mapper.ResultVisitMapper
 import com.redveloper.rebator.utils.date.DateUtils
 import com.redveloper.rebator.utils.image.load
 import com.redveloper.rebator.utils.mapper.GenderMapper
@@ -41,6 +44,7 @@ class DetailSellerFragment : InkubasiBaseFragment<FragmentDetailSellerBinding>()
         args.tiktokId.let {
             detailViewModel.tiktokId = it
             detailViewModel.getSeller(it)
+            detailViewModel.getInkubasi(it)
         }
     }
 
@@ -61,7 +65,7 @@ class DetailSellerFragment : InkubasiBaseFragment<FragmentDetailSellerBinding>()
                 binding.progressBar.setVisility(it)
             }
         }
-        detailViewModel.errorGetUserEvent.observe(viewLifecycleOwner){
+        detailViewModel.errorEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
                 requireActivity().toast(it)
             }
@@ -70,6 +74,19 @@ class DetailSellerFragment : InkubasiBaseFragment<FragmentDetailSellerBinding>()
             it.contentIfNotHaveBeenHandle?.let {
                 setSellerData(it)
             }
+        }
+        detailViewModel.inkubasiEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                setInkubasiData(it)
+            }
+        }
+    }
+
+    private fun setInkubasiData(data: Inkubasi){
+        binding.layoutStatus.root.setVisility(data.visit != null && data.potential != null)
+        binding.layoutStatus.apply {
+            tvVisit.text = data.visit?.let { ResultVisitMapper.getValueOfResultVisit(it) }
+            tvPotential.text = data.potential?.let { PotentialSellerMapper.getValueOfPotential(it) }
         }
     }
 

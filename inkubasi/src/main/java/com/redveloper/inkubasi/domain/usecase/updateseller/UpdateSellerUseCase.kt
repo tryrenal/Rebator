@@ -2,21 +2,19 @@ package com.redveloper.inkubasi.domain.usecase.updateseller
 
 import android.net.Uri
 import com.redveloper.inkubasi.domain.entity.SellerInkubasi
-import com.redveloper.inkubasi.domain.repository.InkubasiSellerRepository
+import com.redveloper.inkubasi.domain.repository.UpdateSellerRepository
 import com.redveloper.rebator.domain.entity.StatusSeller
 import com.redveloper.rebator.domain.usecase.FlowUseCase
 import com.redveloper.rebator.utils.State
-import com.redveloper.rebator.utils.date.DateUtils
 import com.redveloper.rebator.utils.dispatchers.CrDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import java.io.File
-import java.util.*
 
 class UpdateSellerUseCase(
-    private val inkubasiSellerRepository: InkubasiSellerRepository,
+    private val updateSellerRepository: UpdateSellerRepository,
     private val crDispatcher: CrDispatcher
 ): FlowUseCase<State<Boolean>>() {
 
@@ -36,7 +34,7 @@ class UpdateSellerUseCase(
             if (canExecute()){
                 emit(State.loading())
 
-                val photoUrl = inkubasiSellerRepository.addPhotoSeller(
+                val photoUrl = updateSellerRepository.addPhotoSeller(
                     docId = tiktokId.first!!,
                     photoUri = Uri.fromFile(photo.first),
                     inkubasiName = inkubasiName.first!!
@@ -50,8 +48,8 @@ class UpdateSellerUseCase(
                     sellerPotential = potential.first!!,
                     note = note.first
                 )
-                inkubasiSellerRepository.updateStatus(tiktokId.first!!, StatusSeller.valueOf(status.first!!))
-                emit(State.success(inkubasiSellerRepository.addInkubasi(sellerInkubasi)))
+                updateSellerRepository.updateStatus(tiktokId.first!!, StatusSeller.valueOf(status.first!!))
+                emit(State.success(updateSellerRepository.addInkubasi(sellerInkubasi)))
             }
         }.catch {
             emit(State.failed(it.message.toString()))

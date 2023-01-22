@@ -8,7 +8,7 @@ import com.redveloper.rebator.utils.dispatchers.CrDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 
-class InkubasiSellerRepository(
+class UpdateSellerRepository(
     private val updateSeller: UpdateSeller,
     private val crDispatcher: CrDispatcher
 ) {
