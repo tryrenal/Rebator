@@ -41,6 +41,7 @@ class DetailSellerFragment : InkubasiBaseFragment<FragmentDetailSellerBinding>()
 
     private fun initView(){
         args.tiktokId.let {
+            detailViewModel.tiktokId = it
             detailViewModel.getSeller(it)
         }
     }
@@ -48,6 +49,11 @@ class DetailSellerFragment : InkubasiBaseFragment<FragmentDetailSellerBinding>()
     private fun initClicklistener(){
         binding.appbar.btnBack.setOnClickListener {
             findNavController().navigateUp()
+        }
+        binding.btnNext.setOnClickListener {
+            detailViewModel.tiktokId?.let {
+                findNavController().navigate(DetailSellerFragmentDirections.actionDetailSellerFragmentToUpdateSellerFragment(it))
+            }
         }
     }
 
