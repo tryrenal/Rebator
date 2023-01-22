@@ -35,7 +35,8 @@ class SellerRepository(
                 "seller_name" to addSellerModel.sellerName!!,
                 "seller_phone_number" to addSellerModel.sellerPhoneNumber!!,
                 "seller_gender" to addSellerModel.sellerGender!!,
-                "timestamp" to addSellerModel.timestamp!!
+                "timestamp" to addSellerModel.timestamp!!,
+                "status" to addSellerModel.status!!
             )
             sellerFirebase.addSeller(documentId = addSellerModel.tiktokID!!, data)
         }.await()

@@ -19,5 +19,6 @@ data class AddSellerModel(
     var sellerName: String? = null,
     var sellerPhoneNumber: String? = null,
     var sellerGender: String? = null,
-    var timestamp: String? = null
+    var timestamp: String? = null,
+    var status: String? = null
 ): Serializable

@@ -1,6 +1,6 @@
-package com.redveloper.inkubasi.utils.mapper
+package com.redveloper.rebator.utils.mapper
 
-import com.redveloper.inkubasi.domain.entity.StatusSeller
+import com.redveloper.rebator.domain.entity.StatusSeller
 
 object StatusSellerMapper {
     fun getValueOfStatus(status: StatusSeller): String{

@@ -10,10 +10,10 @@ import androidx.navigation.fragment.navArgs
 import com.redveloper.inkubasi.databinding.FragmentDetailSellerBinding
 import com.redveloper.inkubasi.ui.InkubasiBaseFragment
 import com.redveloper.inkubasi.ui.detailseller.model.DetailSellerModel
-import com.redveloper.inkubasi.utils.mapper.StatusSellerMapper
 import com.redveloper.rebator.utils.date.DateUtils
 import com.redveloper.rebator.utils.image.load
 import com.redveloper.rebator.utils.mapper.GenderMapper
+import com.redveloper.rebator.utils.mapper.StatusSellerMapper
 import com.redveloper.rebator.utils.setVisility
 import com.redveloper.rebator.utils.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -76,7 +76,7 @@ class DetailSellerFragment : InkubasiBaseFragment<FragmentDetailSellerBinding>()
     @SuppressLint("SetTextI18n")
     private fun setSellerData(data: DetailSellerModel){
         data.photoUrl?.let { binding.imgSeller.load(it) }
-        binding.tvStatus.text = StatusSellerMapper.getValueOfStatus(data.status)
+        binding.tvStatus.text = data.status?.let { StatusSellerMapper.getValueOfStatus(it) }
         binding.tvJoinDate.text = data.joinDate?.let { DateUtils.convertToString(it) }
         binding.tvAddress.text = data.officeAddress
         binding.tvProvince.text = data.officeProvince

@@ -1,6 +1,5 @@
 package com.redveloper.rebator.domain.entity
 
-import com.redveloper.rebator.domain.entity.Gender
 import java.util.*
 
 data class Seller(
@@ -18,5 +17,6 @@ data class Seller(
     var sellerName: String? = null,
     var sellerPhoneNumber: String? = null,
     var sellerGender: Gender? = null,
-    var timeStamp: Date? = null
+    var timeStamp: Date? = null,
+    var status: StatusSeller? = null
 )

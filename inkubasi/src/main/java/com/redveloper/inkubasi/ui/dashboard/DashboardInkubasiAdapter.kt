@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.redveloper.inkubasi.databinding.LayoutDashboardItemBinding
 import com.redveloper.inkubasi.ui.dashboard.model.DashboardModel
-import com.redveloper.inkubasi.utils.mapper.StatusSellerMapper
 import com.redveloper.rebator.utils.image.load
+import com.redveloper.rebator.utils.mapper.StatusSellerMapper
 
 class DashboardInkubasiAdapter : ListAdapter<DashboardModel, DashboardInkubasiAdapter.ViewHolder>(DiffUtilCallback()){
 
@@ -35,7 +35,7 @@ class DashboardInkubasiAdapter : ListAdapter<DashboardModel, DashboardInkubasiAd
             binding.tvSellerName.text = data.sellerName
             binding.tvCity.text = data.cityName
             binding.tvDistrict.text = data.districtName
-            binding.tvStatus.text = StatusSellerMapper.getValueOfStatus(data.status)
+            binding.tvStatus.text = data.status?.let { StatusSellerMapper.getValueOfStatus(it) }
         }
     }
 

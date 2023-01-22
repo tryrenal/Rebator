@@ -15,5 +15,6 @@ data class AppResponseSellerModel(
     var sellerName: String? = null,
     var sellerPhoneNumber: String? = null,
     var sellerGender: String? = null,
-    var timeStamp: String? = null
+    var timeStamp: String? = null,
+    var status: String? = null
 )

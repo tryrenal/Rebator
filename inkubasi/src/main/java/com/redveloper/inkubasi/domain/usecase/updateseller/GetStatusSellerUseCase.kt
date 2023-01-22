@@ -1,7 +1,7 @@
 package com.redveloper.inkubasi.domain.usecase.updateseller
 
-import com.redveloper.inkubasi.domain.entity.StatusSeller
-import com.redveloper.inkubasi.utils.mapper.StatusSellerMapper
+import com.redveloper.rebator.domain.entity.StatusSeller
+import com.redveloper.rebator.utils.mapper.StatusSellerMapper
 
 class GetStatusSellerUseCase() {
     fun getListStatus(list: (ArrayList<Pair<String, String>>) -> Unit){
