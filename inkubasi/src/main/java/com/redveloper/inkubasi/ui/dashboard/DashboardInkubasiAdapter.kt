@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.redveloper.inkubasi.databinding.LayoutDashboardItemBinding
 import com.redveloper.inkubasi.ui.dashboard.model.DashboardModel
-import com.redveloper.inkubasi.utils.StatusSellerMapper
+import com.redveloper.inkubasi.utils.mapper.StatusSellerMapper
 import com.redveloper.rebator.utils.image.load
 
 class DashboardInkubasiAdapter : ListAdapter<DashboardModel, DashboardInkubasiAdapter.ViewHolder>(DiffUtilCallback()){

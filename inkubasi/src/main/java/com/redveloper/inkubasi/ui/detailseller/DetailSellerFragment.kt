@@ -2,17 +2,15 @@ package com.redveloper.inkubasi.ui.detailseller
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.redveloper.inkubasi.R
 import com.redveloper.inkubasi.databinding.FragmentDetailSellerBinding
 import com.redveloper.inkubasi.ui.InkubasiBaseFragment
 import com.redveloper.inkubasi.ui.detailseller.model.DetailSellerModel
-import com.redveloper.inkubasi.utils.StatusSellerMapper
+import com.redveloper.inkubasi.utils.mapper.StatusSellerMapper
 import com.redveloper.rebator.utils.date.DateUtils
 import com.redveloper.rebator.utils.image.load
 import com.redveloper.rebator.utils.mapper.GenderMapper
