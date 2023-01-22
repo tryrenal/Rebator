@@ -12,4 +12,8 @@
     <string name="join_date">Tanggal Gabung</string>
     <string name="seller">Seller</string>
     <string name="next">Lanjutkan</string>
+    <string name="seller_potential">Seller Potensial</string>
+    <string name="result_visit">Hasil Kunjungan</string>
+    <string name="note">Catatan</string>
+    <string name="inkubasi_name">Inkubasi Name</string>
 </resources>

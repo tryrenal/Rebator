@@ -44,6 +44,18 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_detailSellerFragment_to_updateSellerFragment"
+            app:destination="@id/updateSellerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateSellerFragment"
+        android:name="com.redveloper.inkubasi.ui.updateseller.UpdateSellerFragment"
+        android:label="fragment_update_seller"
+        tools:layout="@layout/fragment_update_seller" >
+        <argument
+            android:name="tiktokid"
+            app:argType="string" />
     </fragment>
 
 </navigation>

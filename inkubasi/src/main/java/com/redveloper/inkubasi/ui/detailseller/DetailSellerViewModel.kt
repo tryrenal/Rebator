@@ -8,7 +8,6 @@ import com.redveloper.inkubasi.ui.detailseller.model.DetailSellerModel
 import com.redveloper.rebator.domain.usecase.seller.GetDetailSellerUseCase
 import com.redveloper.rebator.utils.Event
 import com.redveloper.rebator.utils.State
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class DetailSellerViewModel(
@@ -22,6 +21,9 @@ class DetailSellerViewModel(
             }
         )
     }
+
+    var tiktokId: String? = null
+        set(value) {field = value}
 
     val loadingEvent = MutableLiveData<Event<Boolean>>()
     val errorGetUserEvent = MutableLiveData<Event<String>>()
