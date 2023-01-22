@@ -3,6 +3,8 @@ package com.redveloper.inkubasi.ui.detailseller
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.redveloper.inkubasi.domain.entity.Inkubasi
+import com.redveloper.inkubasi.domain.usecase.inkubasi.GetDetailSellerInkubasiUseCase
 import com.redveloper.inkubasi.ui.detailseller.model.DetailSellerModel
 import com.redveloper.rebator.domain.usecase.seller.GetDetailSellerUseCase
 import com.redveloper.rebator.utils.Event
@@ -10,13 +12,20 @@ import com.redveloper.rebator.utils.State
 import kotlinx.coroutines.launch
 
 class DetailSellerViewModel(
-    private val getDetailSellerUseCase: GetDetailSellerUseCase
+    private val getDetailSellerUseCase: GetDetailSellerUseCase,
+    private val getDetailSellerInkubasiUseCase: GetDetailSellerInkubasiUseCase
 ) : ViewModel() {
 
     init {
         getDetailSellerUseCase.error = GetDetailSellerUseCase.Error(
             errorTiktokId = {
-                errorGetUserEvent.value = Event(it)
+                errorEvent.value = Event(it)
+            }
+        )
+
+        getDetailSellerInkubasiUseCase.error = GetDetailSellerInkubasiUseCase.Error(
+            errorTiktokId = {
+                errorEvent.value = Event(it)
             }
         )
     }
@@ -25,8 +34,9 @@ class DetailSellerViewModel(
         set(value) {field = value}
 
     val loadingEvent = MutableLiveData<Event<Boolean>>()
-    val errorGetUserEvent = MutableLiveData<Event<String>>()
+    val errorEvent = MutableLiveData<Event<String>>()
     val getUserEvent = MutableLiveData<Event<DetailSellerModel>>()
+    val inkubasiEvent = MutableLiveData<Event<Inkubasi>>()
 
     fun getSeller(tiktokId: String?){
         viewModelScope.launch {
@@ -37,7 +47,7 @@ class DetailSellerViewModel(
                     is State.Loading -> loadingEvent.value = Event(true)
                     is State.Failed -> {
                         loadingEvent.value = Event(false)
-                        errorGetUserEvent.value = Event(state.message)
+                        errorEvent.value = Event(state.message)
                     }
                     is State.Success -> {
                         loadingEvent.value = Event(false)
@@ -57,6 +67,26 @@ class DetailSellerViewModel(
                             )
                         }
                         getUserEvent.value = Event(data)
+                    }
+                }
+            }
+        }
+    }
+
+    fun getInkubasi(tiktokId: String?){
+        viewModelScope.launch {
+            getDetailSellerInkubasiUseCase.setTiktokId(tiktokId)
+            getDetailSellerInkubasiUseCase.launch()
+            getDetailSellerInkubasiUseCase.resultFlow.collect{ state ->
+                when(state){
+                    is State.Loading -> loadingEvent.value = Event(true)
+                    is State.Failed -> {
+                        loadingEvent.value = Event(false)
+                        errorEvent.value = Event(state.message)
+                    }
+                    is State.Success -> {
+                        loadingEvent.value = Event(false)
+                        inkubasiEvent.value = Event(state.data)
                     }
                 }
             }

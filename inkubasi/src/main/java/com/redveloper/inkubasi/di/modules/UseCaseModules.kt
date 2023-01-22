@@ -1,5 +1,6 @@
 package com.redveloper.inkubasi.di.modules
 
+import com.redveloper.inkubasi.domain.usecase.inkubasi.GetDetailSellerInkubasiUseCase
 import com.redveloper.inkubasi.domain.usecase.updateseller.GetPotentialSellerUseCase
 import com.redveloper.inkubasi.domain.usecase.updateseller.GetResultVisitUseCase
 import com.redveloper.inkubasi.domain.usecase.updateseller.GetStatusSellerUseCase
@@ -11,4 +12,5 @@ val useCaseModules = module {
     single { GetResultVisitUseCase() }
     single { GetStatusSellerUseCase() }
     single { UpdateSellerUseCase(get(), get()) }
+    single { GetDetailSellerInkubasiUseCase(get(), get())}
 }
