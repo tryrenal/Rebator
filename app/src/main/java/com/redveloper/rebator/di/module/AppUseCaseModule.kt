@@ -6,6 +6,7 @@ import com.redveloper.rebator.domain.usecase.address.GetProvinceUseCase
 import com.redveloper.rebator.domain.usecase.auth.*
 import com.redveloper.rebator.domain.usecase.seller.GetDetailSellerUseCase
 import com.redveloper.rebator.domain.usecase.seller.GetSellerUseCase
+import com.redveloper.rebator.domain.usecase.seller.SearchSellerUseCase
 import com.redveloper.rebator.domain.usecase.user.EditUserUseCase
 import com.redveloper.rebator.domain.usecase.user.GetUserUseCase
 import org.koin.dsl.module
@@ -31,4 +32,5 @@ val appUseCaseModule = module {
     //seller
     single { GetSellerUseCase(get(), get()) }
     single {GetDetailSellerUseCase(get(), get()) }
+    single { SearchSellerUseCase(get(), get())}
 }

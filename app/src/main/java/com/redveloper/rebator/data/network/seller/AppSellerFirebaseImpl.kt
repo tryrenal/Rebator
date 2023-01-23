@@ -46,6 +46,48 @@ class AppSellerFirebaseImpl(
         }
     }
 
+    override suspend fun searchSellers(query: String?): List<AppResponseSellerModel> {
+        return suspendCoroutine { continuation ->
+            val newCollection = if (!query.isNullOrBlank()){
+                collectionSeller
+                    .whereEqualTo("tiktok_id", query)
+                    .get()
+            } else {
+                collectionSeller
+                    .get()
+            }
+
+            newCollection
+                .addOnFailureListener {
+                    continuation.resumeWithException(it)
+                }
+                .addOnSuccessListener { result ->
+                    val sellers = arrayListOf<AppResponseSellerModel>()
+                    for (document in result){
+                        val responseModel = AppResponseSellerModel()
+                        responseModel.akusisiName = document.data.get("akusisi").toString()
+                        responseModel.tiktokId = document.data.get("tiktok_id").toString()
+                        responseModel.officeName = document.data.get("office_name").toString()
+                        responseModel.officeAddress = document.data.get("office_address").toString()
+                        responseModel.officeProviceId = document.data.get("office_province_id").toString()
+                        responseModel.officeProvinceName = document.data.get("office_province_name").toString()
+                        responseModel.officeCityId = document.data.get("office_city_id").toString()
+                        responseModel.officeCityName = document.data.get("office_city_name").toString()
+                        responseModel.officeDistrictId = document.data.get("office_district_id").toString()
+                        responseModel.officeDistrictName = document.data.get("office_district_name").toString()
+                        responseModel.officePhotoUrl = document.data.get("office_photo_url").toString()
+                        responseModel.sellerName = document.data.get("seller_name").toString()
+                        responseModel.sellerPhoneNumber = document.data.get("seller_phone_number").toString()
+                        responseModel.sellerGender = document.data.get("seller_gender").toString()
+                        responseModel.timeStamp = document.data.get("timestamp").toString()
+                        responseModel.status = document.data.get("status").toString()
+                        sellers.add(responseModel)
+                    }
+                    continuation.resume(sellers)
+                }
+        }
+    }
+
     override suspend fun getDetailSeller(tiktokId: String): AppResponseSellerModel {
         return suspendCoroutine { continuation ->
             collectionSeller

@@ -63,4 +63,29 @@ class AppSellerRepository(
             }
         }.await()
     }
+
+    suspend fun searchSellers(query: String?): List<Seller>{
+        return CoroutineScope(crDispatcher.network()).async {
+            appSellerFirebase.searchSellers(query).map {
+                Seller(
+                    akusisiName = it.akusisiName,
+                    tiktokId = it.tiktokId,
+                    officeName = it.officeName,
+                    officeAddress = it.officeAddress,
+                    officeProviceId = it.officeProviceId?.toIntOrNull(),
+                    officeProvinceName = it.officeProvinceName,
+                    officeCityId = it.officeCityId?.toIntOrNull(),
+                    officeCityName = it.officeCityName,
+                    officeDistrictId = it.officeDistrictId?.toIntOrNull(),
+                    officeDistrictName = it.officeDistrictName,
+                    officePhotoUrl = it.officePhotoUrl,
+                    sellerName = it.sellerName,
+                    sellerPhoneNumber = it.sellerPhoneNumber,
+                    sellerGender = it.sellerGender?.let { it1 -> Gender.valueOf(it1) },
+                    timeStamp = it.timeStamp?.let { it1 -> DateUtils.convertToDate(it1) },
+                    status = it.status?.let { it1 -> StatusSeller.valueOf(it1) }
+                )
+            }
+        }.await()
+    }
 }
