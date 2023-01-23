@@ -20,6 +20,7 @@ id btn_next
 id btn_save
 id card_address
 id card_potential
+id card_search
 id card_status
 id card_tiktok_id
 id card_visit
@@ -66,6 +67,7 @@ id progress_bar
 id recycler_dashboard
 id recycler_menu
 id scrollview
+id search_dashboard
 id tv_address
 id tv_city
 id tv_district

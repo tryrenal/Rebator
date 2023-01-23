@@ -27,6 +27,7 @@ int id bottom_navigation_view 0x7e03000b
 int id btn_add_seller 0x7e03000c
 int id btn_back 0x7e03000d
 int id btn_save 0x7e03000e
+int id card_search 0x7e03005f
 int id detailSellerFragment 0x7e03000f
 int id editProfileFragment 0x7e030010
 int id edt_address 0x7e030011
@@ -80,6 +81,7 @@ int id menu_profile 0x7e030040
 int id progress_bar 0x7e030041
 int id recycler_dashboard 0x7e030042
 int id recycler_menu 0x7e030043
+int id search_dashboard 0x7e03005e
 int id sellerAddressFragment 0x7e030044
 int id sellerContactFragment 0x7e030045
 int id sellerInformationFragment 0x7e030046

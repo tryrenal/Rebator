@@ -5,4 +5,5 @@ import com.redveloper.rebator.data.network.seller.response.AppResponseSellerMode
 interface AppSellerFirebase {
     suspend fun getSellers(): List<AppResponseSellerModel>
     suspend fun getDetailSeller(tiktokId: String): AppResponseSellerModel
+    suspend fun searchSellers(query: String?): List<AppResponseSellerModel>
 }
