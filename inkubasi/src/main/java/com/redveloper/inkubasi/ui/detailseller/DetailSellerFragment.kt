@@ -18,6 +18,7 @@ import com.redveloper.inkubasi.ui.detailseller.model.DetailSellerModel
 import com.redveloper.inkubasi.utils.colors.ColorMapper
 import com.redveloper.inkubasi.utils.mapper.PotentialSellerMapper
 import com.redveloper.inkubasi.utils.mapper.ResultVisitMapper
+import com.redveloper.rebator.domain.entity.StatusSeller
 import com.redveloper.rebator.utils.date.DateUtils
 import com.redveloper.rebator.utils.image.load
 import com.redveloper.rebator.utils.mapper.GenderMapper
@@ -107,6 +108,8 @@ class DetailSellerFragment : InkubasiBaseFragment<FragmentDetailSellerBinding>()
         data.status?.let {
             binding.tvStatus.text = StatusSellerMapper.getValueOfStatus(it)
             binding.cardStatus.setCardBackgroundColor(ContextCompat.getColor(requireContext(), ColorMapper.setColorStatus(it)))
+
+            binding.btnNext.setVisility(it == StatusSeller.DRAFT)
         }
         binding.tvJoinDate.text = data.joinDate?.let { DateUtils.convertToString(it) }
         binding.tvAddress.text = data.officeAddress
