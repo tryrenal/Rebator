@@ -2,11 +2,13 @@ package com.redveloper.inkubasi.ui.dashboard
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.redveloper.inkubasi.databinding.LayoutDashboardItemBinding
 import com.redveloper.inkubasi.ui.dashboard.model.DashboardModel
+import com.redveloper.inkubasi.utils.colors.ColorMapper
 import com.redveloper.rebator.utils.image.load
 import com.redveloper.rebator.utils.mapper.StatusSellerMapper
 
@@ -36,6 +38,11 @@ class DashboardInkubasiAdapter : ListAdapter<DashboardModel, DashboardInkubasiAd
             binding.tvCity.text = data.cityName
             binding.tvDistrict.text = data.districtName
             binding.tvStatus.text = data.status?.let { StatusSellerMapper.getValueOfStatus(it) }
+
+            data.status?.let {
+                binding.lineStatus.setBackgroundColor(ContextCompat.getColor(itemView.context, ColorMapper.setColorStatus(data.status)))
+                binding.layoutStatus.setCardBackgroundColor(ContextCompat.getColor(itemView.context, ColorMapper.setColorStatus(data.status)))
+            }
         }
     }
 

@@ -20,6 +20,12 @@
         <dist:fusing dist:include="true" />
     </dist:module>
 
-    <application />
+    <application
+        android:debuggable="true"
+        android:testOnly="true" >
+        <activity
+            android:name="com.redveloper.inkubasi.ui.InkubasiActivity"
+            android:exported="false" />
+    </application>
 
 </manifest>
