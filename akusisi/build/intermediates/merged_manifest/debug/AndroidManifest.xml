@@ -10,6 +10,8 @@
         android:minSdkVersion="21"
         android:targetSdkVersion="21" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <dist:module
         dist:instant="false"
         dist:title="@string/title_akusisi" >
@@ -20,6 +22,13 @@
         <dist:fusing dist:include="true" />
     </dist:module>
 
-    <application />
+    <application
+        android:debuggable="true"
+        android:testOnly="true" >
+        <activity
+            android:name="com.redveloper.akusisi.ui.AkusisiActivity"
+            android:exported="false"
+            android:splitName="akusisi" />
+    </application>
 
 </manifest>

@@ -1,0 +1,37 @@
+-keep class com.redveloper.akusisi.ui.AkusisiActivity { <init>(); }
+-keep class androidx.appcompat.widget.AppCompatButton { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.cardview.widget.CardView { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.constraintlayout.widget.ConstraintLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.constraintlayout.widget.Guideline { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.navigation.fragment.NavHostFragment { <init>(); }
+
+-keep class androidx.recyclerview.widget.RecyclerView { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class com.google.android.material.bottomnavigation.BottomNavigationView { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class com.google.android.material.textfield.TextInputLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class com.redveloper.akusisi.ui.addseller.address.SellerAddressFragment { <init>(...); }
+
+-keep class com.redveloper.akusisi.ui.addseller.contact.SellerContactFragment { <init>(...); }
+
+-keep class com.redveloper.akusisi.ui.addseller.information.SellerInformationFragment { <init>(...); }
+
+-keep class com.redveloper.akusisi.ui.addseller.officephoto.SellerOfficePhotoFragment { <init>(...); }
+
+-keep class com.redveloper.akusisi.ui.dashboard.DashboardFragment { <init>(...); }
+
+-keep class com.redveloper.akusisi.ui.detailseller.DetailSellerFragment { <init>(...); }
+
+-keep class com.redveloper.akusisi.ui.profile.ProfileFragment { <init>(...); }
+
+-keep class com.redveloper.rebator.ui.aboutus.AboutUsFragment { <init>(...); }
+
+-keep class com.redveloper.rebator.ui.editprofile.EditProfileFragment { <init>(...); }
+
+-keep class de.hdodenhof.circleimageview.CircleImageView { <init>(android.content.Context, android.util.AttributeSet); }
+

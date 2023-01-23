@@ -1,1 +1,2 @@
 :inkubasi::debug
+androidx.constraintlayout:constraintlayout-core

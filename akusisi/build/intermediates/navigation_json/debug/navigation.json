@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "name": "akusisi_nav_graph",
+    "navigationXmlIds": [
+      "akusisi_add_seller_graph"
+    ],
+    "deepLinks": []
+  },
+  {
+    "name": "akusisi_add_seller_graph",
+    "navigationXmlIds": [],
+    "deepLinks": []
+  }
+]

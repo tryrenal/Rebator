@@ -1,0 +1,31 @@
+-keep class com.redveloper.inkubasi.ui.InkubasiActivity { <init>(); }
+-keep class androidx.appcompat.widget.AppCompatButton { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.cardview.widget.CardView { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.constraintlayout.widget.ConstraintLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.constraintlayout.widget.Guideline { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.navigation.fragment.NavHostFragment { <init>(); }
+
+-keep class androidx.recyclerview.widget.RecyclerView { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class com.google.android.material.bottomnavigation.BottomNavigationView { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class com.google.android.material.textfield.TextInputLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class com.redveloper.inkubasi.ui.dashboard.DashboardInkubasiFragment { <init>(...); }
+
+-keep class com.redveloper.inkubasi.ui.detailseller.DetailSellerFragment { <init>(...); }
+
+-keep class com.redveloper.inkubasi.ui.profile.ProfileFragment { <init>(...); }
+
+-keep class com.redveloper.inkubasi.ui.updateseller.UpdateSellerFragment { <init>(...); }
+
+-keep class com.redveloper.rebator.ui.aboutus.AboutUsFragment { <init>(...); }
+
+-keep class com.redveloper.rebator.ui.editprofile.EditProfileFragment { <init>(...); }
+
+-keep class de.hdodenhof.circleimageview.CircleImageView { <init>(android.content.Context, android.util.AttributeSet); }
+
