@@ -23,16 +23,11 @@ id btn_next
 id btn_reset
 id btn_save
 id card_address
-id card_contacted
-id card_draft
-id card_man
 id card_potential
 id card_search
 id card_status
 id card_tiktok_id
 id card_visit
-id card_visited
-id card_woman
 id detailSellerFragment
 id editProfileFragment
 id edt_city
@@ -66,6 +61,7 @@ id label_seller
 id label_seller_filter
 id label_status
 id label_visit
+id layout_card
 id layout_edt_city
 id layout_edt_district
 id layout_edt_inkubasi_name
@@ -82,10 +78,13 @@ id menuHome
 id menuProfile
 id progress_bar
 id recycler_dashboard
+id recycler_gender
 id recycler_menu
+id recycler_status
 id scrollview
 id search_dashboard
 id tv_address
+id tv_card_choose
 id tv_city
 id tv_district
 id tv_gender
@@ -107,6 +106,7 @@ layout fragment_detail_seller
 layout fragment_filter_seller
 layout fragment_profile
 layout fragment_update_seller
+layout layout_card_choose
 layout layout_dashboard_item
 layout layout_inkubasi_appbar
 layout layout_status_seller

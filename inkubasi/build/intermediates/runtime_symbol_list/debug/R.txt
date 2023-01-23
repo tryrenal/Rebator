@@ -21,16 +21,11 @@ int id btn_next 0x7d03000a
 int id btn_reset 0x7d03000b
 int id btn_save 0x7d03000c
 int id card_address 0x7d03000d
-int id card_contacted 0x7d03000e
-int id card_draft 0x7d03000f
-int id card_man 0x7d030010
 int id card_potential 0x7d030011
 int id card_search 0x7d030012
 int id card_status 0x7d030013
 int id card_tiktok_id 0x7d030014
 int id card_visit 0x7d030015
-int id card_visited 0x7d030016
-int id card_woman 0x7d030017
 int id detailSellerFragment 0x7d030018
 int id editProfileFragment 0x7d030019
 int id edt_city 0x7d03001a
@@ -64,6 +59,7 @@ int id label_seller 0x7d030035
 int id label_seller_filter 0x7d030036
 int id label_status 0x7d030037
 int id label_visit 0x7d030038
+int id layout_card 0x7d03005b
 int id layout_edt_city 0x7d030039
 int id layout_edt_district 0x7d03003a
 int id layout_edt_inkubasi_name 0x7d03003b
@@ -80,10 +76,13 @@ int id menuHome 0x7d030045
 int id menuProfile 0x7d030046
 int id progress_bar 0x7d030047
 int id recycler_dashboard 0x7d030048
+int id recycler_gender 0x7d03005c
 int id recycler_menu 0x7d030049
+int id recycler_status 0x7d03005e
 int id scrollview 0x7d03004a
 int id search_dashboard 0x7d03004b
 int id tv_address 0x7d03004c
+int id tv_card_choose 0x7d03005d
 int id tv_city 0x7d03004d
 int id tv_district 0x7d03004e
 int id tv_gender 0x7d03004f
@@ -105,6 +104,7 @@ int layout fragment_detail_seller 0x7d040003
 int layout fragment_filter_seller 0x7d040004
 int layout fragment_profile 0x7d040005
 int layout fragment_update_seller 0x7d040006
+int layout layout_card_choose 0x7d04000a
 int layout layout_dashboard_item 0x7d040007
 int layout layout_inkubasi_appbar 0x7d040008
 int layout layout_status_seller 0x7d040009
