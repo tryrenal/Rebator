@@ -61,6 +61,9 @@ class DashboardInkubasiFragment : InkubasiBaseFragment<FragmentDashboardInkubasi
         dashboardInkubasiAdapter.itemSelected = {
             findNavController().navigate(DashboardInkubasiFragmentDirections.actionToDetail(it))
         }
+        binding.btnFilter.setOnClickListener {
+            findNavController().navigate(DashboardInkubasiFragmentDirections.actionToFilter())
+        }
     }
 
     private fun initObserver(){
