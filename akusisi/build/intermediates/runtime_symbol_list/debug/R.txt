@@ -134,4 +134,3 @@ int string hello_blank_fragment 0x7e070008
 int string label_home 0x7e070009
 int string label_profile 0x7e07000a
 int string logout 0x7e07000b
-int string search_by_tiktok 0x7e07000c

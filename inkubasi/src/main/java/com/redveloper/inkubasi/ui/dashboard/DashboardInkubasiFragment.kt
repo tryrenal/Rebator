@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.inkubasi.databinding.FragmentDashboardInkubasiBinding
@@ -37,6 +38,17 @@ class DashboardInkubasiFragment : InkubasiBaseFragment<FragmentDashboardInkubasi
     private fun initView(){
         dashboardInkubasiAdapter = DashboardInkubasiAdapter()
         dashboardInkubasiViewModel.getSellers()
+
+        binding.searchDashboard.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                dashboardInkubasiViewModel.searchSeller(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
     }
 
     private fun setupRecyclerData(data: List<DashboardModel>){

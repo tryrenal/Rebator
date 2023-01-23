@@ -18,6 +18,7 @@ int id btn_next 0x7d030008
 int id btn_save 0x7d030009
 int id card_address 0x7d03000a
 int id card_potential 0x7d03000b
+int id card_search 0x7d030049
 int id card_status 0x7d03000c
 int id card_tiktok_id 0x7d03000d
 int id card_visit 0x7d03000e
@@ -64,6 +65,7 @@ int id progress_bar 0x7d030036
 int id recycler_dashboard 0x7d030037
 int id recycler_menu 0x7d030038
 int id scrollview 0x7d030039
+int id search_dashboard 0x7d03004a
 int id tv_address 0x7d03003a
 int id tv_city 0x7d03003b
 int id tv_district 0x7d03003c

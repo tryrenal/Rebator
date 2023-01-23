@@ -136,4 +136,3 @@ string hello_blank_fragment
 string label_home
 string label_profile
 string logout
-string search_by_tiktok
