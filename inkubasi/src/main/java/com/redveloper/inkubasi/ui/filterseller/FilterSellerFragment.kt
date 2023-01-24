@@ -11,8 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.inkubasi.R
 import com.redveloper.inkubasi.databinding.FragmentFilterSellerBinding
+import com.redveloper.inkubasi.domain.entity.Filter
 import com.redveloper.inkubasi.ui.InkubasiActivity
 import com.redveloper.inkubasi.ui.InkubasiBaseFragment
+import com.redveloper.inkubasi.ui.filterseller.model.FilterSellerModel
 import com.redveloper.rebator.design.popup.SingleSelectedPopUp
 import com.redveloper.rebator.domain.entity.Gender
 import com.redveloper.rebator.domain.entity.StatusSeller
@@ -48,6 +50,9 @@ class FilterSellerFragment : InkubasiBaseFragment<FragmentFilterSellerBinding>()
         binding.appbar.btnReset.visible()
         setupRecyclerGender()
         setupRecyclerStatus()
+        lifecycleScope.launch {
+            filterViewModel.getDefaultFilter()
+        }
     }
 
     private fun setupRecyclerGender(){
@@ -138,6 +143,20 @@ class FilterSellerFragment : InkubasiBaseFragment<FragmentFilterSellerBinding>()
             it.contentIfNotHaveBeenHandle?.let {
                 InkubasiActivity.navigate(activity = requireActivity(), finish = true)
             }
+        }
+        filterViewModel.defaultFilterEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                setDefaultValue(it)
+            }
+        }
+    }
+
+    private fun setDefaultValue(data: FilterSellerModel){
+        data.genders?.let {
+            genderAdapter.itemSelected.addAll(it)
+        }
+        data.status?.let {
+            statusAdapter.itemSelected.addAll(it)
         }
     }
 

@@ -40,6 +40,17 @@ class FilterCardChooseAdapter: ListAdapter<Pair<String, String>, FilterCardChoos
         }
         fun bind(data: Pair<String, String>){
             binding.tvCardChoose.text = data.second
+            setCardColor(data)
+        }
+
+        private fun setCardColor(data: Pair<String, String>){
+            if (itemSelected.isNotEmpty()){
+                if (itemSelected.contains(data)){
+                    binding.layoutCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, InkubasiR.color.green))
+                } else {
+                    binding.layoutCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, RebatorR.color.grey))
+                }
+            }
         }
     }
 
