@@ -1,6 +1,7 @@
 package com.redveloper.inkubasi.ui.dashboard
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +39,7 @@ class DashboardInkubasiFragment : InkubasiBaseFragment<FragmentDashboardInkubasi
     private fun initView(){
         dashboardInkubasiAdapter = DashboardInkubasiAdapter()
         dashboardInkubasiViewModel.getSellers()
+        dashboardInkubasiViewModel.getFilter()
 
         binding.searchDashboard.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -80,6 +82,11 @@ class DashboardInkubasiFragment : InkubasiBaseFragment<FragmentDashboardInkubasi
         dashboardInkubasiViewModel.sellerEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
                 setupRecyclerData(it)
+            }
+        }
+        dashboardInkubasiViewModel.filterEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                Log.i("dataFilter", it.toString())
             }
         }
     }

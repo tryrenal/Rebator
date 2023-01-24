@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.inkubasi.R
 import com.redveloper.inkubasi.databinding.FragmentFilterSellerBinding
+import com.redveloper.inkubasi.ui.InkubasiActivity
 import com.redveloper.inkubasi.ui.InkubasiBaseFragment
 import com.redveloper.rebator.design.popup.SingleSelectedPopUp
 import com.redveloper.rebator.domain.entity.Gender
@@ -61,7 +62,9 @@ class FilterSellerFragment : InkubasiBaseFragment<FragmentFilterSellerBinding>()
         }
 
         genderAdapter.selectionChanged = {
-            Log.i("dataGender", genderAdapter.itemSelected.toString())
+            filterViewModel.listGender = genderAdapter.itemSelected.map {
+                Gender.valueOf(it.first)
+            }
         }
     }
 
@@ -78,13 +81,19 @@ class FilterSellerFragment : InkubasiBaseFragment<FragmentFilterSellerBinding>()
         }
 
         statusAdapter.selectionChanged = {
-            Log.i("dataStatus", statusAdapter.itemSelected.toString())
+            filterViewModel.listStatus = statusAdapter.itemSelected.map {
+                StatusSeller.valueOf(it.first)
+            }
         }
     }
 
     private fun initClicklistener(){
         binding.appbar.btnBack.setOnClickListener {
             findNavController().navigateUp()
+        }
+
+        binding.appbar.btnReset.setOnClickListener {
+            lifecycleScope.launch { filterViewModel.clearFilter() }
         }
 
         binding.edtProvince.setOnClickListener {
@@ -105,7 +114,11 @@ class FilterSellerFragment : InkubasiBaseFragment<FragmentFilterSellerBinding>()
             }
         }
 
-
+        binding.btnSave.setOnClickListener {
+            lifecycleScope.launch {
+                filterViewModel.submit()
+            }
+        }
     }
 
     private fun initObserver(){
@@ -114,6 +127,16 @@ class FilterSellerFragment : InkubasiBaseFragment<FragmentFilterSellerBinding>()
         filterViewModel.loadingEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
                 binding.progressBar.setVisility(it)
+            }
+        }
+        filterViewModel.successSubmitEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                InkubasiActivity.navigate(activity = requireActivity(), finish = true)
+            }
+        }
+        filterViewModel.successResetEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                InkubasiActivity.navigate(activity = requireActivity(), finish = true)
             }
         }
     }
