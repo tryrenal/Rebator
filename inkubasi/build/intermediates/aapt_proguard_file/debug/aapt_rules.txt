@@ -21,6 +21,8 @@
 
 -keep class com.redveloper.inkubasi.ui.detailseller.DetailSellerFragment { <init>(...); }
 
+-keep class com.redveloper.inkubasi.ui.filterseller.FilterSellerFragment { <init>(...); }
+
 -keep class com.redveloper.inkubasi.ui.profile.ProfileFragment { <init>(...); }
 
 -keep class com.redveloper.inkubasi.ui.updateseller.UpdateSellerFragment { <init>(...); }

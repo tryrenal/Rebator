@@ -16,4 +16,11 @@
     <string name="result_visit">Hasil Kunjungan</string>
     <string name="note">Catatan</string>
     <string name="inkubasi_name">Inkubasi Name</string>
+    <string name="reset">Reset</string>
+    <string name="seller_filter">Filter Seller</string>
+    <string name="man">Laki-laki</string>
+    <string name="woman">Perempuan</string>
+    <string name="draft">Draft</string>
+    <string name="contacted">Sudah Dihubungi</string>
+    <string name="visited">Sudah Dikunjungi</string>
 </resources>

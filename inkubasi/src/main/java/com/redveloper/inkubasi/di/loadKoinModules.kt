@@ -1,9 +1,6 @@
 package com.redveloper.inkubasi.di
 
-import com.redveloper.inkubasi.di.modules.networkModules
-import com.redveloper.inkubasi.di.modules.repositoryModules
-import com.redveloper.inkubasi.di.modules.useCaseModules
-import com.redveloper.inkubasi.di.modules.viewModelModule
+import com.redveloper.inkubasi.di.modules.*
 import com.redveloper.rebator.di.module.appUseCaseModule
 import org.koin.core.context.loadKoinModules
 
@@ -15,7 +12,8 @@ object Inject {
                 useCaseModules,
                 repositoryModules,
                 appUseCaseModule,
-                networkModules
+                networkModules,
+                localModules
             )
         )
     }
