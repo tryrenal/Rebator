@@ -3,6 +3,9 @@ package com.redveloper.rebator.di.module
 import com.redveloper.rebator.domain.usecase.address.GetCitysUseCase
 import com.redveloper.rebator.domain.usecase.address.GetDistrictUseCase
 import com.redveloper.rebator.domain.usecase.address.GetProvinceUseCase
+import com.redveloper.rebator.domain.usecase.address.detail.GetDetailCityUseCase
+import com.redveloper.rebator.domain.usecase.address.detail.GetDetailDistrictUseCase
+import com.redveloper.rebator.domain.usecase.address.detail.GetDetailProvinceUseCase
 import com.redveloper.rebator.domain.usecase.auth.*
 import com.redveloper.rebator.domain.usecase.seller.GetDetailSellerUseCase
 import com.redveloper.rebator.domain.usecase.seller.GetSellerUseCase
@@ -28,6 +31,10 @@ val appUseCaseModule = module {
     single { GetProvinceUseCase(get(), get()) }
     single { GetCitysUseCase(get(), get()) }
     single { GetDistrictUseCase(get(), get()) }
+
+    single { GetDetailProvinceUseCase(get(), get()) }
+    single { GetDetailCityUseCase(get(), get()) }
+    single { GetDetailDistrictUseCase(get(), get()) }
 
     //seller
     single { GetSellerUseCase(get(), get()) }

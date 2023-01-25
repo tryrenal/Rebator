@@ -1,7 +1,9 @@
 package com.redveloper.inkubasi.ui.filterseller
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.redveloper.inkubasi.domain.entity.Filter
 import com.redveloper.inkubasi.domain.usecase.filter.ClearFilterUseCase
 import com.redveloper.inkubasi.domain.usecase.filter.GetFilterUseCase
@@ -12,11 +14,15 @@ import com.redveloper.rebator.domain.entity.StatusSeller
 import com.redveloper.rebator.domain.usecase.address.GetCitysUseCase
 import com.redveloper.rebator.domain.usecase.address.GetDistrictUseCase
 import com.redveloper.rebator.domain.usecase.address.GetProvinceUseCase
+import com.redveloper.rebator.domain.usecase.address.detail.GetDetailCityUseCase
+import com.redveloper.rebator.domain.usecase.address.detail.GetDetailDistrictUseCase
+import com.redveloper.rebator.domain.usecase.address.detail.GetDetailProvinceUseCase
 import com.redveloper.rebator.utils.Event
 import com.redveloper.rebator.utils.State
 import com.redveloper.rebator.utils.mapper.GenderMapper
 import com.redveloper.rebator.utils.mapper.StatusSellerMapper
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class FilterSellerViewModel(
     private val getProvinceUseCase: GetProvinceUseCase,
@@ -24,7 +30,10 @@ class FilterSellerViewModel(
     private val getDistrictUseCase: GetDistrictUseCase,
     private val saveFilterUseCase: SaveFilterUseCase,
     private val clearFilterUseCase: ClearFilterUseCase,
-    private val getFilterUseCase: GetFilterUseCase
+    private val getFilterUseCase: GetFilterUseCase,
+    private val getDetailProvinceUseCase: GetDetailProvinceUseCase,
+    private val getDetailCityUseCase: GetDetailCityUseCase,
+    private val getDetailDistrictUseCase: GetDetailDistrictUseCase
 ): ViewModel() {
 
     val loadingEvent = MutableLiveData<Event<Boolean>>()
@@ -38,10 +47,13 @@ class FilterSellerViewModel(
     val errorDistrictEvent = MutableLiveData<Event<String>>()
 
     val listProvinceEvent = MutableLiveData<Event<List<Pair<String, String>>>>()
+    val provinceDetailEvent = MutableLiveData<Event<Pair<Int, String>>>()
     var provinceSelected: Pair<Int, String>? = null
     val listCityEvent = MutableLiveData<Event<List<Pair<String, String>>>>()
+    val cityDetailEvent = MutableLiveData<Event<Pair<Int, String>>>()
     var citySelected: Pair<Int, String>? = null
     val listDistrictEvent = MutableLiveData<Event<List<Pair<String, String>>>>()
+    val districtDetailEvent = MutableLiveData<Event<Pair<Int, String>>>()
     var districtSelected: Pair<Int, String>? = null
 
     var listGender: List<Gender>? = null
@@ -122,9 +134,13 @@ class FilterSellerViewModel(
 
                         FilterSellerModel(
                             genders = gender,
-                            status = status
+                            status = status,
+                            idProvince = it.provinceId,
+                            idCity = it.cityId,
+                            idDistrict = it.districtId
                         )
                     }
+                    Log.i("datadate", data.toString())
                     defaultFilterEvent.value = Event(data)
                 }
             }
@@ -144,6 +160,27 @@ class FilterSellerViewModel(
                     loadingEvent.value = Event(false)
                     val data: List<Pair<String, String>> = state.data.map { Pair(it.key?: "", it.value?: "") }
                     listProvinceEvent.value = Event(data)
+                }
+            }
+        }
+    }
+
+    fun getDetailProvince(idProvince: Int?){
+        viewModelScope.launch {
+            getDetailProvinceUseCase.setIdProvince(idProvince)
+            getDetailProvinceUseCase.launch()
+            getDetailProvinceUseCase.resultFlow.collect{ state ->
+                when(state){
+                    is State.Loading -> loadingEvent.value = Event(true)
+                    is State.Failed -> {
+                        loadingEvent.value = Event(false)
+                        errorMessageEvent.value = Event(state.message)
+                    }
+                    is State.Success -> {
+                        loadingEvent.value = Event(false)
+                        val data = state.data.let { Pair(it.key?.toIntOrNull() ?: -1, it.value?: "") }
+                        provinceDetailEvent.value = Event(data)
+                    }
                 }
             }
         }
@@ -169,6 +206,28 @@ class FilterSellerViewModel(
         }
     }
 
+    fun getDetailCity(idCity: Int?){
+        viewModelScope.launch {
+            getDetailCityUseCase.setIdCity(idCity)
+            getDetailCityUseCase.launch()
+            getDetailCityUseCase.resultFlow.collect{ state ->
+                when(state){
+                    is State.Loading -> loadingEvent.value = Event(true)
+                    is State.Failed -> {
+                        loadingEvent.value = Event(false)
+                        errorMessageEvent.value = Event(state.message)
+                    }
+                    is State.Success -> {
+                        loadingEvent.value = Event(false)
+                        val data = state.data.let { Pair(it.key?.toIntOrNull() ?: -1, it.value?: "") }
+                        Log.i("dataCity", data.toString())
+                        cityDetailEvent.value = Event(data)
+                    }
+                }
+            }
+        }
+    }
+
     suspend fun getDistrict(idCity: Int?){
         getDistrictUseCase.setIdCity(idCity)
         getDistrictUseCase.launch()
@@ -184,6 +243,27 @@ class FilterSellerViewModel(
                     loadingEvent.value = Event(false)
                     val data: List<Pair<String, String>> = state.data.map { Pair(it.key?: "", it.value?: "") }
                     listDistrictEvent.value = Event(data)
+                }
+            }
+        }
+    }
+
+    fun getDetailDistrict(idDistrict: Int?){
+        viewModelScope.launch {
+            getDetailDistrictUseCase.setIdDistrict(idDistrict)
+            getDetailDistrictUseCase.launch()
+            getDetailDistrictUseCase.resultFlow.collect{ state ->
+                when(state){
+                    is State.Loading -> loadingEvent.value = Event(true)
+                    is State.Failed -> {
+                        loadingEvent.value = Event(false)
+                        errorMessageEvent.value = Event(state.message)
+                    }
+                    is State.Success -> {
+                        loadingEvent.value = Event(false)
+                        val data = state.data.let { Pair(it.key?.toIntOrNull() ?: -1, it.value?: "") }
+                        districtDetailEvent.value = Event(data)
+                    }
                 }
             }
         }

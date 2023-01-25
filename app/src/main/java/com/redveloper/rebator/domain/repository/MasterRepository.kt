@@ -28,4 +28,22 @@ class MasterRepository(
             addressApi.getDistrict(idCity)
         }.await()
     }
+
+    suspend fun getDetailProvince(id: Int): KeyValue {
+        return CoroutineScope(crDispatcher.network()).async {
+            addressApi.getDetailProvince(id)
+        }.await()
+    }
+
+    suspend fun getDetailCity(id: Int): KeyValue {
+        return CoroutineScope(crDispatcher.network()).async {
+            addressApi.getDetailCity(id)
+        }.await()
+    }
+
+    suspend fun getDetailDistrict(id: Int): KeyValue{
+        return CoroutineScope(crDispatcher.network()).async {
+            addressApi.getDetailDistrict(id)
+        }.await()
+    }
 }

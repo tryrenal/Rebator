@@ -129,6 +129,7 @@ class FilterSellerFragment : InkubasiBaseFragment<FragmentFilterSellerBinding>()
     private fun initObserver(){
         observerError()
         observerArea()
+        observerDefaultAddress()
         filterViewModel.loadingEvent.observe(viewLifecycleOwner){
             it.contentIfNotHaveBeenHandle?.let {
                 binding.progressBar.setVisility(it)
@@ -157,6 +158,30 @@ class FilterSellerFragment : InkubasiBaseFragment<FragmentFilterSellerBinding>()
         }
         data.status?.let {
             statusAdapter.itemSelected.addAll(it)
+        }
+        filterViewModel.getDetailProvince(data.idProvince)
+        filterViewModel.getDetailCity(data.idCity)
+        filterViewModel.getDetailDistrict(data.idDistrict)
+    }
+
+    private fun observerDefaultAddress(){
+        filterViewModel.provinceDetailEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                binding.edtProvince.setText(it.second)
+                filterViewModel.provinceSelected = it
+            }
+        }
+        filterViewModel.cityDetailEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                binding.edtCity.setText(it.second)
+                filterViewModel.citySelected = it
+            }
+        }
+        filterViewModel.districtDetailEvent.observe(viewLifecycleOwner){
+            it.contentIfNotHaveBeenHandle?.let {
+                binding.edtDistrict.setText(it.second)
+                filterViewModel.districtSelected = it
+            }
         }
     }
 

@@ -23,4 +23,22 @@ class AddressApiServiceImpl(
             KeyValue(key = it.id.toString(), value = it.name)
         }
     }
+
+    override suspend fun getDetailProvince(id: Int): KeyValue {
+        return addressApi.getDetailProvince(id).let{
+            KeyValue(key = it.id.toString(), value = it.nama)
+        }
+    }
+
+    override suspend fun getDetailCity(id: Int): KeyValue {
+        return addressApi.getDetailCity(id).let {
+            KeyValue(key = it.id.toString(), value = it.name)
+        }
+    }
+
+    override suspend fun getDetailDistrict(id: Int): KeyValue {
+        return addressApi.getDetailDistrict(id).let {
+            KeyValue(key = it.id.toString(), value = it.name)
+        }
+    }
 }
