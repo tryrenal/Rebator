@@ -50,9 +50,7 @@ class FilterSellerFragment : InkubasiBaseFragment<FragmentFilterSellerBinding>()
         binding.appbar.btnReset.visible()
         setupRecyclerGender()
         setupRecyclerStatus()
-        lifecycleScope.launch {
-            filterViewModel.getDefaultFilter()
-        }
+        filterViewModel.getDefaultFilter()
     }
 
     private fun setupRecyclerGender(){
@@ -98,7 +96,7 @@ class FilterSellerFragment : InkubasiBaseFragment<FragmentFilterSellerBinding>()
         }
 
         binding.appbar.btnReset.setOnClickListener {
-            lifecycleScope.launch { filterViewModel.clearFilter() }
+            filterViewModel.clearFilter()
         }
 
         binding.edtProvince.setOnClickListener {
@@ -120,9 +118,7 @@ class FilterSellerFragment : InkubasiBaseFragment<FragmentFilterSellerBinding>()
         }
 
         binding.btnSave.setOnClickListener {
-            lifecycleScope.launch {
-                filterViewModel.submit()
-            }
+            filterViewModel.submit()
         }
     }
 

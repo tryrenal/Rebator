@@ -64,9 +64,10 @@ class AppSellerRepository(
         }.await()
     }
 
-    suspend fun searchSellers(query: String?): List<Seller>{
+    suspend fun searchSellers(query: String?, genders: List<Gender>?, status: List<StatusSeller>?,
+                              provinceId: Int?, cityId: Int?, districtId: Int?): List<Seller>{
         return CoroutineScope(crDispatcher.network()).async {
-            appSellerFirebase.searchSellers(query).map {
+            appSellerFirebase.searchSellers(query, genders, status, provinceId, cityId, districtId).map {
                 Seller(
                     akusisiName = it.akusisiName,
                     tiktokId = it.tiktokId,

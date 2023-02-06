@@ -1,10 +1,8 @@
 package com.redveloper.inkubasi.ui.filterseller
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.redveloper.inkubasi.domain.entity.Filter
 import com.redveloper.inkubasi.domain.usecase.filter.ClearFilterUseCase
 import com.redveloper.inkubasi.domain.usecase.filter.GetFilterUseCase
 import com.redveloper.inkubasi.domain.usecase.filter.SaveFilterUseCase
@@ -21,7 +19,6 @@ import com.redveloper.rebator.utils.Event
 import com.redveloper.rebator.utils.State
 import com.redveloper.rebator.utils.mapper.GenderMapper
 import com.redveloper.rebator.utils.mapper.StatusSellerMapper
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class FilterSellerViewModel(
@@ -61,87 +58,92 @@ class FilterSellerViewModel(
     var listStatus: List<StatusSeller>? = null
         set(value) {field = value}
 
-    suspend fun submit(){
-        saveFilterUseCase.provinceId(provinceSelected?.first)
-        saveFilterUseCase.cityId(citySelected?.first)
-        saveFilterUseCase.districtId(districtSelected?.first)
-        saveFilterUseCase.setGender(listGender)
-        saveFilterUseCase.setStatus(listStatus)
+    fun submit(){
+        viewModelScope.launch {
+            saveFilterUseCase.provinceId(provinceSelected?.first)
+            saveFilterUseCase.cityId(citySelected?.first)
+            saveFilterUseCase.districtId(districtSelected?.first)
+            saveFilterUseCase.setGender(listGender)
+            saveFilterUseCase.setStatus(listStatus)
 
-        saveFilterUseCase.launch()
-        saveFilterUseCase.resultFlow.collect{ state ->
-            when(state){
-                is State.Loading -> loadingEvent.value = Event(true)
-                is State.Failed -> {
-                    loadingEvent.value = Event(false)
-                    errorMessageEvent.value = Event(state.message)
-                }
-                is State.Success -> {
-                    loadingEvent.value = Event(false)
-                    successSubmitEvent.value = Event(Any())
-                }
-            }
-        }
-    }
-
-    suspend fun clearFilter(){
-        clearFilterUseCase.launch()
-        clearFilterUseCase.resultFlow.collect{ state ->
-            when(state){
-                is State.Loading -> loadingEvent.value = Event(true)
-                is State.Failed -> {
-                    loadingEvent.value = Event(false)
-                    errorMessageEvent.value = Event(state.message)
-                }
-                is State.Success -> {
-                    loadingEvent.value = Event(false)
-                    successResetEvent.value = Event(state.data)
-                }
-            }
-        }
-    }
-
-    suspend fun getDefaultFilter(){
-        getFilterUseCase.launch()
-        getFilterUseCase.resultFlow.collect{ state ->
-            when(state){
-                is State.Loading -> loadingEvent.value = Event(true)
-                is State.Failed -> {
-                    loadingEvent.value = Event(false)
-                    errorMessageEvent.value = Event(state.message)
-                }
-                is State.Success -> {
-                    loadingEvent.value = Event(false)
-                    val gender = HashSet<Pair<String, String>>()
-                    val status = HashSet<Pair<String, String>>()
-                    val data = state.data.let {
-                        if (it.genderMan == true){
-                            gender.add(Pair(Gender.MAN.name, GenderMapper.getValueOfGender(Gender.MAN)))
-                        }
-                        if (it.genderWoman == true){
-                            gender.add(Pair(Gender.WOMAN.name, GenderMapper.getValueOfGender(Gender.WOMAN)))
-                        }
-
-                        if (it.statusDraft == true){
-                            status.add(Pair(StatusSeller.DRAFT.name, StatusSellerMapper.getValueOfStatus(StatusSeller.DRAFT)))
-                        }
-                        if (it.statusContacted == true){
-                            status.add(Pair(StatusSeller.CONTACTED.name, StatusSellerMapper.getValueOfStatus(StatusSeller.CONTACTED)))
-                        }
-                        if (it.statusVisited == true){
-                            status.add(Pair(StatusSeller.VISITED.name, StatusSellerMapper.getValueOfStatus(StatusSeller.VISITED)))
-                        }
-
-                        FilterSellerModel(
-                            genders = gender,
-                            status = status,
-                            idProvince = it.provinceId,
-                            idCity = it.cityId,
-                            idDistrict = it.districtId
-                        )
+            saveFilterUseCase.launch()
+            saveFilterUseCase.resultFlow.collect{ state ->
+                when(state){
+                    is State.Loading -> loadingEvent.value = Event(true)
+                    is State.Failed -> {
+                        loadingEvent.value = Event(false)
+                        errorMessageEvent.value = Event(state.message)
                     }
-                    Log.i("datadate", data.toString())
-                    defaultFilterEvent.value = Event(data)
+                    is State.Success -> {
+                        loadingEvent.value = Event(false)
+                        successSubmitEvent.value = Event(Any())
+                    }
+                }
+            }
+        }
+    }
+
+    fun clearFilter(){
+        viewModelScope.launch {
+            clearFilterUseCase.launch()
+            clearFilterUseCase.resultFlow.collect{ state ->
+                when(state){
+                    is State.Loading -> loadingEvent.value = Event(true)
+                    is State.Failed -> {
+                        loadingEvent.value = Event(false)
+                        errorMessageEvent.value = Event(state.message)
+                    }
+                    is State.Success -> {
+                        loadingEvent.value = Event(false)
+                        successResetEvent.value = Event(state.data)
+                    }
+                }
+            }
+        }
+    }
+
+    fun getDefaultFilter(){
+        viewModelScope.launch {
+            getFilterUseCase.launch()
+            getFilterUseCase.resultFlow.collect{ state ->
+                when(state){
+                    is State.Loading -> loadingEvent.value = Event(true)
+                    is State.Failed -> {
+                        loadingEvent.value = Event(false)
+                        errorMessageEvent.value = Event(state.message)
+                    }
+                    is State.Success -> {
+                        loadingEvent.value = Event(false)
+                        val gender = HashSet<Pair<String, String>>()
+                        val status = HashSet<Pair<String, String>>()
+                        val data = state.data.let {
+                            if (it.genderMan == true){
+                                gender.add(Pair(Gender.MAN.name, GenderMapper.getValueOfGender(Gender.MAN)))
+                            }
+                            if (it.genderWoman == true){
+                                gender.add(Pair(Gender.WOMAN.name, GenderMapper.getValueOfGender(Gender.WOMAN)))
+                            }
+
+                            if (it.statusDraft == true){
+                                status.add(Pair(StatusSeller.DRAFT.name, StatusSellerMapper.getValueOfStatus(StatusSeller.DRAFT)))
+                            }
+                            if (it.statusContacted == true){
+                                status.add(Pair(StatusSeller.CONTACTED.name, StatusSellerMapper.getValueOfStatus(StatusSeller.CONTACTED)))
+                            }
+                            if (it.statusVisited == true){
+                                status.add(Pair(StatusSeller.VISITED.name, StatusSellerMapper.getValueOfStatus(StatusSeller.VISITED)))
+                            }
+
+                            FilterSellerModel(
+                                genders = gender,
+                                status = status,
+                                idProvince = it.provinceId,
+                                idCity = it.cityId,
+                                idDistrict = it.districtId
+                            )
+                        }
+                        defaultFilterEvent.value = Event(data)
+                    }
                 }
             }
         }
@@ -220,7 +222,6 @@ class FilterSellerViewModel(
                     is State.Success -> {
                         loadingEvent.value = Event(false)
                         val data = state.data.let { Pair(it.key?.toIntOrNull() ?: -1, it.value?: "") }
-                        Log.i("dataCity", data.toString())
                         cityDetailEvent.value = Event(data)
                     }
                 }
